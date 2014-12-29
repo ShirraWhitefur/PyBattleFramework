@@ -94,13 +94,13 @@ init:
     $ player.X_Armor_Magic_X = player.Attribute_Armor_Magic+player.Equipment_Armor_Magic+player.Status_Block_Strength
     $ player.X_Armor_Will_X = player.Attribute_Armor_Will+player.Equipment_Armor_Will
     $ player.X_Damage_Melee_Max_X = player.Equipment_Damage_Melee_Max+player.Attribute_Damage_Melee_Max+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
-    $ player.X_Damage_Melee_Min_X = player.Equipment_Damage_Melee_Min+(round(player.Attribute_Damage_Melee_Max/10,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0))
+    $ player.X_Damage_Melee_Min_X = int(player.Equipment_Damage_Melee_Min+(round(player.Attribute_Damage_Melee_Max/10,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
     $ player.X_Damage_Ranged_Max_X = player.Equipment_Damage_Ranged_Max+player.Attribute_Damage_Ranged_Max+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
-    $ player.X_Damage_Ranged_Min_X = player.Equipment_Damage_Ranged_Min+(round(player.Attribute_Damage_Ranged_Max/10,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0))
+    $ player.X_Damage_Ranged_Min_X = int(player.Equipment_Damage_Ranged_Min+(round(player.Attribute_Damage_Ranged_Max/10,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
     $ player.X_Damage_Magic_Max_X = player.Equipment_Damage_Magic_Max+player.Attribute_Damage_Magic_Max
-    $ player.X_Damage_Magic_Min_X = player.Equipment_Damage_Magic_Min+(round(player.Attribute_Damage_Magic_Max/10,0))
+    $ player.X_Damage_Magic_Min_X = int(player.Equipment_Damage_Magic_Min+(round(player.Attribute_Damage_Magic_Max/10,0)))
     $ player.X_Damage_Will_Max_X = player.Equipment_Damage_Will_Max+player.Attribute_Damage_Will_Max
-    $ player.X_Damage_Will_Min_X = player.Equipment_Damage_Will_Min+(round(player.Attribute_Damage_Will_Max/10,0))
+    $ player.X_Damage_Will_Min_X = int(player.Equipment_Damage_Will_Min+(round(player.Attribute_Damage_Will_Max/10,0)))
     $ player.X_Dodge_X = player.Attribute_Dodge+player.Equipment_Dodge+player.Status_Haste_Strength+player.Status_Dodge_Strength-player.Status_Slow_Strength
     $ player.X_Initiative_X = player.Attribute_Initiative+player.Equipment_Initiative+player.Status_Haste_Strength-player.Status_Slow_Strength
 # Extra bits.  Trying to obsolete these.
@@ -142,22 +142,22 @@ label battle_Player_Ability_Menu:
         "Buffs":
             jump battle_Player_Ability_Buff_Menu
         "Fire - 20 AP":
-            if player.ap_c < 20:
-                "Not enough MP!"
+            if player.X_AbilityPoints_Current_X < 20:
+                "Not enough AP!"
                 jump battle_Player_Ability_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Fire"
                 return
         "Blizzard - 10 AP":
-            if player.ap_c < 10:
-                "Not enough MP!"
+            if player.X_AbilityPoints_Current_X < 10:
+                "Not enough AP!"
                 jump battle_Player_Ability_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Blizzard"
                 return
         "Thunder - 30 AP":
-            if player.ap_c < 30:
-                "Not enough MP!"
+            if player.X_AbilityPoints_Current_X < 30:
+                "Not enough AP!"
                 jump battle_Player_Ability_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Thunder"
@@ -168,42 +168,42 @@ label battle_Player_Ability_Menu:
 label battle_Player_Ability_Debuff_Menu:
     menu:
         "Poison - 5 AP":
-            if player.ap_c < 5:
+            if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
                 jump battle_Player_Ability_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Poison"
                 return
         "Slow - 5 AP":
-            if player.ap_c < 5:
+            if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
                 jump battle_Player_Ability_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Slow"
                 return
         "Weaken - 5 AP":
-            if player.ap_c < 5:
+            if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
                 jump battle_Player_Ability_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Weaken"
                 return
         "Paralyze - 5 AP":
-            if player.ap_c < 5:
+            if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
                 jump battle_Player_Ability_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Paralyze"
                 return
         "Charm - 5 AP":
-            if player.ap_c < 5:
+            if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
                 jump battle_Player_Ability_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Charm"
                 return
         "Sleep - 5 AP":
-            if player.ap_c < 5:
+            if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
                 jump battle_Player_Ability_Menu
             else:
@@ -215,42 +215,42 @@ label battle_Player_Ability_Debuff_Menu:
 label battle_Player_Ability_Buff_Menu:
     menu:
         "Regen - 5 AP":
-            if player.ap_c < 5:
+            if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
                 jump battle_Player_Ability_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Regen"
                 return
         "Haste - 5 AP":
-            if player.ap_c < 5:
+            if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
                 jump battle_Player_Ability_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Haste"
                 return
         "Strengthen - 5 AP":
-            if player.ap_c < 5:
+            if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
                 jump battle_Player_Ability_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Strengthen"
                 return
         "Paralyze Self - 5 AP - Debug Test!":
-            if player.ap_c < 5:
+            if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
                 jump battle_Player_Ability_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Paralyze_Self"
                 return
         "Charm Self - 5 AP - Debug Test!":
-            if player.ap_c < 5:
+            if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
                 jump battle_Player_Ability_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Charm_Self"
                 return
         "Sleep Self - 5 AP - Debug Test!":
-            if player.ap_c < 5:
+            if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
                 jump battle_Player_Ability_Menu
             else:
@@ -261,15 +261,15 @@ label battle_Player_Ability_Buff_Menu:
 
 label battle_Player_Item_Menu:
     menu:
-        "Healing Potion - [player.items_potions_hp] Available.":
-            if player.items_potions_hp < 1:
+        "Healing Potion - [player.Equipment_Consumables_Potions_HP_Restore] Available.":
+            if player.Equipment_Consumables_Potions_HP_Restore < 1:
                 "No potions left!"
                 jump battle_Player_Item_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Item__Potion_HP"
                 return
-        "Ability Potion - [player.items_potions_ap] Available.":
-            if player.items_potions_ap < 1:
+        "Ability Potion - [player.Equipment_Consumables_Potions_AP_Restore] Available.":
+            if player.Equipment_Consumables_Potions_AP_Restore < 1:
                 "No potions left!"
                 jump battle_Player_Item_Menu
             else:
@@ -284,12 +284,12 @@ label battle_Player_Item_Menu:
 
 label battle_Player_Attack_Melee:
     "You attack [enemy.name!t] with your weapon of generic name!"
-    $ player.roll_attack = renpy.random.randint(1,100)
-    if player.roll_attack+player.accuracy_melee < 50:
-        "[enemy.name!t] dodges the attack! ([player.roll_attack] + [player.accuracy_melee] vs 50)"
+    $player_roll_attack = renpy.random.randint(1,100)
+    if (player_roll_attack+player.X_Accuracy_Melee_X)-enemy.dodge < 50:
+        "[enemy.name!t] dodges the attack! ([player_roll_attack] + [player.X_Accuracy_Melee_X] - [enemy.dodge] vs 50)"
         return
     else:
-        "[enemy.name!t] was hit! ([player.roll_attack] + [player.accuracy_melee] vs 50)"
+        "[enemy.name!t] was hit! ([player_roll_attack] + [player.X_Accuracy_Melee_X] - [enemy.dodge] vs 50)"
         jump battle_Player_Attack_Melee_Success
 
 #  You may ask why we seperate the attack from the successful hit damage, but this is to allow for
@@ -297,38 +297,38 @@ label battle_Player_Attack_Melee:
 # hits, and other things of that nature.
 
 label battle_Player_Attack_Melee_Success:
-    $ player.roll_damage = renpy.random.randint(player.damage_melee_min,player.damage_melee_max)
-    $ player.roll_damage_final = (player.roll_damage-enemy.armor)
-    if player.roll_damage_final < 1:
-        "You hit, but do no damage.  ([player.roll_damage] - [enemy.armor] = [player.roll_damage_final])"
+    $player_roll_damage = renpy.random.randint(player.X_Damage_Melee_Min_X,player.X_Damage_Melee_Max_X)
+    $player_roll_damage_final = (player_roll_damage-enemy.armor)
+    if player_roll_damage_final < 1:
+        "You hit, but do no damage.  ([player_roll_damage] - [enemy.armor] = [player_roll_damage_final])"
         return
     else:
         call battle_call_Enemy_HP_Loss(player.roll_damage_final)
-        "You land a solid blow, dealing [player.roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.hp_c].  ([player.roll_damage] - [enemy.armor])"
+        "You land a solid blow, dealing [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.hp_c].  ([player_roll_damage] - [enemy.armor])"
         return
 
 label battle_Player_Ability__Fire:
     "You cast Fire on [enemy.name!t]!"
-    $ player.roll_damage_final = renpy.random.randint(25,35)
-    call battle_call_Enemy_HP_Loss(player.roll_damage_final)
+    $player_roll_damage_final = renpy.random.randint((25+player.X_Damage_Magic_Min_X),(35+player.X_Damage_Magic_Max_X))
+    call battle_call_Enemy_HP_Loss(player_roll_damage_final)
     call battle_call_Player_AP_Loss(20)
-    "You sear them for [player.roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.hp_c]."
+    "You sear them for [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.hp_c]."
     return
    
 label battle_Player_Ability__Blizzard:
     "You cast Blizzard on [enemy.name!t]!"
-    $ player.roll_damage_final = renpy.random.randint(15,25)
-    call battle_call_Enemy_HP_Loss(player.roll_damage_final)
+    $player_roll_damage_final = renpy.random.randint((15+player.X_Damage_Magic_Min_X),(25+player.X_Damage_Magic_Max_X))
+    call battle_call_Enemy_HP_Loss(player_roll_damage_final)
     call battle_call_Player_AP_Loss(10)
-    "You flashfreeze them for [player.roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.hp_c]."
+    "You flashfreeze them for [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.hp_c]."
     return
 
 label battle_Player_Ability__Thunder:
     "You cast Thunder on [enemy.name!t]!"
-    $ player.roll_damage_final = renpy.random.randint(30,50)
-    call battle_call_Enemy_HP_Loss(player.roll_damage_final)
+    $player_roll_damage_final = renpy.random.randint((30+player.X_Damage_Magic_Min_X),(50+player.X_Damage_Magic_Max_X))
+    call battle_call_Enemy_HP_Loss(player_roll_damage_final)
     call battle_call_Player_AP_Loss(30)
-    "You zap them for [player.roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.hp_c]."
+    "You zap them for [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.hp_c]."
     return
 
 label battle_Player_Ability__Poison:
@@ -378,65 +378,71 @@ label battle_Player_Ability__Sleep:
 
 label battle_Player_Ability__Regen:
     "You cast Regen on yourself!"
-    $ player.status_regen_duration = renpy.random.randint(4,6)
-    $ player.status_regen_strength = renpy.random.randint(2,5)
+    $ player.Status_Regen_EffectActive = 1
+    $ player.Status_Regen_Duration = renpy.random.randint(4,6)
+    $ player.Status_Regen_Strength = renpy.random.randint(2,5)
     call battle_call_Player_AP_Loss(5)
-    "You regen yourself for [player.status_regen_duration] rounds, at [player.status_regen_strength] strength."
+    "You regen yourself for [player.Status_Regen_Duration] rounds, at [player.Status_Regen_Strength] strength."
     return
 
 label battle_Player_Ability__Haste:
     "You cast Haste on yourself!"
-    $ player.status_haste_duration = renpy.random.randint(4,6)
-    $ player.status_haste_strength = renpy.random.randint(2,5)
+    $ player.Status_Haste_EffectActive = 1
+    $ player.Status_Haste_Duration = renpy.random.randint(4,6)
+    $ player.Status_Haste_Strength = renpy.random.randint(2,5)
     call battle_call_Player_AP_Loss(5)
-    "You haste yourself for [player.status_haste_duration] rounds, at [player.status_haste_strength] strength."
+    "You haste yourself for [player.Status_Haste_Duration] rounds, at [player.Status_Haste_Strength] strength."
     return
 
 label battle_Player_Ability__Strengthen:
     "You cast Strengthen on yourself!"
-    $ player.status_strengthen_duration = renpy.random.randint(4,6)
-    $ player.status_strengthen_strength = renpy.random.randint(2,5)
+    $ player.Status_Strengthen_EffectActive = 1
+    $ player.Status_Strengthen_Duration = renpy.random.randint(4,6)
+    $ player.Status_Strengthen_Strength = renpy.random.randint(2,5)
     call battle_call_Player_AP_Loss(5)
-    "You strengthen yourself them for [player.status_strengthen_duration] rounds, at [player.status_strengthen_strength] strength."
+    "You strengthen yourself them for [player.Status_Strengthen_Duration] rounds, at [player.Status_Strengthen_Strength] strength."
     return
 
 label battle_Player_Ability__Paralyze_Self:
     "You cast Paralyze on yourself! .. Why did you do that?"
-    $ player.status_paralyze_duration = renpy.random.randint(2,4)
+    $ player.Status_Paralyse_EffectActive = 1
+    $ player.Status_Paralyse_Duration = renpy.random.randint(2,4)
     call battle_call_Player_AP_Loss(5)
-    "You paralyze yourself for [player.status_paralyze_duration] rounds."
+    "You paralyze yourself for [player.Status_Paralyse_Duration] rounds."
     return
 
 label battle_Player_Ability__Charm_Self:
     "You cast Charm on yourself! .. Why did you do that?"
-    $ player.status_charm_duration = renpy.random.randint(2,4)
+    $ player.Status_Charm_EffectActive = 1
+    $ player.Status_Charm_Duration = renpy.random.randint(2,4)
     call battle_call_Player_AP_Loss(5)
-    "You charm yourself for [player.status_charm_duration] rounds."
+    "You charm yourself for [player.Status_Charm_Duration] rounds."
     return
 
 label battle_Player_Ability__Sleep_Self:
     "You cast Sleep on yourself! .. Why did you do that?"
-    $ player.status_sleep_duration = renpy.random.randint(2,4)
+    $ player.Status_Sleep_EffectActive = 1
+    $ player.Status_Sleep_Duration = renpy.random.randint(2,4)
     call battle_call_Player_AP_Loss(5)
-    "You sleep yourself for [player.status_sleep_duration] rounds."
+    "You sleep yourself for [player.Status_Sleep_Duration] rounds."
     return
 
 label battle_Player_Item__Potion_HP:
     "You drink a potion!"
-    $ player.roll_damage_final = renpy.random.randint(20,40)
-    call battle_call_Player_HP_Gain(player.roll_damage_final)
-    $ player.items_potions_hp -= 1
-    "You heal [player.roll_damage_final] damage, and have [player.items_potions_hp] left."
+    $player_roll_damage_final = renpy.random.randint(20,40)
+    call battle_call_Player_HP_Gain(player_roll_damage_final)
+    $ player.Equipment_Consumables_Potions_HP_Restore -= 1
+    "You heal [player_roll_damage_final] damage, and have [player.Equipment_Consumables_Potions_HP_Restore] left."
     return
 
 label battle_Player_Item__Potion_AP:
     "You drink a potion!"
-    $ player.roll_damage_final = renpy.random.randint(15,30)
-    call battle_call_Player_AP_Gain(player.roll_damage_final)
-    $ player.roll_damage = renpy.random.randint(5,15)
-    call battle_call_Player_HP_Loss(player.roll_damage)
-    $ player.items_potions_ap -= 1
-    "You regain [player.roll_damage_final] AP, but the potion burns away [player.roll_damage] HP of life in exchange.  You have [player.items_potions_ap] of the mixture left."
+    $player_roll_damage_final = renpy.random.randint(15,30)
+    call battle_call_Player_AP_Gain(player_roll_damage_final)
+    $player_roll_damage = renpy.random.randint(5,15)
+    call battle_call_Player_HP_Loss(player_roll_damage)
+    $ player.Equipment_Consumables_Potions_AP_Restore -= 1
+    "You regain [player_roll_damage_final] AP, but the potion burns away [player_roll_damage] HP of life in exchange.  You have [player.Equipment_Consumables_Potions_AP_Restore] of the mixture left."
     return
 
 label battle_Player_Wait:

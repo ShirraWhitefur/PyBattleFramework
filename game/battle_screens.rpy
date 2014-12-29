@@ -15,39 +15,44 @@ screen stats_frame(pname):
                 vbox: # name from ("HP", bar)
                     hbox: # "HP" from bar
                         text ("HP") size 20
-                        bar value player.hp_c range player.hp_m xmaximum 150
+                        bar value player.X_HealthPoints_Current_X range player.X_HealthPoints_Max_X xmaximum 150
                     hbox: # "HP" from bar
                         text ("AP") size 20
-                        bar value player.ap_c range player.ap_m xmaximum 150
+                        bar value player.X_AbilityPoints_Current_X range player.X_AbilityPoints_Max_X xmaximum 150
                 vbox: # \/ This section is kinda 'debug'.  Heck, most of the frame is.  Comment out the blocks you don't need!
                     hbox:
-                        if player.status_regen_strength > 0:
+                        if player.Status_Regen_EffectActive == 1:
                             text (" Regen ") size 20
-                        if player.status_haste_strength > 0:
+                        if player.Status_Haste_EffectActive == 1:
                             text (" Haste ") size 20
-                        if player.status_strengthen_strength > 0:
+                        if player.Status_Strengthen_EffectActive == 1:
                             text (" Strength ") size 20
                     hbox:
-                        if player.status_poison_strength > 0:
+                        if player.Status_Poison_EffectActive == 1:
                             text (" Poison ") size 20
-                        if player.status_slow_strength > 0:
+                        if player.Status_Slow_EffectActive == 1:
                             text (" Slow ") size 20
-                        if player.status_weaken_strength > 0:
+                        if player.Status_Weaken_EffectActive == 1:
                             text (" Weaken ") size 20
                     hbox:
-                        if player.status_paralyse_duration > 0:
+                        if player.Status_Paralyse_EffectActive == 1:
                             text (" Paralyse ") size 20
-                        if player.status_charm_duration > 0:
+                        if player.Status_Charm_EffectActive == 1:
                             text (" Charm ") size 20
-                        if player.status_sleep_duration > 0:
+                        if player.Status_Sleep_EffectActive == 1:
                             text (" Sleep ") size 20
+                    hbox:
+                        if player.Status_Block_EffectActive == 1:
+                            text (" Block ") size 20
+                        if player.Status_Dodge_EffectActive == 1:
+                            text (" Dodge ") size 20
                       # /\ The end of the 'status block'
             vbox: # Level from (hp/maxhp)
 # Removed a level note here, because I don't use levels.  Left it around in case it's needed.
 #               text ("Lv. %d" % level) xalign 0.5 size 20
                 text (" ") xalign 0.5 size 20
-                text ("%d/%d" % (player.hp_c, player.hp_m)) xalign 0.5 size 20
-                text ("%d/%d" % (player.ap_c, player.ap_m)) xalign 0.5 size 20
+                text ("%d/%d" % (player.X_HealthPoints_Current_X, player.X_HealthPoints_Max_X)) xalign 0.5 size 20
+                text ("%d/%d" % (player.X_AbilityPoints_Current_X, player.X_AbilityPoints_Max_X)) xalign 0.5 size 20
 
 screen stats_frame2(ename):
     frame xfill(False) yminimum(None) background(None) xalign 0.98 yalign 0.05:

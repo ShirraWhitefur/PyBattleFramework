@@ -51,23 +51,23 @@ label Attack_List_Orc_Hero:
 
 label battle_Orc_Hero_Attack_Melee:
     "[enemy.name!t] comes screaming at you with his axe!"
-    $ enemy.roll_attack = renpy.random.randint(1,100)
-    if enemy.roll_attack+enemy.accuracy_melee < 50:
-        "You dodge the attack! ([enemy.roll_attack] + [enemy.accuracy_melee] vs 50)"
+    $enemy_roll_attack = renpy.random.randint(1,100)
+    if (enemy_roll_attack+enemy.accuracy_melee)-player.X_Dodge_X < 50:
+        "You dodge the attack! ([enemy_roll_attack] + [enemy.accuracy_melee] - [player.X_Dodge_X] vs 50)"
         return
     else:
-        "You were hit! ([enemy.roll_attack] + [enemy.accuracy_melee] vs 50)"
+        "You were hit! ([enemy_roll_attack] + [enemy.accuracy_melee] - [player.X_Dodge_X] vs 50)"
         jump battle_Orc_Hero_Attack_Melee_Success
 
 label battle_Orc_Hero_Attack_Melee_Success:
-    $ enemy.roll_damage = renpy.random.randint(enemy.damage_melee_min,enemy.damage_melee_max)
-    $ enemy.roll_damage_final = (enemy.roll_damage-player.armor)
-    if enemy.roll_damage_final < 1:
-        "[enemy.name!t] hits, but does no damage, taking a moment to glare at your infuriating armor.  ([enemy.roll_damage] - [player.armor] = [enemy.roll_damage_final])"
+    $enemy_roll_damage = renpy.random.randint(enemy.damage_melee_min,enemy.damage_melee_max)
+    $enemy_roll_damage_final = (enemy_roll_damage-player.X_Armor_Physical_X)
+    if enemy_roll_damage_final < 1:
+        "[enemy.name!t] hits, but does no damage, taking a moment to glare at your infuriating armor.  ([enemy_roll_damage] - [player.X_Armor_Physical_X] = [enemy_roll_damage_final])"
         return
     else:
-        call battle_call_Player_HP_Loss(enemy.roll_damage_final)
-        "[enemy.name!t] lands a solid blow, dealing [enemy.roll_damage_final] damage, the axe biting into you through your armor.  [playername!t]'s HP at [player.hp_c].  ([enemy.roll_damage] - [player.armor])"
+        call battle_call_Player_HP_Loss(enemy_roll_damage_final)
+        "[enemy.name!t] lands a solid blow, dealing [enemy_roll_damage_final] damage, the axe biting into you through your armor.  [playername!t]'s HP at [player.X_HealthPoints_Current_X].  ([enemy_roll_damage] - [player.X_Armor_Magic_X])"
         return
 
 label battle_Orc_Hero_Item__Potion:

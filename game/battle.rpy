@@ -30,54 +30,57 @@ label battle_Iniative_Resolution:
 #  Seriously considering taking and putting all the Paralysis/Sleep/Charm checks at the very start, before we do
 # initiative, and have it so 'If you have any of these, you go last in the round, period', so as to decrease the
 # amount of unneeded if-then branches with victory/loss checks.
-    $ player.roll_initiative = renpy.random.randint(1,100)+player.initiative_mod 
-    $ enemy.roll_initiative = renpy.random.randint(1,100)+enemy.initiative_mod 
-    if player.roll_initiative < enemy.roll_initiative:
-        "[enemy.name!t] goes first.  Initiative - [playername!t] [player.roll_initiative] vs [enemy.name!t] [enemy.roll_initiative]"
+    $player_initiative = renpy.random.randint(1,100)+player.X_Initiative_X 
+    $enemy_initiative = renpy.random.randint(1,100)+enemy.initiative_mod 
+    if player_initiative < enemy_initiative:
+        "[enemy.name!t] goes first.  Initiative - [playername!t] [player_initiative] vs [enemy.name!t] [enemy_initiative]"
 #  This section for the enemy turn will include first firing any status effects and other things that are 'start of turn',
 # picking out it's action, and executing it all in one go.
 # Here, we make the calls that runs the status effects and start of turn things for the enemy, before moving onward.
         call battle_call_Enemy_Status_Check_Block
 # Here, we make sure of any win/loss happening due to the previous round.. Just in case.
-        if player.hp_c < 1:
+        if player.X_HealthPoints_Current_X < 1:
             jump battle_Player_Loss_HP
         if enemy.hp_c < 1:
             jump battle_Player_Victory_HP
         call battle_Enemy_Turn
 # Here, we make sure of any win/loss happening due to the enemy attack.
-        if player.hp_c < 1:
+        if player.X_HealthPoints_Current_X < 1:
             jump battle_Player_Loss_HP
         if enemy.hp_c < 1:
             jump battle_Player_Victory_HP
 # Here, we make the calls that runs the status effects and start of turn things for the player, before moving onward.
         call battle_call_Player_Status_Check_Block
  # If any of these are true, need to skip the player's turn.
-        if player.status_paralyse_duration > 0:
-            "You are currently paralysed and cannot act!"
-            $ player.status_paralyse_duration -= 1
-            if player.status_paralyse_duration = 0:
-                "You feel the paralysation wearing off, and will be normal next turn."
-            if player.hp_c < 1:
+        if player.Status_Paralyse_EffectActive == 1:
+            "You are currently Paralysed and cannot act!"
+            $ player.Status_Paralyse_Duration -= 1
+            if player.Status_Paralyse_Duration == 0:
+                $ player.Status_Paralyse_EffectActive = 0
+                "You feel the Paralysation wearing off, and will be normal next turn."
+            if player.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Loss_HP
             if enemy.hp_c < 1:
                 jump battle_Player_Victory_HP
             jump battle_Begin_Round
-        if player.status_charm_duration > 0:
-            "You are currently charmed and cannot act!"
-            $ player.status_charm_duration -= 1
-            if player.status_charm_duration = 0:
-                "You feel the charm wearing off, and will be normal next turn."
-            if player.hp_c < 1:
+        if player.Status_Charm_EffectActive == 1:
+            "You are currently Charmed and cannot act!"
+            $ player.Status_Charm_Duration -= 1
+            if player.Status_Charm_Duration == 0:
+                $ player.Status_Charm_EffectActive = 0
+                "You feel the Charm wearing off, and will be normal next turn."
+            if player.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Loss_HP
             if enemy.hp_c < 1:
                 jump battle_Player_Victory_HP
             jump battle_Begin_Round
-        if player.status_sleep_duration > 0:
+        if player.Status_Sleep_EffectActive == 1:
             "You are currently asleep and cannot act!"
-            $ player.status_sleep_duration -= 1
-            if player.status_sleep_duration = 0:
-                "You feel the sleep wearing off, and will wake up next turn."
-            if player.hp_c < 1:
+            $ player.Status_Sleep_Duration -= 1
+            if player.Status_Sleep_Duration == 0:
+                $ player.Status_Sleep_EffectActive = 0
+                "You feel the Sleep wearing off, and will wake up next turn."
+            if player.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Loss_HP
             if enemy.hp_c < 1:
                 jump battle_Player_Victory_HP
@@ -86,64 +89,67 @@ label battle_Iniative_Resolution:
         $PlayerBattleSelectedAction = player.battle_selected_action
         call expression PlayerBattleSelectedAction
 # Here, we make sure of any win/loss happening due to the player's new attack.
-        if player.hp_c < 1:
+        if player.X_HealthPoints_Current_X < 1:
             jump battle_Player_Loss_HP
         if enemy.hp_c < 1:
             jump battle_Player_Victory_HP
 # Round over, start new round!
         jump battle_Begin_Round
     else:
-        "You go first.  Initiative - [playername!t] [player.roll_initiative] vs [enemy.name!t] [enemy.roll_initiative]"
+        "You go first.  Initiative - [playername!t] [player_initiative] vs [enemy.name!t] [enemy_initiative]"
 # Here, we make the calls that runs the status effects and start of turn things for the player, before moving onward.
         call battle_call_Player_Status_Check_Block
  # If any of these are true, need to skip the player's turn.
-        if player.status_paralyse_duration > 0:
-            "You are currently paralysed and cannot act!"
-            $ player.status_paralyse_duration -= 1
-            if player.status_paralyse_duration = 0:
-                "You feel the paralysation wearing off, and will be normal next turn."
+        if player.Status_Paralyse_EffectActive == 1:
+            "You are currently Paralysed and cannot act!"
+            $ player.Status_Paralyse_Duration -= 1
+            if player.Status_Paralyse_Duration == 0:
+                $ player.Status_Paralyse_EffectActive = 0
+                "You feel the Paralysation wearing off, and will be normal next turn."
 # Here, we make the calls that runs the status effects and start of turn things for the enemy, before moving onward.
             call battle_call_Enemy_Status_Check_Block
-            if player.hp_c < 1:
+            if player.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Loss_HP
             if enemy.hp_c < 1:
                 jump battle_Player_Victory_HP
             call battle_Enemy_Turn
-            if player.hp_c < 1:
+            if player.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Loss_HP
             if enemy.hp_c < 1:
                 jump battle_Player_Victory_HP
             jump battle_Begin_Round
-        if player.status_charm_duration > 0:
-            "You are currently charmed and cannot act!"
-            $ player.status_charm_duration -= 1
-            if player.status_charm_duration = 0:
-                "You feel the charm wearing off, and will be normal next turn."
+        if player.Status_Charm_EffectActive == 1:
+            "You are currently Charmed and cannot act!"
+            $ player.Status_Charm_Duration -= 1
+            if player.Status_Charm_Duration == 0:
+                $ player.Status_Charm_EffectActive = 0
+                "You feel the Charm wearing off, and will be normal next turn."
 # Here, we make the calls that runs the status effects and start of turn things for the enemy, before moving onward.
             call battle_call_Enemy_Status_Check_Block
-            if player.hp_c < 1:
+            if player.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Loss_HP
             if enemy.hp_c < 1:
                 jump battle_Player_Victory_HP
             call battle_Enemy_Turn
-            if player.hp_c < 1:
+            if player.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Loss_HP
             if enemy.hp_c < 1:
                 jump battle_Player_Victory_HP
             jump battle_Begin_Round
-        if player.status_sleep_duration > 0:
+        if player.Status_Sleep_EffectActive == 1:
             "You are currently asleep and cannot act!"
-            $ player.status_sleep_duration -= 1
-            if player.status_sleep_duration = 0:
-                "You feel the sleep wearing off, and will wake up next turn."
+            $ player.Status_Sleep_Duration -= 1
+            if player.Status_Sleep_Duration == 0:
+                $ player.Status_Sleep_EffectActive = 0
+                "You feel the Sleep wearing off, and will wake up next turn."
 # Here, we make the calls that runs the status effects and start of turn things for the enemy, before moving onward.
             call battle_call_Enemy_Status_Check_Block
-            if player.hp_c < 1:
+            if player.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Loss_HP
             if enemy.hp_c < 1:
                 jump battle_Player_Victory_HP
             call battle_Enemy_Turn
-            if player.hp_c < 1:
+            if player.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Loss_HP
             if enemy.hp_c < 1:
                 jump battle_Player_Victory_HP
@@ -152,7 +158,7 @@ label battle_Iniative_Resolution:
         $PlayerBattleSelectedAction = player.battle_selected_action
         call expression PlayerBattleSelectedAction
 # Here, we make sure of any win/loss happening due to the player's new attack.
-        if player.hp_c < 1:
+        if player.X_HealthPoints_Current_X < 1:
             jump battle_Player_Loss_HP
         if enemy.hp_c < 1:
             jump battle_Player_Victory_HP
@@ -160,13 +166,13 @@ label battle_Iniative_Resolution:
 # picking out it's action, and executing it all in one go.
 # Here, we make the calls that runs the status effects and start of turn things for the enemy, before moving onward.
         call battle_call_Enemy_Status_Check_Block
-        if player.hp_c < 1:
+        if player.X_HealthPoints_Current_X < 1:
             jump battle_Player_Loss_HP
         if enemy.hp_c < 1:
             jump battle_Player_Victory_HP
         call battle_Enemy_Turn
 # Here, we make sure of any win/loss happening due to the enemy attack.
-        if player.hp_c < 1:
+        if player.X_HealthPoints_Current_X < 1:
             jump battle_Player_Loss_HP
         if enemy.hp_c < 1:
             jump battle_Player_Victory_HP
@@ -213,33 +219,34 @@ label battle_Enemy_Turn:
 
 label battle_Enemy_Attack_Melee:
     "[enemy.name!t] attacks you with an equally genericly named weapon!"
-    $ enemy.roll_attack = renpy.random.randint(1,100)
-    if enemy.roll_attack+enemy.accuracy_melee < 50:
-        "You dodge the attack! ([enemy.roll_attack] + [enemy.accuracy_melee] vs 50)"
+    $enemy_roll_attack = renpy.random.randint(1,100)
+    if (enemy_roll_attack+enemy.accuracy_melee)-player.X_Dodge_X < 50:
+        "You dodge the attack! ([enemy_roll_attack] + [enemy.accuracy_melee] - [player.X_Dodge_X] vs 50)"
         return
     else:
-        "You were hit! ([enemy.roll_attack] + [enemy.accuracy_melee] vs 50)"
+        "You were hit! ([enemy_roll_attack] + [enemy.accuracy_melee] - [player.X_Dodge_X] vs 50)"
         jump battle_Enemy_Attack_Melee_Success
 
 label battle_Enemy_Attack_Melee_Success:
-    $ enemy.roll_damage = renpy.random.randint(enemy.damage_melee_min,enemy.damage_melee_max)
-    $ enemy.roll_damage_final = (enemy.roll_damage-player.armor)
-    if enemy.roll_damage_final < 1:
-        "[enemy.name!t] hits, but does no damage.  ([enemy.roll_damage] - [player.armor] = [enemy.roll_damage_final])"
+    $enemy_roll_damage = renpy.random.randint(enemy.damage_melee_min,enemy.damage_melee_max)
+    $enemy_roll_damage_final = (enemy_roll_damage-player.X_Armor_Physical_X)
+    if enemy_roll_damage_final < 1:
+        "[enemy.name!t] hits, but does no damage.  ([enemy_roll_damage] - [player.X_Armor_Physical_X] = [enemy_roll_damage_final])"
         return
     else:
-        call battle_call_Player_HP_Loss(enemy.roll_damage_final)
-        "[enemy.name!t] lands a solid blow, dealing [enemy.roll_damage_final] damage.  [playername!t]'s HP at [player.hp_c].  ([enemy.roll_damage] - [player.armor])"
+        call battle_call_Player_HP_Loss(enemy_roll_damage_final)
+        "[enemy.name!t] lands a solid blow, dealing [enemy_roll_damage_final] damage.  [playername!t]'s HP at [player.X_HealthPoints_Current_X].  ([enemy_roll_damage] - [player.X_Armor_Physical_X])"
         return
 
 label battle_Enemy_Ability__Fire:
 #  The AP check for this is over in the Enemy action list itself, by picking lists that allow it.
 # Check the enemy file itself for more info!
     "[enemy.name!t] casts Fire on you!"
-    $ enemy.roll_damage_final = renpy.random.randint(25,35)
-    call battle_call_Player_HP_Loss(enemy.roll_damage_final)
+    $enemy_roll_damage = renpy.random.randint(25,35)
+    $enemy_roll_damage_final = (enemy_roll_damage-player.X_Armor_Magic_X)
+    call battle_call_Player_HP_Loss(enemy_roll_damage_final)
     call battle_call_Enemy_AP_Loss(20)
-    "[enemy.name!t] sears you for [enemy.roll_damage_final] damage.  [playername!t]'s HP at [player.hp_c]."
+    "[enemy.name!t] sears you for [enemy_roll_damage_final] damage.  [playername!t]'s HP at [player.X_HealthPoints_Current_X].  ([enemy_roll_damage] - [player.X_Armor_Magic_X])"
     return
 
 label battle_Enemy_Wait:
