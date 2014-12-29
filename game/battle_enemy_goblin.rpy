@@ -1,5 +1,5 @@
-#  This file, like the other Enemy files, will contain most all of the things unique
-# to the enemy, so it's all in one spot for easier reference.
+#  This file, like the other Enemy files, will contain most all of the things
+# unique to the enemy, so it's all in one spot for easier reference.
 
 #####################################################################
 # Enemy Init Section
@@ -50,10 +50,12 @@ init:
 #####################################################################
 # Enemy AI Section
 #####################################################################
-#  Here is where we make the effective 'AI' of our enemy.  Make conditions for things like
-# being wounded but also having potions to heal, or perhaps if he's badly hurt he'll use
-# a harder hitting attack.  Another helpful bit will be to remove unusable AP eating
-# abilities from your attack list.
+#  Here is where we make the effective 'AI' of our enemy.  Make conditions for
+# things like being wounded but also having potions to heal, or perhaps if he's
+# badly hurt he'll use a harder hitting attack.  Another helpful bit will be to
+# remove unusable AP eating abilities from your attack list.  Especially as this
+# is the only spot where it'll be checking to see if your enemy has enough AP to
+# use the ability!
 label Attack_List_Goblin:
     if enemy.X_AbilityPoints_Current_X > 19:
         $rand_choice = WeightedChoice([("battle_Enemy_Attack_Melee", 0.40),

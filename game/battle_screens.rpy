@@ -1,7 +1,7 @@
 ﻿# This is where any Screen/UI elements for battle will end up.
 
-#  This is called with your player name and enemy name, appearing on the left and
-# right upper corners.
+#  This is called with your player name and enemy name, appearing on the left
+# and right upper corners.
 screen fight(pname,ename):
     use stats_frame(pname)
     use stats_frame2(ename)

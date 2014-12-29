@@ -1,44 +1,49 @@
-﻿# If you're looking for the screen frame for the HP and such, check battle_screens.rpy
-# If you're looking for the init's, head to battle_init.rpy
-# If you're looking for some of the common calls we are been using, look inside battle_calls.rpy
-# You'll find the Enemy's under battle_enemy_<name>.rpy
-# And finally you'll find most of the player menu's and abilities under battle_player.rpy
+﻿#  If you're looking for the screen frame for the HP and such, check
+# battle_screens.rpy.  If you're looking for the init's, head to
+# battle_init.rpy, as well as battle_player.rpy, and the battle_enemy*.rpy.
+# If you're looking for some of the common calls we are been using, look inside
+# battle_calls.rpy and battle_calls_status_effects.rpy
+#  You'll find the Enemy's under battle_enemy_<name>.rpy, and most of the player
+# menu's and abilities under battle_player.rpy.
 #
-#  If you're wondering why the victory/loss condition checks seem to be -all over- the bloody place,
-# it's so that way our call/return functions line up properly.  I have no idea of a better way to do
-# it.  There probably are several.
+#  If you're wondering why the victory/loss condition checks seem to be kinda
+# frequent in the Turn Resolution, it's so that way our call/return functions
+# line up properly.  I have no idea of a better way to do it, but it works for
+# me!
 
 #####################################################################
 
 label battle_start:
-#  Reset the battle's round count to 0, since it's the start of a battle.  We don't have a need to track it right
-# now, but it's there in case we need to make something like 'Merely -survive- for 5 rounds to 'win' the battle!'
+#  Reset the battle's round count to 0, since it's the start of a battle.  We
+# don't have a need to track it right now, but it's there in case we need to
+# make something like 'Merely -survive- for 5 rounds to 'win' the battle!'
     $ battle.roundcount = 0
-# This brings out our "lovely" Name/HP/AP screen-frames in the corners.
+# This brings out our "lovely" Name/HP/AP/etc screen-frames in the corners.
     show screen fight(playername,enemy.name)
 
 
 label battle_Begin_Round:
     $ battle.roundcount += 1
-#  This is the start of every round.  We call the player menu, and let them select their actions, store it, and then
-# go to Iniative Resolution and see who actually -acts- first.
+#  This is the start of every round.  We call the player menu, and let them
+# select their actions, store it, and then go to Turn Resolution and see who
+# actually -acts- first.
     call battle_Player_Menu
-    jump battle_Iniative_Resolution
+    jump battle_Turn_Resolution
 
 
-label battle_Iniative_Resolution:
-#  Seriously considering taking and putting all the Paralysis/Sleep/Charm checks at the very start, before we do
-# initiative, and have it so 'If you have any of these, you go last in the round, period', so as to decrease the
-# amount of unneeded if-then branches with victory/loss checks.
+label battle_Turn_Resolution:
     $player_initiative = renpy.random.randint(1,100)+player.X_Initiative_X 
     $enemy_initiative = renpy.random.randint(1,100)+enemy.X_Initiative_X 
     if player_initiative < enemy_initiative:
         "[enemy.name!t] goes first.  Initiative - [playername!t] [player_initiative] vs [enemy.name!t] [enemy_initiative]"
-#  This section for the enemy turn will include first firing any status effects and other things that are 'start of turn',
-# picking out it's action, and executing it all in one go.
-# Here, we make the calls that runs the status effects and start of turn things for the enemy, before moving onward.
+#  This section for the enemy turn will include first firing any status effects
+# and other things that are 'start of turn', picking out it's action, and
+# executing it.
+#  Here, we make the calls that runs the status effects and start of turn things
+# for the enemy, before moving onward.
         call battle_call_Enemy_Status_Check_Block
-# Here, we make sure of any win/loss happening due to the previous round.. Just in case.
+#  Here, we make sure of any win/loss happening due to the previous round.. Just
+# in case.
         if player.X_HealthPoints_Current_X < 1:
             jump battle_Player_Loss_HP
         if enemy.X_HealthPoints_Current_X < 1:
@@ -49,7 +54,8 @@ label battle_Iniative_Resolution:
             jump battle_Player_Loss_HP
         if enemy.X_HealthPoints_Current_X < 1:
             jump battle_Player_Victory_HP
-# Here, we make the calls that runs the status effects and start of turn things for the player, before moving onward.
+#  Here, we make the calls that runs the status effects and start of turn things
+# for the player, before moving onward.
         call battle_call_Player_Status_Check_Block
         if player.Status_Paralyse_EffectActive == 1:
             "You are currently Paralysed and cannot act!"
@@ -84,7 +90,8 @@ label battle_Iniative_Resolution:
         jump battle_Begin_Round
     else:
         "You go first.  Initiative - [playername!t] [player_initiative] vs [enemy.name!t] [enemy_initiative]"
-# Here, we make the calls that runs the status effects and start of turn things for the player, before moving onward.
+#  Here, we make the calls that runs the status effects and start of turn things
+# for the player, before moving onward.
         call battle_call_Player_Status_Check_Block
         if player.Status_Paralyse_EffectActive == 1:
             "You are currently Paralysed and cannot act!"
@@ -115,9 +122,11 @@ label battle_Iniative_Resolution:
             jump battle_Player_Loss_HP
         if enemy.X_HealthPoints_Current_X < 1:
             jump battle_Player_Victory_HP
-#  This section for the enemy turn will include first firing any status effects and other things that are 'start of turn',
-# picking out it's action, and executing it all in one go.
-# Here, we make the calls that runs the status effects and start of turn things for the enemy, before moving onward.
+#  This section for the enemy turn will include first firing any status effects
+# and other things that are 'start of turn', picking out it's action, and
+# executing it.
+#  Here, we make the calls that runs the status effects and start of turn things
+# for the enemy, before moving onward.
         call battle_call_Enemy_Status_Check_Block
         if player.X_HealthPoints_Current_X < 1:
             jump battle_Player_Loss_HP
@@ -160,9 +169,10 @@ label battle_Enemy_Turn:
             "[enemy.name!t] feels the sleep wearing off, and will wake up next turn."
         jump battle_Enemy_Skipped
 
-#  This calls up the list of actions this particular enemy can make, and with the call, picks one out randomly.
-# Check them out either in battle_calls, or later, under the enemy's own .rpy file to adjust them.  Check out
-# the start of battle_init.rpy to see how the weighted function is set up initially.
+#  This calls up the list of actions this particular enemy can make, and with
+# the call, picks one out randomly. Check them out under the enemy's own .rpy
+# file to adjust them.  Check out the start of battle_init.rpy to see how the
+# weighted function is set up initially.
     $EnemyAttackList = enemy.Attack_List
     call expression EnemyAttackList
     return
@@ -171,8 +181,11 @@ label battle_Enemy_Turn:
 # Enemy Action Section
 #####################################################################
 
-#  This section will most likely be split off into a seperate file for each enemy in later versions, to
-# keep things 'tidy', since every enemy will have it's own unique attack text for every ability it uses.
+#  This section contains only a few 'generic' actions currently, with the per
+# enemy actions under their own .rpy files.  Likely in actual use, this will
+# only contain skipped, and maybe block and dodge.  This keeps things tidy,
+# since every enemy will usually have it's own unique attack text for every
+# ability it uses.
 
 label battle_Enemy_Attack_Melee:
     "[enemy.name!t] attacks you with an equally genericly named weapon!"
@@ -196,8 +209,10 @@ label battle_Enemy_Attack_Melee_Success:
         return
 
 label battle_Enemy_Ability__Fire:
-#  The AP check for this is over in the Enemy action list itself, by picking lists that allow it.
-# Check the enemy file itself for more info!
+#  The AP check for this is over in the Enemy action list itself, by picking
+# lists that allow it.  Check the enemy file itself for more info!  Do -not-
+# forget to set the AP checks, or you'll have enemies casting into negative
+# AP happily, and you'll just feel silly.
     "[enemy.name!t] casts Fire on you!"
     $enemy_roll_damage = renpy.random.randint(25,35)
     $enemy_roll_damage_final = (enemy_roll_damage-player.X_Armor_Magic_X)
@@ -234,13 +249,13 @@ label battle_Enemy_Skipped:
 # Win / Loss Section
 #####################################################################
 
-#  This will most likely just contain a variable storage on -how- you won/lost the fight, to be referenced
-# back in the main VN proper.
+#  This contains the variable grab for -how- you won/lost the fight, as well as
+# with which enemy, so you can have proper win/loss resolution.  This would also
+# be what you'd follow towards to add experience and item rewards.
 
 label battle_Player_Loss_HP:
     $ player.Battle_Outcome = ename.Battle_Outcomes_Loss_HP
     "You lost the fight!"
-    
     return
 
 label battle_Player_Victory_HP:

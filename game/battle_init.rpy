@@ -1,10 +1,17 @@
-﻿#  Realize that we need to initialize a whole mess of variables for this system to work nicely
-# and that any enemy is going to need his own full set.  Likely, we'll be putting each enemy's
-# init set into his own file though, to keep things tidy.
-#  Also, anything with .* style variables on it is being set up as a character because.. well
-# it's the only way I could make it work.  So yes.  Battle is a character.
+﻿#  We have to initialize a whole mess of variables for this system to work
+# nicely, and the enemy needs a full set of them.  The enemy here though is
+# representing the -current- enemy, loaded into memory, a copy of one from the
+# enemy files.  Those are effectively a template.  To set up the enemies, make
+# their own files and names for them, rather than messing with this one, beyond
+# customizing things to include whatever stat system and other changes you want
+# to make across the board.
+#  Also, anything with .* style variables on it is being set up as a character
+# because.. well it's the only way I could make it work.  So yes.  Battle is a
+# character.
 
-# The following init python section is from Asceai on the forums - ' http://lemmasoft.renai.us/forums/viewtopic.php?p=323010#p323010 '
+# The following init python section is from Asceai on the forums
+# ' http://lemmasoft.renai.us/forums/viewtopic.php?p=323010#p323010 '
+# It's used to power our enemy AI system!
 init python:
     def WeightedChoice(choices):
         """
@@ -32,9 +39,15 @@ init:
     $ enemy.name = "FailedEnemy"
     $ enemy.battle_selected_action = "battle_Enemy_Wait"
     $ enemy.Attack_List = "Attack_List_Goblin"
-# Base Stats - From these, when they're actually added and used, we'll get our base attributes.
+#  Base Stats - From these, when they're actually added and used, we'll get our
+# base attributes.
     $ enemy.Stats_PlaceholderStrength = 0
-# Base attributes, to be derived from Stats.. when we add the stats in.
+#  Base attributes, to be derived from Stats.. when we add the stats in.
+# The idea here being something like you set up Strength above, then set 
+# player.Attribute_Damage_Melee_Max = player.Stats_Strength/5, or something
+# similar.  Set up an initialization/recheck call for players and enemies under
+# battle calls.  There should be enough examples to know where and how to
+# use it.
     $ enemy.Attribute_HealthPoints_Max = 5
     $ enemy.Attribute_AbilityPoints_Max = 5
     $ enemy.Attribute_WillPoints_Max = 5

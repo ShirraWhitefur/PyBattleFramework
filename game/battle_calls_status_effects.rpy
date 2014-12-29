@@ -7,23 +7,6 @@
 #####################################################################
 
 label battle_call_Player_Status_Check_Block:
-# \/  Disabled for now, since it was to avoid issues with attributes getting
-# \/ changed up oddly.  Overhaul should fix that.
-#    if player.Status_Poison_Duration > 0:
-#        if player.Status_Regen_Duration > 0:
-#            $ player.Status_Poison_Duration = 0
-#            $ player.Status_Regen_Duration = 0
-#            "The Poison and Regen cancel each other out, leaving you normal."
-#    if player.Status_Slow_Duration > 0:
-#        if player.Status_Haste_Duration > 0:
-#            $ player.Status_Slow_Duration = 0
-#            $ player.Status_Haste_Duration = 0
-#            "The Slow and Haste cancel each other out, leaving you normal."
-#    if player.Status_Weaken_Duration > 0:
-#        if player.Status_Strengthen_Duration > 0:
-#            $ player.Status_Weaken_Duration = 0
-#            $ player.Status_Strengthen_Duration = 0
-#            "The Weaken and Strengthen cancel each other out, leaving you normal."
     call battle_call_Player_Status_PoisonCheck
     call battle_call_Player_Status_RegenCheck
     call battle_call_Player_Status_SlowCheck
@@ -154,23 +137,6 @@ label battle_call_Player_Status_Dodge:
 #####################################################################
 
 label battle_call_Enemy_Status_Check_Block:
-# \/  Disabled for now, since it was to avoid issues with attributes getting
-# \/ changed up oddly.  Overhaul should fix that.
-#    if enemy.Status_Poison_Duration > 0:
-#        if enemy.Status_Regen_Duration > 0:
-#            $ enemy.Status_Poison_Duration = 0
-#            $ enemy.Status_Regen_Duration = 0
-#            "The Poison and Regen cancel each other out, leaving [enemy.name!t] normal."
-#    if enemy.Status_Slow_Duration > 0:
-#        if enemy.Status_Haste_Duration > 0:
-#            $ enemy.Status_Slow_Duration = 0
-#            $ enemy.Status_Haste_Duration = 0
-#            "The Slow and Haste cancel each other out, leaving [enemy.name!t] normal."
-#    if enemy.Status_Weaken_Duration > 0:
-#        if enemy.Status_Strengthen_Duration > 0:
-#            $ enemy.Status_Weaken_Duration = 0
-#            $ enemy.Status_Strengthen_Duration = 0
-#            "The Weaken and Strengthen cancel each other out, leaving [enemy.name!t] normal."
     call battle_call_Enemy_Status_PoisonCheck
     call battle_call_Enemy_Status_RegenCheck
     call battle_call_Enemy_Status_SlowCheck
