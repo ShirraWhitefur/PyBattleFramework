@@ -7,7 +7,7 @@
 # over again.
 
 # The first set in here should be 'No Equipment' for the slot.
-init:
+init -99:
 # LowerBodyArmor - No Armor Equipped - no_lower_armor
     $ no_lower_armor = Character("no_lower_armor")
     $ no_lower_armor.Equipment_HealthPoints_Max = 0
@@ -24,5 +24,5 @@ init:
     $ no_lower_armor.Equipment_Damage_Bonus_Will_Max = 0
     $ no_lower_armor.Equipment_Dodge = 0
     $ no_lower_armor.Equipment_Initiative = 0
-    $ no_lower_armor.Equipment_Slot_LowerBodyArmor_Name = "no_lower_armor"
+    $ no_lower_armor.Equipment_Slot_LowerBodyArmor_Name = no_lower_armor
     $ no_lower_armor.Equipment_Slot_LowerBodyArmor_Name_Text = "No Armor Equipped"

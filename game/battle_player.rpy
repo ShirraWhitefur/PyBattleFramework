@@ -4,7 +4,7 @@
 #####################################################################
 # Player Init Section
 #####################################################################
-init:
+init -50:
     $ player = DynamicCharacter("playername", color=(192, 64, 64, 255))
     $ playername = "SomethingFailed"
     $ player.Battle_Selected_Action = "battle_Player_Wait"
@@ -58,17 +58,17 @@ init:
     $ player.Equipment_Weapon_Damage_Will_Max = 10
     $ player.Equipment_Weapon_Damage_Will_Min = 1
 # Equipment Slots and Weapon Type
-    $ player.Equipment_Slot_Weapon_Name = "no_weapon"
+    $ player.Equipment_Slot_Weapon_Name = no_weapon
     $ player.Equipment_Slot_Weapon_Name_Text = "Gear Init Failed."
     $ player.Equipment_Slot_Weapon_Accuracy_Type = "Melee"
     $ player.Equipment_Slot_Weapon_Damage_Type = "Melee"
-    $ player.Equipment_Slot_UpperBodyArmor_Name = "no_upper_armor"
+    $ player.Equipment_Slot_UpperBodyArmor_Name = no_upper_armor
     $ player.Equipment_Slot_UpperBodyArmor_Name_Text = "Gear Init Failed."
-    $ player.Equipment_Slot_LowerBodyArmor_Name = "no_lower_armor"
+    $ player.Equipment_Slot_LowerBodyArmor_Name = no_lower_armor
     $ player.Equipment_Slot_LowerBodyArmor_Name_Text = "Gear Init Failed."
-    $ player.Equipment_Slot_Necklace_Name = "no_necklace"
+    $ player.Equipment_Slot_Necklace_Name = no_necklace
     $ player.Equipment_Slot_Necklace_Name_Text = "Gear Init Failed."
-    $ player.Equipment_Slot_Ring_Name = "no_ring"
+    $ player.Equipment_Slot_Ring_Name = no_ring
     $ player.Equipment_Slot_Ring_Name_Text = "Gear Init Failed."
 #  Equipment - Consumables.  Consider it a 'stock', and will handle the
 # potions, grenades, and other one use items and non-rechargables (like wands.)

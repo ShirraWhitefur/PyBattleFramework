@@ -7,15 +7,15 @@
 # over again.
 
 # The first set in here should be 'No Equipment' for the slot.
-init:
+init -99:
 # Weapon - No Weapon Equipped - Bare Hands - no_weapon
     $ no_weapon = Character("no_weapon")
-    $ no_weapon.Equipment_HealthPoints_Max = 3136
-    $ no_weapon.Equipment_AbilityPoints_Max = int(round(0.1,0))
-    $ no_weapon.Equipment_WillPoints_Max = int(round(0.1,0))
-    $ no_weapon.Equipment_Accuracy_Melee = int(round(0.1,0))
-    $ no_weapon.Equipment_Accuracy_Ranged = int(round(0.1,0))
-    $ no_weapon.Equipment_Armor_Physical = int(round(0.1,0))
+    $ no_weapon.Equipment_HealthPoints_Max = 0
+    $ no_weapon.Equipment_AbilityPoints_Max = 0
+    $ no_weapon.Equipment_WillPoints_Max = 0
+    $ no_weapon.Equipment_Accuracy_Melee = 0
+    $ no_weapon.Equipment_Accuracy_Ranged = 0
+    $ no_weapon.Equipment_Armor_Physical = 0
     $ no_weapon.Equipment_Armor_Magic = 0
     $ no_weapon.Equipment_Armor_Will = 0
     $ no_weapon.Equipment_Damage_Bonus_Melee_Max = 0
@@ -34,7 +34,7 @@ init:
     $ no_weapon.Equipment_Weapon_Damage_Magic_Min = 1
     $ no_weapon.Equipment_Weapon_Damage_Will_Max = 5
     $ no_weapon.Equipment_Weapon_Damage_Will_Min = 1
-    $ no_weapon.Equipment_Slot_Weapon_Name = "no_weapon"
+    $ no_weapon.Equipment_Slot_Weapon_Name = no_weapon
     $ no_weapon.Equipment_Slot_Weapon_Name_Text = "No Weapon Equipped - Bare Hands"
     $ no_weapon.Equipment_Slot_Weapon_Accuracy_Type = "Melee"
     $ no_weapon.Equipment_Slot_Weapon_Damage_Type = "Melee"

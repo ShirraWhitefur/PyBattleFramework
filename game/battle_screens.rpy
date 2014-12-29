@@ -71,16 +71,18 @@ screen stats_frame(pname):
 # \/  This section is definitely a debug section, to make sure that the items
 # \/ are being properly equipped.  You'll probably want to just delete this,
 # \/ unless you need it to test your work.
-    frame xfill(False) yminimum(None) background(None) xpos 0.01 ypos 0.175:
+    frame xfill(False) yminimum(None) background(None) xpos 0.01 ypos 0.27:
             hbox:
                 vbox:
                         text ("Weapon -") xalign 1.0 size 12
+                        text (" ") xalign 1.0 size 12
                         text ("UpperArmor -") xalign 1.0 size 12
                         text ("LowerArmor -") xalign 1.0 size 12
                         text ("Necklace -") xalign 1.0 size 12
                         text ("Ring -") xalign 1.0 size 12
                 vbox:
-                        text ("[player.Equipment_Slot_Weapon_Name_Text] - Acc - [player.Equipment_Slot_Weapon_Accuracy_Type] - Dmg - [player.Equipment_Slot_Weapon_Damage_Type]") size 12
+                        text ("[player.Equipment_Slot_Weapon_Name_Text]") size 12
+                        text ("Acc - [player.Equipment_Slot_Weapon_Accuracy_Type] - Dmg - [player.Equipment_Slot_Weapon_Damage_Type]") size 12
                         text ("[player.Equipment_Slot_UpperBodyArmor_Name_Text]") size 12
                         text ("[player.Equipment_Slot_LowerBodyArmor_Name_Text]") size 12
                         text ("[player.Equipment_Slot_Necklace_Name_Text]") size 12
@@ -155,4 +157,25 @@ screen stats_frame2(ename):
                         text ("- Debuff1") xalign 0.0 size 12
                         text ("- Debuff2") xalign 0.0 size 12
 # /\ The end of the 'status block'
+# /\ The end of the 'status block'
+# \/  This section is definitely a debug section, to make sure that the items
+# \/ are being properly equipped.  You'll probably want to just delete this,
+# \/ unless you need it to test your work.
+    frame xfill(False) yminimum(None) background(None) xpos 0.99 ypos 0.27 xalign 1.0:
+            hbox:
+                vbox xalign 1.0:
+                        text ("[enemy.Equipment_Slot_Weapon_Name_Text]") size 12
+                        text ("Acc - [enemy.Equipment_Slot_Weapon_Accuracy_Type] - Dmg - [enemy.Equipment_Slot_Weapon_Damage_Type]") size 12
+                        text ("[enemy.Equipment_Slot_UpperBodyArmor_Name_Text]") size 12
+                        text ("[enemy.Equipment_Slot_LowerBodyArmor_Name_Text]") size 12
+                        text ("[enemy.Equipment_Slot_Necklace_Name_Text]") size 12
+                        text ("[enemy.Equipment_Slot_Ring_Name_Text]") size 12
+                vbox xalign 1.0:
+                        text ("- Weapon") xalign 0.0 size 12
+                        text (" ") xalign 0.0 size 12
+                        text ("- UpperArmor") xalign 0.0 size 12
+                        text ("- LowerArmor") xalign 0.0 size 12
+                        text ("- Necklace") xalign 0.0 size 12
+                        text ("- Ring") xalign 0.0 size 12
+# /\ The end of the 'equipment block'
 

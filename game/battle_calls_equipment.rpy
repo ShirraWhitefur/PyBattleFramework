@@ -7,12 +7,8 @@
 #    call call_Equipment_Slot_Equip_UpperBodyArmor(battle.EquipGearName)
 #    call call_Equipment_Slot_Unquip_UpperBodyArmor(player.Equipment_Slot_UpperBodyArmor_Name)
 # and if out of combat..
-#    call battle_call_Player_HP_AP_WP_Current_to_Max_Set
+#    call battle_call_Player_HP_AP_WP_Current_To_Max_Set
 # afterwards, to bring your totals in line.
-
-# Init to replicate the ename initial setup from battle_init.rpy
-init:
-    $ eweaponname = "FailedWeapon"
 
 #  This one is best right at very game start, putting your initially selected
 # gear (or no gear) into the player's slots, and getting the equipment system
@@ -68,17 +64,17 @@ label call_Player_Equipment_Slot_Strip_All:
     $ player.Equipment_Weapon_Damage_Magic_Min = no_weapon.Equipment_Weapon_Damage_Magic_Min
     $ player.Equipment_Weapon_Damage_Will_Max = no_weapon.Equipment_Weapon_Damage_Will_Max
     $ player.Equipment_Weapon_Damage_Will_Min = no_weapon.Equipment_Weapon_Damage_Will_Min
-    $ player.Equipment_Slot_Weapon_Name = "no_weapon"
+    $ player.Equipment_Slot_Weapon_Name = no_weapon
     $ player.Equipment_Slot_Weapon_Name_Text = no_weapon.Equipment_Slot_Weapon_Name_Text
     $ player.Equipment_Slot_Weapon_Accuracy_Type = no_weapon.Equipment_Slot_Weapon_Accuracy_Type
     $ player.Equipment_Slot_Weapon_Damage_Type = no_weapon.Equipment_Slot_Weapon_Damage_Type
-    $ player.Equipment_Slot_UpperBodyArmor_Name = "no_upper_armor"
+    $ player.Equipment_Slot_UpperBodyArmor_Name = no_upper_armor
     $ player.Equipment_Slot_UpperBodyArmor_Name_Text = no_upper_armor.Equipment_Slot_UpperBodyArmor_Name_Text
-    $ player.Equipment_Slot_LowerBodyArmor_Name = "no_lower_armor"
+    $ player.Equipment_Slot_LowerBodyArmor_Name = no_lower_armor
     $ player.Equipment_Slot_LowerBodyArmor_Name_Text = no_lower_armor.Equipment_Slot_LowerBodyArmor_Name_Text
-    $ player.Equipment_Slot_Necklace_Name = "no_necklace"
+    $ player.Equipment_Slot_Necklace_Name = no_necklace
     $ player.Equipment_Slot_Necklace_Name_Text = no_necklace.Equipment_Slot_Necklace_Name_Text
-    $ player.Equipment_Slot_Ring_Name = "no_ring"
+    $ player.Equipment_Slot_Ring_Name = no_ring
     $ player.Equipment_Slot_Ring_Name_Text = no_ring.Equipment_Slot_Ring_Name_Text
     call battle_call_Player_Full_Recheck
     return
@@ -140,7 +136,7 @@ label call_Player_Equipment_Slot_Unquip_Weapon(weaponname):
     $ player.Equipment_Weapon_Damage_Magic_Min = no_weapon.Equipment_Weapon_Damage_Magic_Min
     $ player.Equipment_Weapon_Damage_Will_Max = no_weapon.Equipment_Weapon_Damage_Will_Max
     $ player.Equipment_Weapon_Damage_Will_Min = no_weapon.Equipment_Weapon_Damage_Will_Min
-    $ player.Equipment_Slot_Weapon_Name = "no_weapon"
+    $ player.Equipment_Slot_Weapon_Name = no_weapon
     $ player.Equipment_Slot_Weapon_Name_Text = no_weapon.Equipment_Slot_Weapon_Name_Text
     $ player.Equipment_Slot_Weapon_Accuracy_Type = no_weapon.Equipment_Slot_Weapon_Accuracy_Type
     $ player.Equipment_Slot_Weapon_Damage_Type = no_weapon.Equipment_Slot_Weapon_Damage_Type
@@ -162,7 +158,7 @@ label call_Player_Equipment_Slot_Equip_UpperBodyArmor(upperbodyarmorname):
     $ player.Equipment_Damage_Bonus_Will_Max += upperbodyarmorname.Equipment_Damage_Bonus_Will_Max
     $ player.Equipment_Dodge += upperbodyarmorname.Equipment_Dodge
     $ player.Equipment_Initiative += upperbodyarmorname.Equipment_Initiative
-    $ player.Equipment_Slot_UpperBodyArmor_Name = upperbodyarmorname.Equipment_Slot_Necklace_Name
+    $ player.Equipment_Slot_UpperBodyArmor_Name = upperbodyarmorname.Equipment_Slot_UpperBodyArmor_Name
     $ player.Equipment_Slot_UpperBodyArmor_Name_Text = upperbodyarmorname.Equipment_Slot_UpperBodyArmor_Name_Text
     call battle_call_Player_Full_Recheck
     return
@@ -182,7 +178,7 @@ label call_Player_Equipment_Slot_Unequip_UpperBodyArmor(upperbodyarmorname):
     $ player.Equipment_Damage_Bonus_Will_Max -= upperbodyarmorname.Equipment_Damage_Bonus_Will_Max
     $ player.Equipment_Dodge -= upperbodyarmorname.Equipment_Dodge
     $ player.Equipment_Initiative -= upperbodyarmorname.Equipment_Initiative
-    $ player.Equipment_Slot_UpperBodyArmor_Name = "no_upper_armor"
+    $ player.Equipment_Slot_UpperBodyArmor_Name = no_upper_armor
     $ player.Equipment_Slot_UpperBodyArmor_Name_Text = no_upper_armor.Equipment_Slot_UpperBodyArmor_Name_Text
     call battle_call_Player_Full_Recheck
     return
@@ -202,7 +198,7 @@ label call_Player_Equipment_Slot_Equip_LowerBodyArmor(lowerbodyarmorname):
     $ player.Equipment_Damage_Bonus_Will_Max += lowerbodyarmorname.Equipment_Damage_Bonus_Will_Max
     $ player.Equipment_Dodge += lowerbodyarmorname.Equipment_Dodge
     $ player.Equipment_Initiative += lowerbodyarmorname.Equipment_Initiative
-    $ player.Equipment_Slot_LowerBodyArmor_Name = lowerbodyarmorname.Equipment_Slot_Necklace_Name
+    $ player.Equipment_Slot_LowerBodyArmor_Name = lowerbodyarmorname.Equipment_Slot_LowerBodyArmor_Name
     $ player.Equipment_Slot_LowerBodyArmor_Name_Text = lowerbodyarmorname.Equipment_Slot_LowerBodyArmor_Name_Text
     call battle_call_Player_Full_Recheck
     return
@@ -222,7 +218,7 @@ label call_Player_Equipment_Slot_Unequip_LowerBodyArmor(lowerbodyarmorname):
     $ player.Equipment_Damage_Bonus_Will_Max -= lowerbodyarmorname.Equipment_Damage_Bonus_Will_Max
     $ player.Equipment_Dodge -= lowerbodyarmorname.Equipment_Dodge
     $ player.Equipment_Initiative -= lowerbodyarmorname.Equipment_Initiative
-    $ player.Equipment_Slot_LowerBodyArmor_Name = "no_lower_armor"
+    $ player.Equipment_Slot_LowerBodyArmor_Name = no_lower_armor
     $ player.Equipment_Slot_LowerBodyArmor_Name_Text = no_lower_armor.Equipment_Slot_LowerBodyArmor_Name_Text
     call battle_call_Player_Full_Recheck
     return
@@ -262,7 +258,7 @@ label call_Player_Equipment_Slot_Unequip_Necklace(necklacename):
     $ player.Equipment_Damage_Bonus_Will_Max -= necklacename.Equipment_Damage_Bonus_Will_Max
     $ player.Equipment_Dodge -= necklacename.Equipment_Dodge
     $ player.Equipment_Initiative -= necklacename.Equipment_Initiative
-    $ player.Equipment_Slot_Necklace_Name = "no_necklace"
+    $ player.Equipment_Slot_Necklace_Name = no_necklace
     $ player.Equipment_Slot_Necklace_Name_Text = no_necklace.Equipment_Slot_Necklace_Name_Text
     call battle_call_Player_Full_Recheck
     return
@@ -282,7 +278,7 @@ label call_Player_Equipment_Slot_Equip_Ring(ringname):
     $ player.Equipment_Damage_Bonus_Will_Max += ringname.Equipment_Damage_Bonus_Will_Max
     $ player.Equipment_Dodge += ringname.Equipment_Dodge
     $ player.Equipment_Initiative += ringname.Equipment_Initiative
-    $ player.Equipment_Slot_Ring_Name = ringname.Equipment_Slot_Necklace_Name
+    $ player.Equipment_Slot_Ring_Name = ringname.Equipment_Slot_Ring_Name
     $ player.Equipment_Slot_Ring_Name_Text = ringname.Equipment_Slot_Ring_Name_Text
     call battle_call_Player_Full_Recheck
     return
@@ -302,7 +298,7 @@ label call_Player_Equipment_Slot_Unequip_Recklace(ringname):
     $ player.Equipment_Damage_Bonus_Will_Max -= ringname.Equipment_Damage_Bonus_Will_Max
     $ player.Equipment_Dodge -= ringname.Equipment_Dodge
     $ player.Equipment_Initiative -= ringname.Equipment_Initiative
-    $ player.Equipment_Slot_Ring_Name = "no_ring"
+    $ player.Equipment_Slot_Ring_Name = no_ring
     $ player.Equipment_Slot_Ring_Name_Text = no_ring.Equipment_Slot_Ring_Name_Text
     call battle_call_Player_Full_Recheck
     return
@@ -326,10 +322,7 @@ label call_Enemy_Equipment_Slot_Initialize_All:
     $ enemy.Equipment_Damage_Bonus_Will_Max = 0
     $ enemy.Equipment_Dodge = 0
     $ enemy.Equipment_Initiative = 0
-    nar "enemy.Equipment_Slot_Weapon_Name = [enemy.Equipment_Slot_Weapon_Name]"
-#    call call_Enemy_Equipment_Slot_Equip_Weapon(enemy.Equipment_Slot_Weapon_Name)
-    $ eweaponname = enemy.Equipment_Slot_Weapon_Name
-    call call_Enemy_Equipment_Slot_Equip_Weapon
+    call call_Enemy_Equipment_Slot_Equip_Weapon(enemy.Equipment_Slot_Weapon_Name)
     call call_Enemy_Equipment_Slot_Equip_UpperBodyArmor(enemy.Equipment_Slot_UpperBodyArmor_Name)
     call call_Enemy_Equipment_Slot_Equip_LowerBodyArmor(enemy.Equipment_Slot_LowerBodyArmor_Name)
     call call_Enemy_Equipment_Slot_Equip_Necklace(enemy.Equipment_Slot_Necklace_Name)
@@ -364,41 +357,24 @@ label call_Enemy_Equipment_Slot_Strip_All:
     $ enemy.Equipment_Weapon_Damage_Magic_Min = no_weapon.Equipment_Weapon_Damage_Magic_Min
     $ enemy.Equipment_Weapon_Damage_Will_Max = no_weapon.Equipment_Weapon_Damage_Will_Max
     $ enemy.Equipment_Weapon_Damage_Will_Min = no_weapon.Equipment_Weapon_Damage_Will_Min
-    $ enemy.Equipment_Slot_Weapon_Name = "no_weapon"
+    $ enemy.Equipment_Slot_Weapon_Name = no_weapon
     $ enemy.Equipment_Slot_Weapon_Name_Text = no_weapon.Equipment_Slot_Weapon_Name_Text
     $ enemy.Equipment_Slot_Weapon_Accuracy_Type = no_weapon.Equipment_Slot_Weapon_Accuracy_Type
     $ enemy.Equipment_Slot_Weapon_Damage_Type = no_weapon.Equipment_Slot_Weapon_Damage_Type
-    $ enemy.Equipment_Slot_UpperBodyArmor_Name = "no_upper_armor"
+    $ enemy.Equipment_Slot_UpperBodyArmor_Name = no_upper_armor
     $ enemy.Equipment_Slot_UpperBodyArmor_Name_Text = no_upper_armor.Equipment_Slot_UpperBodyArmor_Name_Text
-    $ enemy.Equipment_Slot_LowerBodyArmor_Name = "no_lower_armor"
+    $ enemy.Equipment_Slot_LowerBodyArmor_Name = no_lower_armor
     $ enemy.Equipment_Slot_LowerBodyArmor_Name_Text = no_lower_armor.Equipment_Slot_LowerBodyArmor_Name_Text
-    $ enemy.Equipment_Slot_Necklace_Name = "no_necklace"
+    $ enemy.Equipment_Slot_Necklace_Name = no_necklace
     $ enemy.Equipment_Slot_Necklace_Name_Text = no_necklace.Equipment_Slot_Necklace_Name_Text
-    $ enemy.Equipment_Slot_Ring_Name = "no_ring"
+    $ enemy.Equipment_Slot_Ring_Name = no_ring
     $ enemy.Equipment_Slot_Ring_Name_Text = no_ring.Equipment_Slot_Ring_Name_Text
     call battle_call_Enemy_Full_Recheck
     return
 
-#label call_Enemy_Equipment_Slot_Equip_Weapon(weaponname):
-label call_Enemy_Equipment_Slot_Equip_Weapon:
-# swapped over partially to eweaponname instead of weaponname -just- to avoid any potential conflicts.
-    nar "eweaponname = [eweaponname]"
-    nar "[no_weapon.Equipment_Slot_Weapon_Name] [no_weapon.Equipment_HealthPoints_Max]"
-# Copy from Script, picking out the enemy before the jump..
-#    $ ename = Orc_Hero
-# Copy from label battle_call_Enemy_Data_Import:
-#    $ enemy = ename
-#    $ enemy.name = ename.name
-#    $ enemy.battle_selected_action = "battle_Enemy_Wait"
-#    $ enemy.Attack_List = ename.Attack_List
-#    And that -works why-, when this doesn't?
-    $ enemy = eweaponname
-    $ enemy.Equipment_Slot_Weapon_Name = eweaponname.Equipment_Slot_Weapon_Name
-#
-    $ enemy.Equipment_HealthPoints_Max += eweaponname.Equipment_HealthPoints_Max
-    $ enemy = ename
-#
-    $ enemy.Equipment_AbilityPoints_Max += eweaponname.Equipment_AbilityPoints_Max
+label call_Enemy_Equipment_Slot_Equip_Weapon(weaponname):
+    $ enemy.Equipment_HealthPoints_Max += weaponname.Equipment_HealthPoints_Max
+    $ enemy.Equipment_AbilityPoints_Max += weaponname.Equipment_AbilityPoints_Max
     $ enemy.Equipment_WillPoints_Max += weaponname.Equipment_WillPoints_Max
     $ enemy.Equipment_Accuracy_Melee += weaponname.Equipment_Accuracy_Melee
     $ enemy.Equipment_Accuracy_Ranged += weaponname.Equipment_Accuracy_Ranged
@@ -453,7 +429,7 @@ label call_Enemy_Equipment_Slot_Unquip_Weapon(weaponname):
     $ enemy.Equipment_Weapon_Damage_Magic_Min = no_weapon.Equipment_Weapon_Damage_Magic_Min
     $ enemy.Equipment_Weapon_Damage_Will_Max = no_weapon.Equipment_Weapon_Damage_Will_Max
     $ enemy.Equipment_Weapon_Damage_Will_Min = no_weapon.Equipment_Weapon_Damage_Will_Min
-    $ enemy.Equipment_Slot_Weapon_Name = "no_weapon"
+    $ enemy.Equipment_Slot_Weapon_Name = no_weapon
     $ enemy.Equipment_Slot_Weapon_Name_Text = no_weapon.Equipment_Slot_Weapon_Name_Text
     $ enemy.Equipment_Slot_Weapon_Accuracy_Type = no_weapon.Equipment_Slot_Weapon_Accuracy_Type
     $ enemy.Equipment_Slot_Weapon_Damage_Type = no_weapon.Equipment_Slot_Weapon_Damage_Type
@@ -475,7 +451,7 @@ label call_Enemy_Equipment_Slot_Equip_UpperBodyArmor(upperbodyarmorname):
     $ enemy.Equipment_Damage_Bonus_Will_Max += upperbodyarmorname.Equipment_Damage_Bonus_Will_Max
     $ enemy.Equipment_Dodge += upperbodyarmorname.Equipment_Dodge
     $ enemy.Equipment_Initiative += upperbodyarmorname.Equipment_Initiative
-    $ enemy.Equipment_Slot_UpperBodyArmor_Name = upperbodyarmorname.Equipment_Slot_Necklace_Name
+    $ enemy.Equipment_Slot_UpperBodyArmor_Name = upperbodyarmorname.Equipment_Slot_UpperBodyArmor_Name
     $ enemy.Equipment_Slot_UpperBodyArmor_Name_Text = upperbodyarmorname.Equipment_Slot_UpperBodyArmor_Name_Text
     call battle_call_Enemy_Full_Recheck
     return
@@ -495,7 +471,7 @@ label call_Enemy_Equipment_Slot_Unequip_UpperBodyArmor(upperbodyarmorname):
     $ enemy.Equipment_Damage_Bonus_Will_Max -= upperbodyarmorname.Equipment_Damage_Bonus_Will_Max
     $ enemy.Equipment_Dodge -= upperbodyarmorname.Equipment_Dodge
     $ enemy.Equipment_Initiative -= upperbodyarmorname.Equipment_Initiative
-    $ enemy.Equipment_Slot_UpperBodyArmor_Name = "no_upper_armor"
+    $ enemy.Equipment_Slot_UpperBodyArmor_Name = no_upper_armor
     $ enemy.Equipment_Slot_UpperBodyArmor_Name_Text = no_upper_armor.Equipment_Slot_UpperBodyArmor_Name_Text
     call battle_call_Enemy_Full_Recheck
     return
@@ -515,7 +491,7 @@ label call_Enemy_Equipment_Slot_Equip_LowerBodyArmor(lowerbodyarmorname):
     $ enemy.Equipment_Damage_Bonus_Will_Max += lowerbodyarmorname.Equipment_Damage_Bonus_Will_Max
     $ enemy.Equipment_Dodge += lowerbodyarmorname.Equipment_Dodge
     $ enemy.Equipment_Initiative += lowerbodyarmorname.Equipment_Initiative
-    $ enemy.Equipment_Slot_LowerBodyArmor_Name = lowerbodyarmorname.Equipment_Slot_Necklace_Name
+    $ enemy.Equipment_Slot_LowerBodyArmor_Name = lowerbodyarmorname.Equipment_Slot_LowerBodyArmor_Name
     $ enemy.Equipment_Slot_LowerBodyArmor_Name_Text = lowerbodyarmorname.Equipment_Slot_LowerBodyArmor_Name_Text
     call battle_call_Enemy_Full_Recheck
     return
@@ -535,7 +511,7 @@ label call_Enemy_Equipment_Slot_Unequip_LowerBodyArmor(lowerbodyarmorname):
     $ enemy.Equipment_Damage_Bonus_Will_Max -= lowerbodyarmorname.Equipment_Damage_Bonus_Will_Max
     $ enemy.Equipment_Dodge -= lowerbodyarmorname.Equipment_Dodge
     $ enemy.Equipment_Initiative -= lowerbodyarmorname.Equipment_Initiative
-    $ enemy.Equipment_Slot_LowerBodyArmor_Name = "no_lower_armor"
+    $ enemy.Equipment_Slot_LowerBodyArmor_Name = no_lower_armor
     $ enemy.Equipment_Slot_LowerBodyArmor_Name_Text = no_lower_armor.Equipment_Slot_LowerBodyArmor_Name_Text
     call battle_call_Enemy_Full_Recheck
     return
@@ -575,7 +551,7 @@ label call_Enemy_Equipment_Slot_Unequip_Necklace(necklacename):
     $ enemy.Equipment_Damage_Bonus_Will_Max -= necklacename.Equipment_Damage_Bonus_Will_Max
     $ enemy.Equipment_Dodge -= necklacename.Equipment_Dodge
     $ enemy.Equipment_Initiative -= necklacename.Equipment_Initiative
-    $ enemy.Equipment_Slot_Necklace_Name = "no_necklace"
+    $ enemy.Equipment_Slot_Necklace_Name = no_necklace
     $ enemy.Equipment_Slot_Necklace_Name_Text = no_necklace.Equipment_Slot_Necklace_Name_Text
     call battle_call_Enemy_Full_Recheck
     return
@@ -595,7 +571,7 @@ label call_Enemy_Equipment_Slot_Equip_Ring(ringname):
     $ enemy.Equipment_Damage_Bonus_Will_Max += ringname.Equipment_Damage_Bonus_Will_Max
     $ enemy.Equipment_Dodge += ringname.Equipment_Dodge
     $ enemy.Equipment_Initiative += ringname.Equipment_Initiative
-    $ enemy.Equipment_Slot_Ring_Name = ringname.Equipment_Slot_Necklace_Name
+    $ enemy.Equipment_Slot_Ring_Name = ringname.Equipment_Slot_Ring_Name
     $ enemy.Equipment_Slot_Ring_Name_Text = ringname.Equipment_Slot_Ring_Name_Text
     call battle_call_Enemy_Full_Recheck
     return
@@ -615,7 +591,7 @@ label call_Enemy_Equipment_Slot_Unequip_Recklace(ringname):
     $ enemy.Equipment_Damage_Bonus_Will_Max -= ringname.Equipment_Damage_Bonus_Will_Max
     $ enemy.Equipment_Dodge -= ringname.Equipment_Dodge
     $ enemy.Equipment_Initiative -= ringname.Equipment_Initiative
-    $ enemy.Equipment_Slot_Ring_Name = "no_ring"
+    $ enemy.Equipment_Slot_Ring_Name = no_ring
     $ enemy.Equipment_Slot_Ring_Name_Text = no_ring.Equipment_Slot_Ring_Name_Text
     call battle_call_Enemy_Full_Recheck
     return

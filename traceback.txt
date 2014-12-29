@@ -1,36 +1,83 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 54, in script call
-    call battle_call_Enemy_Data_Import
-  File "game/battle_calls.rpy", line 308, in script call
-    call call_Enemy_Equipment_Slot_Initialize_All
-  File "game/battle_calls_equipment.rpy", line 332, in script call
-    call call_Enemy_Equipment_Slot_Equip_Weapon
-  File "game/battle_calls_equipment.rpy", line 396, in script
-    $ enemy.Equipment_Slot_Weapon_Name = eweaponname.Equipment_Slot_Weapon_Name
-  File "game/battle_calls_equipment.rpy", line 396, in <module>
-    $ enemy.Equipment_Slot_Weapon_Name = eweaponname.Equipment_Slot_Weapon_Name
-AttributeError: 'str' object has no attribute 'Equipment_Slot_Weapon_Name'
+  File "game/script.rpy", line 59, in script call
+    call battle_start
+  File "game/battle.rpy", line 38, in script call
+    call battle_Player_Menu
+  File "game/battle_player.rpy", line 148, in script
+    menu:
+  File "game/battle_screens.rpy", line 5, in execute
+    screen fight(pname,ename):
+  File "game/battle_screens.rpy", line 7, in execute
+    use stats_frame2(ename)
+  File "game/battle_screens.rpy", line 98, in execute
+    screen stats_frame2(ename):
+  File "game/battle_screens.rpy", line 122, in execute
+    frame xfill(False) yminimum(None) background(None) xpos 0.99 ypos 0.175 xalign 1.0:
+  File "game/battle_screens.rpy", line 123, in execute
+    hbox:
+  File "game/battle_screens.rpy", line 124, in execute
+    vbox xalign 1.0:
+  File "game/battle_screens.rpy", line 139, in execute
+    hbox:
+  File "game/battle_screens.rpy", line 141, in execute
+    if enemy.Status_Poison_EffectActive == 1:
+AttributeError: 'ADVCharacter' object has no attribute 'Status_Poison_EffectActive'
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 54, in script call
-    call battle_call_Enemy_Data_Import
-  File "game/battle_calls.rpy", line 308, in script call
-    call call_Enemy_Equipment_Slot_Initialize_All
-  File "game/battle_calls_equipment.rpy", line 332, in script call
-    call call_Enemy_Equipment_Slot_Equip_Weapon
-  File "game/battle_calls_equipment.rpy", line 396, in script
-    $ enemy.Equipment_Slot_Weapon_Name = eweaponname.Equipment_Slot_Weapon_Name
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\ast.py", line 785, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\python.py", line 1382, in py_exec_bytecode
-    exec bytecode in globals, locals
-  File "game/battle_calls_equipment.rpy", line 396, in <module>
-    $ enemy.Equipment_Slot_Weapon_Name = eweaponname.Equipment_Slot_Weapon_Name
-AttributeError: 'str' object has no attribute 'Equipment_Slot_Weapon_Name'
+  File "game/script.rpy", line 59, in script call
+    call battle_start
+  File "game/battle.rpy", line 38, in script call
+    call battle_Player_Menu
+  File "game/battle_player.rpy", line 148, in script
+    menu:
+  File "D:\Projects\renpy-6.18.3-sdk\renpy\ast.py", line 1405, in execute
+    choice = renpy.exports.menu(choices, self.set)
+  File "D:\Projects\renpy-6.18.3-sdk\renpy\exports.py", line 711, in menu
+    rv = renpy.store.menu(items)
+  File "D:\Projects\renpy-6.18.3-sdk\renpy\exports.py", line 887, in display_menu
+    rv = renpy.ui.interact(mouse='menu', type=type, roll_forward=roll_forward)
+  File "D:\Projects\renpy-6.18.3-sdk\renpy\ui.py", line 247, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "D:\Projects\renpy-6.18.3-sdk\renpy\display\core.py", line 2149, in interact
+    repeat, rv = self.interact_core(preloads=preloads, **kwargs)
+  File "D:\Projects\renpy-6.18.3-sdk\renpy\display\core.py", line 2397, in interact_core
+    root_widget.visit_all(lambda i : i.per_interact())
+  File "D:\Projects\renpy-6.18.3-sdk\renpy\display\core.py", line 338, in visit_all
+    d.visit_all(callback)
+  File "D:\Projects\renpy-6.18.3-sdk\renpy\display\core.py", line 338, in visit_all
+    d.visit_all(callback)
+  File "D:\Projects\renpy-6.18.3-sdk\renpy\display\core.py", line 338, in visit_all
+    d.visit_all(callback)
+  File "D:\Projects\renpy-6.18.3-sdk\renpy\display\screen.py", line 382, in visit_all
+    callback(self)
+  File "D:\Projects\renpy-6.18.3-sdk\renpy\display\core.py", line 2397, in <lambda>
+    root_widget.visit_all(lambda i : i.per_interact())
+  File "D:\Projects\renpy-6.18.3-sdk\renpy\display\screen.py", line 394, in per_interact
+    self.update()
+  File "D:\Projects\renpy-6.18.3-sdk\renpy\display\screen.py", line 555, in update
+    self.screen.function(**self.scope)
+  File "game/battle_screens.rpy", line 5, in execute
+    screen fight(pname,ename):
+  File "game/battle_screens.rpy", line 7, in execute
+    use stats_frame2(ename)
+  File "game/battle_screens.rpy", line 98, in execute
+    screen stats_frame2(ename):
+  File "game/battle_screens.rpy", line 122, in execute
+    frame xfill(False) yminimum(None) background(None) xpos 0.99 ypos 0.175 xalign 1.0:
+  File "game/battle_screens.rpy", line 123, in execute
+    hbox:
+  File "game/battle_screens.rpy", line 124, in execute
+    vbox xalign 1.0:
+  File "game/battle_screens.rpy", line 139, in execute
+    hbox:
+  File "game/battle_screens.rpy", line 141, in execute
+    if enemy.Status_Poison_EffectActive == 1:
+  File "<screen language>", line 141, in <module>
+AttributeError: 'ADVCharacter' object has no attribute 'Status_Poison_EffectActive'
 
 Windows-7-6.1.7601-SP1
 Ren'Py 6.18.3.761

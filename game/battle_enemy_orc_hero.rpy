@@ -4,7 +4,7 @@
 #####################################################################
 # Enemy Init Section
 #####################################################################
-init:
+init -25:
     $ Orc_Hero = Character("Orc Hero")
     $ Orc_Hero.name = "Orc Hero"
     $ Orc_Hero.Attack_List = "Attack_List_Orc_Hero"
@@ -25,11 +25,11 @@ init:
     $ Orc_Hero.Attribute_Damage_Bonus_Will_Max = 1
     $ Orc_Hero.Attribute_Dodge = 6
     $ Orc_Hero.Attribute_Initiative = 3
-    $ Orc_Hero.Equipment_Slot_Weapon_Name = "no_weapon"
-    $ Orc_Hero.Equipment_Slot_UpperBodyArmor_Name = "no_upper_armor"
-    $ Orc_Hero.Equipment_Slot_LowerBodyArmor_Name = "no_lower_armor"
-    $ Orc_Hero.Equipment_Slot_Necklace_Name = "no_necklace"
-    $ Orc_Hero.Equipment_Slot_Ring_Name = "no_ring"
+    $ Orc_Hero.Equipment_Slot_Weapon_Name = no_weapon
+    $ Orc_Hero.Equipment_Slot_UpperBodyArmor_Name = no_upper_armor
+    $ Orc_Hero.Equipment_Slot_LowerBodyArmor_Name = no_lower_armor
+    $ Orc_Hero.Equipment_Slot_Necklace_Name = no_necklace
+    $ Orc_Hero.Equipment_Slot_Ring_Name = no_ring
     $ Orc_Hero.Equipment_Consumables_Potions_HP_Restore = 1
     $ Orc_Hero.Equipment_Consumables_Potions_AP_Restore = 0
     $ Orc_Hero.Equipment_Consumables_Potions_WP_Restore = 0

@@ -4,7 +4,7 @@
 #####################################################################
 # Enemy Init Section
 #####################################################################
-init:
+init -25:
     $ Goblin = Character("Goblin")
     $ Goblin.name = "Goblin"
     $ Goblin.Attack_List = "Attack_List_Goblin"

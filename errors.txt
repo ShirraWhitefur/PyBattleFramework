@@ -2,8 +2,8 @@
 errors listed below, and try again.
 
 
-File "game/battle_calls_equipment.rpy", line 12: init statement expects a non-empty block.
-    init:
-         ^
+File "game/battle_init.rpy", line 15: expected ':' not found.
+    init python -100:
+                ^
 
 Ren'Py Version: Ren'Py 6.18.3.761

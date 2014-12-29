@@ -13,15 +13,15 @@ define nar = Character('Narrator', color="#c8ffc8")
 #  You'll find that we like to split up the various sections into quite a
 # few files, for the sake of sanity and organization.  We just find it a
 # lot easier to -find- what we're hunting for, if they're not super-huge.
+#  _MOST_ notes are going to end up starting in battle.rpy.
 #
 #  You should also, -hopefully-, if we've done it all right, find that
 # all the calls and returns line up, so you can call the battle from in the
 # midst of your VN and properly return to it.
 #
-#  Please note, this is the work of only 5 days so far, and likely
-# incredibly ineffecient!  .. Okay, it's made one professional programmer
-# cross himself.  Lets just take that as a sign of respect for 'the evil
-# codebeast that works despite sanity loss'.  ^_^
+#  Please note, this is work is likely incredibly ineffecient!  .. Okay, it's
+# made one professional programmer cross himself.  Lets just take that as a
+# sign of respect for 'the evil codebeast that works despite sanity loss'.  ^_^
 #
 
 
@@ -50,6 +50,10 @@ label test01_Battle:
     $ playername = renpy.input(_("What is your name?")) or _("Alex")
     player "My name is [playername!t]."
     "The foe is named [ename.name!t]"
+#  Here's a quick bit to make our equipment variables on player match the gear
+# named, and set current HP/etc to max.  Good for initial startup of the game.
+    call call_Player_Equipment_Slot_Initialize_All
+    call battle_call_Player_HP_AP_WP_Current_To_Max_Set
 # This line basically goes, 'Okay, lets import whatever enemy matches 'ename''
     call battle_call_Enemy_Data_Import
     call battle_start

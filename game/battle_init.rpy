@@ -12,7 +12,7 @@
 # The following init python section is from Asceai on the forums
 # ' http://lemmasoft.renai.us/forums/viewtopic.php?p=323010#p323010 '
 # It's used to power our enemy AI system!
-init python:
+init python:-100
     def WeightedChoice(choices):
         """
         @param choices: A list of (choice, weight) tuples. Returns a random
@@ -28,7 +28,7 @@ init python:
             else:
                 randval -= weight
 
-init:
+init -75:
     $ battle = Character("BattleSettings")
     $ battle.roundcount = 0
     $ battle.EquipGearName = "no_weapon"

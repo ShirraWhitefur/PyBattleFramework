@@ -10,6 +10,12 @@
 # frequent in the Turn Resolution, it's so that way our call/return functions
 # line up properly.  I have no idea of a better way to do it, but it works for
 # me!
+#
+# Init load order list
+# -99 battle_equipment_*
+# -75 battle_init
+# -50 battle_player
+# -25 battle_enemy_*
 
 #####################################################################
 
@@ -20,7 +26,9 @@ label battle_start:
     $ battle.roundcount = 0
 # This brings out our "lovely" Name/HP/AP/etc screen-frames in the corners.
     show screen fight(playername,enemy.name)
-
+#  I'm not saying I don't trust the equip code to get run properly elsewhere or
+# anything like that, but I like to be thorough.
+    call call_Player_Equipment_Slot_Initialize_All
 
 label battle_Begin_Round:
     $ battle.roundcount += 1

@@ -7,7 +7,7 @@
 # over again.
 
 # The first set in here should be 'No Equipment' for the slot.
-init:
+init -99:
 # Ring - No Ring Worn - no_ring
     $ no_ring = Character("no_ring")
     $ no_ring.Equipment_HealthPoints_Max = 0
@@ -24,5 +24,5 @@ init:
     $ no_ring.Equipment_Damage_Bonus_Will_Max = 0
     $ no_ring.Equipment_Dodge = 0
     $ no_ring.Equipment_Initiative = 0
-    $ no_ring.Equipment_Slot_Ring_Name = "no_ring"
+    $ no_ring.Equipment_Slot_Ring_Name = no_ring
     $ no_ring.Equipment_Slot_Ring_Name_Text = "No Ring Worn"

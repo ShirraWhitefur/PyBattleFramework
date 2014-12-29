@@ -7,7 +7,7 @@
 # over again.
 
 # The first set in here should be 'No Equipment' for the slot.
-init:
+init -99:
 # Necklace - No Necklace Worn - no_necklace
     $ no_necklace = Character("no_necklace")
     $ no_necklace.Equipment_HealthPoints_Max = 0
@@ -24,5 +24,5 @@ init:
     $ no_necklace.Equipment_Damage_Bonus_Will_Max = 0
     $ no_necklace.Equipment_Dodge = 0
     $ no_necklace.Equipment_Initiative = 0
-    $ no_necklace.Equipment_Slot_Necklace_Name = "no_necklace"
+    $ no_necklace.Equipment_Slot_Necklace_Name = no_necklace
     $ no_necklace.Equipment_Slot_Necklace_Name_Text = "No Necklace Worn"
