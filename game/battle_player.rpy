@@ -9,9 +9,15 @@ init:
     $ playername = "SomethingFailed"
     $ player.Battle_Selected_Action = "battle_Player_Wait"
     $ player.Battle_Outcome = "end"
-# Base Stats - From these, when they're actually added and used, we'll get our base attributes.
+#  Base Stats - From these, when they're actually added and used, we'll get our
+# base attributes.
     $ player.Stats_PlaceholderStrength = 0
-# Base attributes, to be derived from Stats.. when we add the stats in.
+#  Base attributes, to be derived from Stats.. when we add the stats in.
+# The idea here being something like you set up Strength above, then set 
+# player.Attribute_Damage_Melee_Max = player.Stats_Strength/5, or something
+# similar.  Set up an initialization/recheck call for players and enemies under
+# battle calls.  There should be enough examples to know where and how to
+# use it.
     $ player.Attribute_HealthPoints_Max = 295
     $ player.Attribute_AbilityPoints_Max = 292
     $ player.Attribute_WillPoints_Max = 290
@@ -120,14 +126,12 @@ label battle_Player_Menu:
         "Attack - Melee":
             $ player.battle_selected_action = "battle_Player_Attack_Melee"
             return
-# \/  Not done - Need to redo status effects and stats -completely- to pull in 'real' and 'temp'
-# \/ numbers to work from, so we don't get abnormal math results from effects toggling on and off.
-#        "Block":
-#            $ player.battle_selected_action = "battle_Player_Block"
-#            return
-#        "Dodge":
-#            $ player.battle_selected_action = "battle_Player_Dodge"
-#            return
+        "Block":
+            $ player.battle_selected_action = "battle_Player_Block"
+            return
+        "Dodge":
+            $ player.battle_selected_action = "battle_Player_Dodge"
+            return
         "Ability":
             jump battle_Player_Ability_Menu
         "Item":
@@ -293,9 +297,10 @@ label battle_Player_Attack_Melee:
         "[enemy.name!t] was hit! ([player_roll_attack] + [player.X_Accuracy_Melee_X] - [enemy.X_Dodge_X] vs 50)"
         jump battle_Player_Attack_Melee_Success
 
-#  You may ask why we seperate the attack from the successful hit damage, but this is to allow for
-# abilities that would do a single attack roll, but deliver damage of three seperate, 'standard'
-# hits, and other things of that nature.
+#  You may ask why we seperate the attack from the successful hit damage, but
+# this is to allow for abilities that would do a single attack roll, but
+# deliver damage of three seperate, 'standard' hits, and other things of that
+# nature.
 
 label battle_Player_Attack_Melee_Success:
     $player_roll_damage = renpy.random.randint(player.X_Damage_Melee_Min_X,player.X_Damage_Melee_Max_X)
@@ -307,6 +312,22 @@ label battle_Player_Attack_Melee_Success:
         call battle_call_Enemy_HP_Loss(player_roll_damage_final)
         "You land a solid blow, dealing [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X].  ([player_roll_damage] - [enemy.X_Armor_Physical_X])"
         return
+
+label battle_Player_Block:
+    $ player.Status_Block_EffectActive = 1
+# Change the level of block strength when the game system is figured out!
+    $ player.Status_Block_Strength = 25
+    call battle_call_Player_Armor_Recheck
+    "You are actively blocking!"
+    return
+
+label battle_Player_Dodge:
+    $ player.Status_Dodge_EffectActive = 1
+# Change the level of dodge strength when the game system is figured out!
+    $ player.Status_Dodge_Strength = 25
+    call battle_call_Player_Dodge_Recheck
+    "You are actively dodging!"
+    return
 
 label battle_Player_Ability__Fire:
     "You cast Fire on [enemy.name!t]!"

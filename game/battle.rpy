@@ -206,6 +206,22 @@ label battle_Enemy_Ability__Fire:
     "[enemy.name!t] sears you for [enemy_roll_damage_final] damage.  [playername!t]'s HP at [player.X_HealthPoints_Current_X].  ([enemy_roll_damage] - [player.X_Armor_Magic_X])"
     return
 
+label battle_Enemy_Block:
+    $ enemy.Status_Block_EffectActive = 1
+# Change the level of block strength when the game system is figured out!
+    $ enemy.Status_Block_Strength = 25
+    call battle_call_Enemy_Armor_Recheck
+    "[enemy.name!t] is actively blocking!"
+    return
+
+label battle_Enemy_Dodge:
+    $ enemy.Status_Dodge_EffectActive = 1
+# Change the level of dodge strength when the game system is figured out!
+    $ enemy.Status_Dodge_Strength = 25
+    call battle_call_Enemy_Dodge_Recheck
+    "[enemy.name!t] is actively dodging!"
+    return
+
 label battle_Enemy_Wait:
     "[enemy.name!t] decides to do nothing this turn."
     return

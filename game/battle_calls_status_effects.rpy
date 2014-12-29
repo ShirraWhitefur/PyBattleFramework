@@ -30,6 +30,8 @@ label battle_call_Player_Status_Check_Block:
     call battle_call_Player_Status_HasteCheck
     call battle_call_Player_Status_WeakenCheck
     call battle_call_Player_Status_StrengthenCheck
+    call battle_call_Player_Status_Block
+    call battle_call_Player_Status_Dodge
     return
 
 label battle_call_Player_Status_PoisonCheck:
@@ -128,11 +130,24 @@ label battle_call_Player_Status_StrengthenCheck:
             "You feel your strength returning to normal as Strengthen wears off."
     return
 
+label battle_call_Player_Status_Block:
+    if player.Status_Block_EffectActive == 1:
+        $ player.Status_Block_EffectActive = 0
+        $ player.Status_Block_Strength = 0
+        call battle_call_Player_Armor_Recheck
+        "You are no longer actively blocking!"
+    return
+
+label battle_call_Player_Status_Dodge:
+    if player.Status_Dodge_EffectActive == 1:
+        $ player.Status_Dodge_EffectActive = 0
+        $ player.Status_Dodge_Strength = 0
+        call battle_call_Player_Dodge_Recheck
+        "You are no longer actively dodging!"
+    return
+
 #label battle_call_Player_Status_EquipLoss_WeaponCheck:
 #label battle_call_Player_Status_EquipLoss_ArmorCheck:
-
-#label battle_call_Player_Status_Block:
-#label battle_call_Player_Status_Dodge:
 
 #####################################################################
 # Status Effects - Enemy
@@ -162,6 +177,8 @@ label battle_call_Enemy_Status_Check_Block:
     call battle_call_Enemy_Status_HasteCheck
     call battle_call_Enemy_Status_WeakenCheck
     call battle_call_Enemy_Status_StrengthenCheck
+    call battle_call_Enemy_Status_Block
+    call battle_call_Enemy_Status_Dodge
     return
 
 label battle_call_Enemy_Status_PoisonCheck:
@@ -260,9 +277,21 @@ label battle_call_Enemy_Status_StrengthenCheck:
             "[enemy.name!t] feel their strength returning to normal as Strengthen wears off."
     return
 
+label battle_call_Enemy_Status_Block:
+    if enemy.Status_Block_EffectActive == 1:
+        $ enemy.Status_Block_EffectActive = 0
+        $ enemy.Status_Block_Strength = 0
+        call battle_call_Enemy_Armor_Recheck
+        "[enemy.name!t] is no longer actively blocking!"
+    return
+
+label battle_call_Enemy_Status_Dodge:
+    if enemy.Status_Dodge_EffectActive == 1:
+        $ enemy.Status_Dodge_EffectActive = 0
+        $ enemy.Status_Dodge_Strength = 0
+        call battle_call_Enemy_Dodge_Recheck
+        "[enemy.name!t] is no longer actively dodging!"
+    return
 
 #label battle_call_Enemy_Status_EquipLoss_WeaponCheck:
 #label battle_call_Enemy_Status_EquipLoss_ArmorCheck:
-
-#label battle_call_Enemy_Status_Block:
-#label battle_call_Enemy_Status_Dodge:
