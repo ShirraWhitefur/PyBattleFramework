@@ -1,9 +1,0 @@
-﻿I'm sorry, but errors were detected in your script. Please correct the
-errors listed below, and try again.
-
-
-File "game/battle.rpy", line 163: expected statement.
-    battle_Enemy_Skipped
-                        ^
-
-Ren'Py Version: Ren'Py 6.18.3.761
