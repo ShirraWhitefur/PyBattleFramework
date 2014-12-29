@@ -4,6 +4,7 @@
 game/saves/
 log.txt
 traceback.txt
+errors.txt
 
 #################
 ## Eclipse
