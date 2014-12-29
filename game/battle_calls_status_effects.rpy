@@ -9,20 +9,20 @@
 label battle_call_Player_Status_Check_Block:
 # \/  Disabled for now, since it was to avoid issues with attributes getting
 # \/ changed up oddly.  Overhaul should fix that.
-#    if player.status_poison_duration > 0:
-#        if player.status_regen_duration > 0:
-#            $ player.status_poison_duration = 0
-#            $ player.status_regen_duration = 0
+#    if player.Status_Poison_Duration > 0:
+#        if player.Status_Regen_Duration > 0:
+#            $ player.Status_Poison_Duration = 0
+#            $ player.Status_Regen_Duration = 0
 #            "The Poison and Regen cancel each other out, leaving you normal."
-#    if player.status_slow_duration > 0:
-#        if player.status_haste_duration > 0:
-#            $ player.status_slow_duration = 0
-#            $ player.status_haste_duration = 0
+#    if player.Status_Slow_Duration > 0:
+#        if player.Status_Haste_Duration > 0:
+#            $ player.Status_Slow_Duration = 0
+#            $ player.Status_Haste_Duration = 0
 #            "The Slow and Haste cancel each other out, leaving you normal."
-#    if player.status_weaken_duration > 0:
-#        if player.status_strengthen_duration > 0:
-#            $ player.status_weaken_duration = 0
-#            $ player.status_strengthen_duration = 0
+#    if player.Status_Weaken_Duration > 0:
+#        if player.Status_Strengthen_Duration > 0:
+#            $ player.Status_Weaken_Duration = 0
+#            $ player.Status_Strengthen_Duration = 0
 #            "The Weaken and Strengthen cancel each other out, leaving you normal."
     call battle_call_Player_Status_PoisonCheck
     call battle_call_Player_Status_RegenCheck
@@ -139,20 +139,20 @@ label battle_call_Player_Status_StrengthenCheck:
 #####################################################################
 
 label battle_call_Enemy_Status_Check_Block:
-    if enemy.status_poison_duration > 0:
-        if enemy.status_regen_duration > 0:
-            $ enemy.status_poison_duration = 0
-            $ enemy.status_regen_duration = 0
+    if enemy.Status_Poison_Duration > 0:
+        if enemy.Status_Regen_Duration > 0:
+            $ enemy.Status_Poison_Duration = 0
+            $ enemy.Status_Regen_Duration = 0
             "The Poison and Regen cancel each other out, leaving [enemy.name!t] normal."
-    if enemy.status_slow_duration > 0:
-        if enemy.status_haste_duration > 0:
-            $ enemy.status_slow_duration = 0
-            $ enemy.status_haste_duration = 0
+    if enemy.Status_Slow_Duration > 0:
+        if enemy.Status_Haste_Duration > 0:
+            $ enemy.Status_Slow_Duration = 0
+            $ enemy.Status_Haste_Duration = 0
             "The Slow and Haste cancel each other out, leaving [enemy.name!t] normal."
-    if enemy.status_weaken_duration > 0:
-        if enemy.status_strengthen_duration > 0:
-            $ enemy.status_weaken_duration = 0
-            $ enemy.status_strengthen_duration = 0
+    if enemy.Status_Weaken_Duration > 0:
+        if enemy.Status_Strengthen_Duration > 0:
+            $ enemy.Status_Weaken_Duration = 0
+            $ enemy.Status_Strengthen_Duration = 0
             "The Weaken and Strengthen cancel each other out, leaving [enemy.name!t] normal."
     call battle_call_Enemy_Status_PoisonCheck
     call battle_call_Enemy_Status_RegenCheck
@@ -163,108 +163,108 @@ label battle_call_Enemy_Status_Check_Block:
     return
 
 label battle_call_Enemy_Status_PoisonCheck:
-    if enemy.status_poison_duration > 0:
+    if enemy.Status_Poison_Duration > 0:
         "[enemy.name!t] is currently poisoned!"
-        call battle_call_Enemy_HP_Loss(enemy.status_poison_strength)
-        $ enemy.status_poison_duration -= 1
-        "[enemy.name!t] took [enemy.status_poison_strength] damage from poison.  [enemy.name!t]'s HP at [enemy.hp_c]."
+        call battle_call_Enemy_HP_Loss(enemy.Status_Poison_Strength)
+        $ enemy.Status_Poison_Duration -= 1
+        "[enemy.name!t] took [enemy.Status_Poison_Strength] damage from poison.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X]."
         return
     else:
-        if enemy.status_poison_strength > 0:
-            $ enemy.status_poison_strength = 0
+        if enemy.Status_Poison_Strength > 0:
+            $ enemy.Status_Poison_Strength = 0
             "[enemy.name!t] feels the poison fade from their body."
         return
 
 label battle_call_Enemy_Status_RegenCheck:
-    if enemy.status_regen_duration > 0:
+    if enemy.Status_Regen_Duration > 0:
         "[enemy.name!t] is currently regenerating!"
-        call battle_call_Enemy_HP_Gain(enemy.status_regen_strength)
-        $ enemy.status_regen_duration -= 1
-        "[enemy.name!t] healed [enemy.status_regen_strength] damage due to regeneration.  [enemy.name!t]'s HP at [enemy.hp_c]."
+        call battle_call_Enemy_HP_Gain(enemy.Status_Regen_Strength)
+        $ enemy.Status_Regen_Duration -= 1
+        "[enemy.name!t] healed [enemy.Status_Regen_Strength] damage due to regeneration.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X]."
         return
     else:
-        if enemy.status_regen_strength > 0:
-            $ enemy.status_regen_strength = 0
+        if enemy.Status_Regen_Strength > 0:
+            $ enemy.Status_Regen_Strength = 0
             "[enemy.name!t] feels the healing effects of Regen fade from their body."
         return
 
 label battle_call_Enemy_Status_SlowCheck:
-    if enemy.status_slow_duration > 0:
+    if enemy.Status_Slow_Duration > 0:
         "[enemy.name!t] is currently slowed!"
-        if enemy.initiative_mod_temp == 0:
-            $ enemy.initiative_mod_temp = enemy.initiative_mod
-            $ enemy.dodge_temp = enemy.dodge
-            $ enemy.initiative_mod -= enemy.status_slow_strength
-            $ enemy.dodge -= enemy.status_slow_strength
-        $ enemy.status_slow_duration -= 1
-        "[enemy.name!t]'s dodge and initative are [enemy.status_slow_strength] points worse due to slow."
+        if enemy.X_Initiative_X_temp == 0:
+            $ enemy.X_Initiative_X_temp = enemy.X_Initiative_X
+            $ enemy.X_Dodge_X_temp = enemy.X_Dodge_X
+            $ enemy.X_Initiative_X -= enemy.Status_Slow_Strength
+            $ enemy.X_Dodge_X -= enemy.Status_Slow_Strength
+        $ enemy.Status_Slow_Duration -= 1
+        "[enemy.name!t]'s dodge and initative are [enemy.Status_Slow_Strength] points worse due to slow."
         return
     else:
-        if enemy.status_slow_strength > 0:
-            $ enemy.initiative_mod = enemy.initiative_mod_temp
-            $ enemy.dodge = enemy.dodge_temp
-            $ enemy.status_slow_strength = 0
+        if enemy.Status_Slow_Strength > 0:
+            $ enemy.X_Initiative_X = enemy.X_Initiative_X_temp
+            $ enemy.X_Dodge_X = enemy.X_Dodge_X_temp
+            $ enemy.Status_Slow_Strength = 0
             "[enemy.name!t] feels themself speeding up to normal as Slow wears off."
         return
 
 label battle_call_Enemy_Status_HasteCheck:
-    if enemy.status_haste_duration > 0:
+    if enemy.Status_Haste_Duration > 0:
         "[enemy.name!t] is currently hasted!"
-        if enemy.initiative_mod_temp == 0:
-            $ enemy.initiative_mod_temp = enemy.initiative_mod
-            $ enemy.dodge_temp = enemy.dodge
-            $ enemy.initiative_mod += enemy.status_haste_strength
-            $ enemy.dodge += enemy.status_haste_strength
-        $ enemy.status_haste_duration -= 1
-        "[enemy.name!t]'s dodge and initiative are [enemy.status_haste_strength] points better due to haste."
+        if enemy.X_Initiative_X_temp == 0:
+            $ enemy.X_Initiative_X_temp = enemy.X_Initiative_X
+            $ enemy.X_Dodge_X_temp = enemy.X_Dodge_X
+            $ enemy.X_Initiative_X += enemy.Status_Haste_Strength
+            $ enemy.X_Dodge_X += enemy.Status_Haste_Strength
+        $ enemy.Status_Haste_Duration -= 1
+        "[enemy.name!t]'s dodge and initiative are [enemy.Status_Haste_Strength] points better due to haste."
         return
     else:
-        if enemy.status_haste_strength > 0:
-            $ enemy.initiative_mod = enemy.initiative_mod_temp
-            $ enemy.dodge = enemy.dodge_temp
-            $ enemy.status_haste_strength = 0
+        if enemy.Status_Haste_Strength > 0:
+            $ enemy.X_Initiative_X = enemy.X_Initiative_X_temp
+            $ enemy.X_Dodge_X = enemy.X_Dodge_X_temp
+            $ enemy.Status_Haste_Strength = 0
             "[enemy.name!t] feels themself slowing down to normal as Haste wears off."
         return
 
 label battle_call_Enemy_Status_WeakenCheck:
-    if enemy.status_weaken_duration > 0:
+    if enemy.Status_Weaken_Duration > 0:
         "[enemy.name!t] is currently weakened!"
-        if enemy.damage_melee_max_temp == 0:
-            $ enemy.damage_melee_max_temp = enemy.damage_melee_max
-            $ enemy.damage_melee_min_temp = enemy.damage_melee_min
-            $ enemy.damage_melee_min -= enemy.status_weaken_strength/2
-            if enemy.damage_melee_min < 1:
-                $ enemy.damage_melee_min = 1
-            $ enemy.damage_melee_min -= enemy.status_weaken_strength
-            if enemy.damage_melee_max < enemy.damage_melee_min:
-                $ enemy.damage_melee_max = enemy.damage_melee_min
-        $ enemy.status_weaken_duration -= 1
-        "[enemy.name!t]'s damage is [enemy.status_weaken_strength] points worse due to weaken."
+        if enemy.X_Damage_Melee_Max_X_temp == 0:
+            $ enemy.X_Damage_Melee_Max_X_temp = enemy.X_Damage_Melee_Max_X
+            $ enemy.X_Damage_Melee_Min_X_temp = enemy.X_Damage_Melee_Min_X
+            $ enemy.X_Damage_Melee_Min_X -= enemy.Status_Weaken_Strength/2
+            if enemy.X_Damage_Melee_Min_X < 1:
+                $ enemy.X_Damage_Melee_Min_X = 1
+            $ enemy.X_Damage_Melee_Min_X -= enemy.Status_Weaken_Strength
+            if enemy.X_Damage_Melee_Max_X < enemy.X_Damage_Melee_Min_X:
+                $ enemy.X_Damage_Melee_Max_X = enemy.X_Damage_Melee_Min_X
+        $ enemy.Status_Weaken_Duration -= 1
+        "[enemy.name!t]'s damage is [enemy.Status_Weaken_Strength] points worse due to weaken."
         return
     else:
-        if enemy.status_weaken_strength > 0:
-            $ enemy.damage_melee_max = enemy.damage_melee_max_temp
-            $ enemy.damage_melee_min = enemy.damage_melee_min_temp
-            $ enemy.status_weaken_strength = 0
+        if enemy.Status_Weaken_Strength > 0:
+            $ enemy.X_Damage_Melee_Max_X = enemy.X_Damage_Melee_Max_X_temp
+            $ enemy.X_Damage_Melee_Min_X = enemy.X_Damage_Melee_Min_X_temp
+            $ enemy.Status_Weaken_Strength = 0
             "[enemy.name!t] feels their strength returning to normal as Weaken wears off."
         return
 
 label battle_call_Enemy_Status_StrengthenCheck:
-    if enemy.status_strengthen_duration > 0:
+    if enemy.Status_Strengthen_Duration > 0:
         "[enemy.name!t] is currently strengthed!"
-        if enemy.damage_melee_max_temp == 0:
-            $ enemy.damage_melee_max_temp = enemy.damage_melee_max
-            $ enemy.damage_melee_min_temp = enemy.damage_melee_min
-            $ enemy.damage_melee_min += enemy.status_strengthen_strength/2
-            $ enemy.damage_melee_max += enemy.status_strengthen_strength
-        $ enemy.status_strengthen_duration -= 1
-        "[enemy.name!t]'s damage is [enemy.status_strengthen_strength] points better due to strengthen."
+        if enemy.X_Damage_Melee_Max_X_temp == 0:
+            $ enemy.X_Damage_Melee_Max_X_temp = enemy.X_Damage_Melee_Max_X
+            $ enemy.X_Damage_Melee_Min_X_temp = enemy.X_Damage_Melee_Min_X
+            $ enemy.X_Damage_Melee_Min_X += enemy.Status_Strengthen_Strength/2
+            $ enemy.X_Damage_Melee_Max_X += enemy.Status_Strengthen_Strength
+        $ enemy.Status_Strengthen_Duration -= 1
+        "[enemy.name!t]'s damage is [enemy.Status_Strengthen_Strength] points better due to strengthen."
         return
     else:
-        if enemy.status_strengthen_strength > 0:
-            $ enemy.damage_melee_max = enemy.damage_melee_max_temp
-            $ enemy.damage_melee_min = enemy.damage_melee_min_temp
-            $ enemy.status_strengthen_strength = 0
+        if enemy.Status_Strengthen_Strength > 0:
+            $ enemy.X_Damage_Melee_Max_X = enemy.X_Damage_Melee_Max_X_temp
+            $ enemy.X_Damage_Melee_Min_X = enemy.X_Damage_Melee_Min_X_temp
+            $ enemy.Status_Strengthen_Strength = 0
             "[enemy.name!t] feel their strength returning to normal as Strengthen wears off."
         return
 

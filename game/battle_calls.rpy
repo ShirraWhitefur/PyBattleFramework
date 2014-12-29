@@ -53,33 +53,33 @@ label battle_call_Player_WP_Gain(apgain):
     return
 
 label battle_call_Enemy_HP_Loss(hploss):
-    if enemy.status_charm_duration > 0:
+    if enemy.Status_Charm_Duration > 0:
         "Taking damage breaks the Charm on [enemy.name!t]!"
-        $ enemy.status_charm_duration = 0
-    if enemy.status_sleep_duration > 0:
+        $ enemy.Status_Charm_Duration = 0
+    if enemy.Status_Sleep_Duration > 0:
         "Taking damage wakes [enemy.name!t] from Sleep!"
-        $ enemy.status_sleep_duration = 0
-    $ enemy.hp_c -= hploss
-    if enemy.hp_c < 0:
-        $ enemy.hp_c = 0
+        $ enemy.Status_Sleep_Duration = 0
+    $ enemy.X_HealthPoints_Current_X -= hploss
+    if enemy.X_HealthPoints_Current_X < 0:
+        $ enemy.X_HealthPoints_Current_X = 0
     return
 
 label battle_call_Enemy_HP_Gain(hpgain):
-    $ enemy.hp_c += hpgain
-    if enemy.hp_c > enemy.hp_m:
-        $ enemy.hp_c = enemy.hp_m
+    $ enemy.X_HealthPoints_Current_X += hpgain
+    if enemy.X_HealthPoints_Current_X > enemy.X_HealthPoints_Max_X:
+        $ enemy.X_HealthPoints_Current_X = enemy.X_HealthPoints_Max_X
     return
 
 label battle_call_Enemy_AP_Loss(aploss):
-    $ enemy.ap_c -= aploss
-    if enemy.ap_c < 0:
-        $ enemy.ap_c = 0
+    $ enemy.X_AbilityPoints_Current_X -= aploss
+    if enemy.X_AbilityPoints_Current_X < 0:
+        $ enemy.X_AbilityPoints_Current_X = 0
     return
 
 label battle_call_Enemy_AP_Gain(apgain):
-    $ enemy.ap_c += apgain
-    if enemy.ap_c > enemy.ap_m:
-        $ enemy.ap_c = enemy.ap_m
+    $ enemy.X_AbilityPoints_Current_X += apgain
+    if enemy.X_AbilityPoints_Current_X > enemy.X_AbilityPoints_Max_X:
+        $ enemy.X_AbilityPoints_Current_X = enemy.X_AbilityPoints_Max_X
     return
 
 #####################################################################

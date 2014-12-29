@@ -8,6 +8,7 @@ init:
     $ player = DynamicCharacter("playername", color=(192, 64, 64, 255))
     $ playername = "SomethingFailed"
     $ player.Battle_Selected_Action = "battle_Player_Wait"
+    $ player.Battle_Outcome = "end"
 # Base Stats - From these, when they're actually added and used, we'll get our base attributes.
     $ player.Stats_PlaceholderStrength = 0
 # Base attributes, to be derived from Stats.. when we add the stats in.
@@ -104,10 +105,10 @@ init:
     $ player.X_Dodge_X = player.Attribute_Dodge+player.Equipment_Dodge+player.Status_Haste_Strength+player.Status_Dodge_Strength-player.Status_Slow_Strength
     $ player.X_Initiative_X = player.Attribute_Initiative+player.Equipment_Initiative+player.Status_Haste_Strength-player.Status_Slow_Strength
 # Extra bits.  Trying to obsolete these.
-    $ player.roll_attack = 0
-    $ player.roll_damage = 0
-    $ player.roll_damage_final = 0
-    $ player.roll_initiative = 0
+#    $ player.roll_attack = 0
+#    $ player.roll_damage = 0
+#    $ player.roll_damage_final = 0
+#    $ player.roll_initiative = 0
 
 #####################################################################
 # Player Menu Section
@@ -285,11 +286,11 @@ label battle_Player_Item_Menu:
 label battle_Player_Attack_Melee:
     "You attack [enemy.name!t] with your weapon of generic name!"
     $player_roll_attack = renpy.random.randint(1,100)
-    if (player_roll_attack+player.X_Accuracy_Melee_X)-enemy.dodge < 50:
-        "[enemy.name!t] dodges the attack! ([player_roll_attack] + [player.X_Accuracy_Melee_X] - [enemy.dodge] vs 50)"
+    if (player_roll_attack+player.X_Accuracy_Melee_X)-enemy.X_Dodge_X < 50:
+        "[enemy.name!t] dodges the attack! ([player_roll_attack] + [player.X_Accuracy_Melee_X] - [enemy.X_Dodge_X] vs 50)"
         return
     else:
-        "[enemy.name!t] was hit! ([player_roll_attack] + [player.X_Accuracy_Melee_X] - [enemy.dodge] vs 50)"
+        "[enemy.name!t] was hit! ([player_roll_attack] + [player.X_Accuracy_Melee_X] - [enemy.X_Dodge_X] vs 50)"
         jump battle_Player_Attack_Melee_Success
 
 #  You may ask why we seperate the attack from the successful hit damage, but this is to allow for
@@ -298,13 +299,13 @@ label battle_Player_Attack_Melee:
 
 label battle_Player_Attack_Melee_Success:
     $player_roll_damage = renpy.random.randint(player.X_Damage_Melee_Min_X,player.X_Damage_Melee_Max_X)
-    $player_roll_damage_final = (player_roll_damage-enemy.armor)
+    $player_roll_damage_final = (player_roll_damage-enemy.X_Armor_Physical_X)
     if player_roll_damage_final < 1:
-        "You hit, but do no damage.  ([player_roll_damage] - [enemy.armor] = [player_roll_damage_final])"
+        "You hit, but do no damage.  ([player_roll_damage] - [enemy.X_Armor_Physical_X] = [player_roll_damage_final])"
         return
     else:
-        call battle_call_Enemy_HP_Loss(player.roll_damage_final)
-        "You land a solid blow, dealing [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.hp_c].  ([player_roll_damage] - [enemy.armor])"
+        call battle_call_Enemy_HP_Loss(player_roll_damage_final)
+        "You land a solid blow, dealing [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X].  ([player_roll_damage] - [enemy.X_Armor_Physical_X])"
         return
 
 label battle_Player_Ability__Fire:
@@ -312,7 +313,7 @@ label battle_Player_Ability__Fire:
     $player_roll_damage_final = renpy.random.randint((25+player.X_Damage_Magic_Min_X),(35+player.X_Damage_Magic_Max_X))
     call battle_call_Enemy_HP_Loss(player_roll_damage_final)
     call battle_call_Player_AP_Loss(20)
-    "You sear them for [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.hp_c]."
+    "You sear them for [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X]."
     return
    
 label battle_Player_Ability__Blizzard:
@@ -320,7 +321,7 @@ label battle_Player_Ability__Blizzard:
     $player_roll_damage_final = renpy.random.randint((15+player.X_Damage_Magic_Min_X),(25+player.X_Damage_Magic_Max_X))
     call battle_call_Enemy_HP_Loss(player_roll_damage_final)
     call battle_call_Player_AP_Loss(10)
-    "You flashfreeze them for [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.hp_c]."
+    "You flashfreeze them for [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X]."
     return
 
 label battle_Player_Ability__Thunder:
@@ -328,31 +329,31 @@ label battle_Player_Ability__Thunder:
     $player_roll_damage_final = renpy.random.randint((30+player.X_Damage_Magic_Min_X),(50+player.X_Damage_Magic_Max_X))
     call battle_call_Enemy_HP_Loss(player_roll_damage_final)
     call battle_call_Player_AP_Loss(30)
-    "You zap them for [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.hp_c]."
+    "You zap them for [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X]."
     return
 
 label battle_Player_Ability__Poison:
     "You cast Poison on [enemy.name!t]!"
-    $ enemy.status_poison_duration = renpy.random.randint(4,6)
-    $ enemy.status_poison_strength = renpy.random.randint(2,5)
+    $ enemy.Status_Poison_Duration = renpy.random.randint(4,6)
+    $ enemy.Status_Poison_Strength = renpy.random.randint(2,5)
     call battle_call_Player_AP_Loss(5)
-    "You poison them for [enemy.status_poison_duration] rounds, at [enemy.status_poison_strength] strength."
+    "You poison them for [enemy.Status_Poison_Duration] rounds, at [enemy.Status_Poison_Strength] strength."
     return
 
 label battle_Player_Ability__Slow:
     "You cast Slow on [enemy.name!t]!"
-    $ enemy.status_slow_duration = renpy.random.randint(4,6)
-    $ enemy.status_slow_strength = renpy.random.randint(2,5)
+    $ enemy.Status_Slow_Duration = renpy.random.randint(4,6)
+    $ enemy.Status_Slow_Strength = renpy.random.randint(2,5)
     call battle_call_Player_AP_Loss(5)
-    "You slow them for [enemy.status_slow_duration] rounds, at [enemy.status_slow_strength] strength."
+    "You slow them for [enemy.Status_Slow_Duration] rounds, at [enemy.Status_Slow_Strength] strength."
     return
 
 label battle_Player_Ability__Weaken:
     "You cast Weaken on [enemy.name!t]!"
-    $ enemy.status_weaken_duration = renpy.random.randint(4,6)
-    $ enemy.status_weaken_strength = renpy.random.randint(2,5)
+    $ enemy.Status_Weaken_Duration = renpy.random.randint(4,6)
+    $ enemy.Status_Weaken_Strength = renpy.random.randint(2,5)
     call battle_call_Player_AP_Loss(5)
-    "You weaken them for [enemy.status_weaken_duration] rounds, at [enemy.status_weaken_strength] strength."
+    "You weaken them for [enemy.Status_Weaken_Duration] rounds, at [enemy.Status_Weaken_Strength] strength."
     return
 
 label battle_Player_Ability__Paralyze:
@@ -364,16 +365,16 @@ label battle_Player_Ability__Paralyze:
 
 label battle_Player_Ability__Charm:
     "You cast Charm on [enemy.name!t]!"
-    $ enemy.status_charm_duration = renpy.random.randint(2,4)
+    $ enemy.Status_Charm_Duration = renpy.random.randint(2,4)
     call battle_call_Player_AP_Loss(5)
-    "You charm them for [enemy.status_charm_duration] rounds."
+    "You charm them for [enemy.Status_Charm_Duration] rounds."
     return
 
 label battle_Player_Ability__Sleep:
     "You cast Sleep on [enemy.name!t]!"
-    $ enemy.status_sleep_duration = renpy.random.randint(2,4)
+    $ enemy.Status_Sleep_Duration = renpy.random.randint(2,4)
     call battle_call_Player_AP_Loss(5)
-    "You sleep them for [enemy.status_sleep_duration] rounds."
+    "You sleep them for [enemy.Status_Sleep_Duration] rounds."
     return
 
 label battle_Player_Ability__Regen:

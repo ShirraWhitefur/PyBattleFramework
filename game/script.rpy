@@ -52,47 +52,39 @@ label test01_Goblin:
 # accidently mess up the original template.
     $ enemy = ename
     $ enemy.name = ename.name
-    $ enemy.hp_c = ename.hp_c
-    $ enemy.hp_m = ename.hp_m
-    $ enemy.ap_c = ename.ap_c
-    $ enemy.ap_m = ename.ap_m
-    $ enemy.attack_list = ename.attack_list
-    $ enemy.damage_melee_max = ename.damage_melee_max
-    $ enemy.damage_melee_min = ename.damage_melee_min
-    $ enemy.armor = ename.armor
-    $ enemy.accuracy_melee = ename.accuracy_melee
-    $ enemy.dodge = ename.dodge
-    $ enemy.initiative_mod = ename.initiative_mod
-    $ enemy.items_potions_hp = ename.items_potions_hp
-    $ enemy.roll_attack = 0
-    $ enemy.roll_damage = 0
-    $ enemy.roll_damage_final = 0
-    $ enemy.roll_initiative = 0
     $ enemy.battle_selected_action = "battle_Enemy_Wait"
+    $ enemy.X_HealthPoints_Current_X = ename.X_HealthPoints_Current_X
+    $ enemy.X_HealthPoints_Max_X = ename.X_HealthPoints_Max_X
+    $ enemy.X_AbilityPoints_Current_X = ename.X_AbilityPoints_Current_X
+    $ enemy.X_AbilityPoints_Max_X = ename.X_AbilityPoints_Max_X
+    $ enemy.Attack_List = ename.Attack_List
+    $ enemy.X_Damage_Melee_Max_X = ename.X_Damage_Melee_Max_X
+    $ enemy.X_Damage_Melee_Min_X = ename.X_Damage_Melee_Min_X
+    $ enemy.X_Armor_Physical_X = ename.X_Armor_Physical_X
+    $ enemy.X_Accuracy_Melee_X = ename.X_Accuracy_Melee_X
+    $ enemy.X_Dodge_X = ename.X_Dodge_X
+    $ enemy.X_Initiative_X = ename.X_Initiative_X
+    $ enemy.Equipment_Consumables_Potions_HP_Restore = ename.Equipment_Consumables_Potions_HP_Restore
 # \/ This block is here, because evidently init: isn't -properly- initing them elsewhere, not completely.
 # \/ Don't ask me, I don't know why not.
-    $ enemy.status_poison_duration = 0
-    $ enemy.status_poison_strength = 0
-    $ enemy.status_regen_duration = 0
-    $ enemy.status_regen_strength = 0
-    $ enemy.status_slow_duration = 0
-    $ enemy.status_slow_strength = 0
-    $ enemy.status_haste_duration = 0
-    $ enemy.status_haste_strength = 0
-    $ enemy.status_weaken_duration = 0
-    $ enemy.status_weaken_strength = 0
-    $ enemy.status_strengthen_duration = 0
-    $ enemy.status_strengthen_strength = 0
-    $ enemy.status_paralyse_duration = 0
-    $ enemy.status_charm_duration = 0
-    $ enemy.status_sleep_duration = 0
-    $ enemy.initiative_mod_temp = 0
-    $ enemy.dodge_temp = 0
-    $ enemy.damage_melee_max_temp = 0
-    $ enemy.damage_melee_min_temp = 0
+    $ enemy.Status_Poison_Duration = 0
+    $ enemy.Status_Poison_Strength = 0
+    $ enemy.Status_Regen_Duration = 0
+    $ enemy.Status_Regen_Strength = 0
+    $ enemy.Status_Slow_Duration = 0
+    $ enemy.Status_Slow_Strength = 0
+    $ enemy.Status_Haste_Duration = 0
+    $ enemy.Status_Haste_Strength = 0
+    $ enemy.Status_Weaken_Duration = 0
+    $ enemy.Status_Weaken_Strength = 0
+    $ enemy.Status_Strengthen_Duration = 0
+    $ enemy.Status_Strengthen_Strength = 0
+    $ enemy.Status_Paralyse_Duration = 0
+    $ enemy.Status_Charm_Duration = 0
+    $ enemy.Status_Sleep_Duration = 0
 # /\ Status effect inits.
     call battle_start
-    $playerbattleoutcome = player.battle_outcome
+    $playerbattleoutcome = player.Battle_Outcome
     jump expression playerbattleoutcome
 
 label test01_goblin_loss_hp:
@@ -116,47 +108,39 @@ label test02_Orc:
 # accidently mess up the original template.
     $ enemy = ename
     $ enemy.name = ename.name
-    $ enemy.hp_c = ename.hp_c
-    $ enemy.hp_m = ename.hp_m
-    $ enemy.ap_c = ename.ap_c
-    $ enemy.ap_m = ename.ap_m
-    $ enemy.attack_list = ename.attack_list
-    $ enemy.damage_melee_max = ename.damage_melee_max
-    $ enemy.damage_melee_min = ename.damage_melee_min
-    $ enemy.armor = ename.armor
-    $ enemy.accuracy_melee = ename.accuracy_melee
-    $ enemy.dodge = ename.dodge
-    $ enemy.initiative_mod = ename.initiative_mod
-    $ enemy.items_potions_hp = ename.items_potions_hp
-    $ enemy.roll_attack = 0
-    $ enemy.roll_damage = 0
-    $ enemy.roll_damage_final = 0
-    $ enemy.roll_initiative = 0
     $ enemy.battle_selected_action = "battle_Enemy_Wait"
+    $ enemy.X_HealthPoints_Current_X = ename.X_HealthPoints_Current_X
+    $ enemy.X_HealthPoints_Max_X = ename.X_HealthPoints_Max_X
+    $ enemy.X_AbilityPoints_Current_X = ename.X_AbilityPoints_Current_X
+    $ enemy.X_AbilityPoints_Max_X = ename.X_AbilityPoints_Max_X
+    $ enemy.Attack_List = ename.Attack_List
+    $ enemy.X_Damage_Melee_Max_X = ename.X_Damage_Melee_Max_X
+    $ enemy.X_Damage_Melee_Min_X = ename.X_Damage_Melee_Min_X
+    $ enemy.X_Armor_Physical_X = ename.X_Armor_Physical_X
+    $ enemy.X_Accuracy_Melee_X = ename.X_Accuracy_Melee_X
+    $ enemy.X_Dodge_X = ename.X_Dodge_X
+    $ enemy.X_Initiative_X = ename.X_Initiative_X
+    $ enemy.Equipment_Consumables_Potions_HP_Restore = ename.Equipment_Consumables_Potions_HP_Restore
 # \/ This block is here, because evidently init: isn't -properly- initing them elsewhere, not completely.
 # \/ Don't ask me, I don't know why not.
-    $ enemy.status_poison_duration = 0
-    $ enemy.status_poison_strength = 0
-    $ enemy.status_regen_duration = 0
-    $ enemy.status_regen_strength = 0
-    $ enemy.status_slow_duration = 0
-    $ enemy.status_slow_strength = 0
-    $ enemy.status_haste_duration = 0
-    $ enemy.status_haste_strength = 0
-    $ enemy.status_weaken_duration = 0
-    $ enemy.status_weaken_strength = 0
-    $ enemy.status_strengthen_duration = 0
-    $ enemy.status_strengthen_strength = 0
-    $ enemy.status_paralyse_duration = 0
-    $ enemy.status_charm_duration = 0
-    $ enemy.status_sleep_duration = 0
-    $ enemy.initiative_mod_temp = 0
-    $ enemy.dodge_temp = 0
-    $ enemy.damage_melee_max_temp = 0
-    $ enemy.damage_melee_min_temp = 0
+    $ enemy.Status_Poison_Duration = 0
+    $ enemy.Status_Poison_Strength = 0
+    $ enemy.Status_Regen_Duration = 0
+    $ enemy.Status_Regen_Strength = 0
+    $ enemy.Status_Slow_Duration = 0
+    $ enemy.Status_Slow_Strength = 0
+    $ enemy.Status_Haste_Duration = 0
+    $ enemy.Status_Haste_Strength = 0
+    $ enemy.Status_Weaken_Duration = 0
+    $ enemy.Status_Weaken_Strength = 0
+    $ enemy.Status_Strengthen_Duration = 0
+    $ enemy.Status_Strengthen_Strength = 0
+    $ enemy.Status_Paralyse_Duration = 0
+    $ enemy.Status_Charm_Duration = 0
+    $ enemy.Status_Sleep_Duration = 0
 # /\ Status effect inits.
     call battle_start
-    $playerbattleoutcome = player.battle_outcome
+    $playerbattleoutcome = player.Battle_Outcome
     jump expression playerbattleoutcome
 
 label test02_orc_loss_hp:

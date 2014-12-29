@@ -62,36 +62,36 @@ screen stats_frame2(ename):
                 vbox: # name from ("HP", bar)
                     hbox: # "HP" from bar
                         text ("HP") size 20
-                        bar value enemy.hp_c range enemy.hp_m xmaximum 150
+                        bar value enemy.X_HealthPoints_Current_X range enemy.X_HealthPoints_Max_X xmaximum 150
                     hbox: # "HP" from bar
                         text ("AP") size 20
-                        bar value enemy.ap_c range enemy.ap_m xmaximum 150
+                        bar value enemy.X_AbilityPoints_Current_X range enemy.X_AbilityPoints_Max_X xmaximum 150
                 vbox: # \/ This section is kinda 'debug'.  Heck, most of the frame is.  Comment out the blocks you don't need!
                     hbox:
-                        if enemy.status_regen_strength > 0:
+                        if enemy.Status_Regen_Strength > 0:
                             text (" Regen ") size 20
-                        if enemy.status_haste_strength > 0:
+                        if enemy.Status_Haste_Strength > 0:
                             text (" Haste ") size 20
-                        if enemy.status_strengthen_strength > 0:
+                        if enemy.Status_Strengthen_Strength > 0:
                             text (" Strength ") size 20
                     hbox:
-                        if enemy.status_poison_strength > 0:
+                        if enemy.Status_Poison_Strength > 0:
                             text (" Poison ") size 20
-                        if enemy.status_slow_strength > 0:
+                        if enemy.Status_Slow_Strength > 0:
                             text (" Slow ") size 20
-                        if enemy.status_weaken_strength > 0:
+                        if enemy.Status_Weaken_Strength > 0:
                             text (" Weaken ") size 20
                     hbox:
-                        if enemy.status_paralyse_duration > 0:
+                        if enemy.Status_Paralyse_Duration > 0:
                             text (" Paralyse ") size 20
-                        if enemy.status_charm_duration > 0:
+                        if enemy.Status_Charm_Duration > 0:
                             text (" Charm ") size 20
-                        if enemy.status_sleep_duration > 0:
+                        if enemy.Status_Sleep_Duration > 0:
                             text (" Sleep ") size 20
                       # /\ The end of the 'status block'
             vbox: # Level from (hp/maxhp)
 # Removed a level note here, because I don't use levels.  Left it around in case it's needed.
 #               text ("Lv. %d" % level) xalign 0.5 size 20
                 text (" ") xalign 0.5 size 20
-                text ("%d/%d" % (enemy.hp_c, enemy.hp_m)) xalign 0.5 size 20
-                text ("%d/%d" % (enemy.ap_c, enemy.ap_m)) xalign 0.5 size 20
+                text ("%d/%d" % (enemy.X_HealthPoints_Current_X, enemy.X_HealthPoints_Max_X)) xalign 0.5 size 20
+                text ("%d/%d" % (enemy.X_AbilityPoints_Current_X, enemy.X_AbilityPoints_Max_X)) xalign 0.5 size 20

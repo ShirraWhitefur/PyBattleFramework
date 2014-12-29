@@ -31,7 +31,7 @@ label battle_Iniative_Resolution:
 # initiative, and have it so 'If you have any of these, you go last in the round, period', so as to decrease the
 # amount of unneeded if-then branches with victory/loss checks.
     $player_initiative = renpy.random.randint(1,100)+player.X_Initiative_X 
-    $enemy_initiative = renpy.random.randint(1,100)+enemy.initiative_mod 
+    $enemy_initiative = renpy.random.randint(1,100)+enemy.X_Initiative_X 
     if player_initiative < enemy_initiative:
         "[enemy.name!t] goes first.  Initiative - [playername!t] [player_initiative] vs [enemy.name!t] [enemy_initiative]"
 #  This section for the enemy turn will include first firing any status effects and other things that are 'start of turn',
@@ -41,13 +41,13 @@ label battle_Iniative_Resolution:
 # Here, we make sure of any win/loss happening due to the previous round.. Just in case.
         if player.X_HealthPoints_Current_X < 1:
             jump battle_Player_Loss_HP
-        if enemy.hp_c < 1:
+        if enemy.X_HealthPoints_Current_X < 1:
             jump battle_Player_Victory_HP
         call battle_Enemy_Turn
 # Here, we make sure of any win/loss happening due to the enemy attack.
         if player.X_HealthPoints_Current_X < 1:
             jump battle_Player_Loss_HP
-        if enemy.hp_c < 1:
+        if enemy.X_HealthPoints_Current_X < 1:
             jump battle_Player_Victory_HP
 # Here, we make the calls that runs the status effects and start of turn things for the player, before moving onward.
         call battle_call_Player_Status_Check_Block
@@ -60,7 +60,7 @@ label battle_Iniative_Resolution:
                 "You feel the Paralysation wearing off, and will be normal next turn."
             if player.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Loss_HP
-            if enemy.hp_c < 1:
+            if enemy.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Victory_HP
             jump battle_Begin_Round
         if player.Status_Charm_EffectActive == 1:
@@ -71,7 +71,7 @@ label battle_Iniative_Resolution:
                 "You feel the Charm wearing off, and will be normal next turn."
             if player.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Loss_HP
-            if enemy.hp_c < 1:
+            if enemy.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Victory_HP
             jump battle_Begin_Round
         if player.Status_Sleep_EffectActive == 1:
@@ -82,7 +82,7 @@ label battle_Iniative_Resolution:
                 "You feel the Sleep wearing off, and will wake up next turn."
             if player.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Loss_HP
-            if enemy.hp_c < 1:
+            if enemy.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Victory_HP
             jump battle_Begin_Round
 # The player's turn..
@@ -91,7 +91,7 @@ label battle_Iniative_Resolution:
 # Here, we make sure of any win/loss happening due to the player's new attack.
         if player.X_HealthPoints_Current_X < 1:
             jump battle_Player_Loss_HP
-        if enemy.hp_c < 1:
+        if enemy.X_HealthPoints_Current_X < 1:
             jump battle_Player_Victory_HP
 # Round over, start new round!
         jump battle_Begin_Round
@@ -110,12 +110,12 @@ label battle_Iniative_Resolution:
             call battle_call_Enemy_Status_Check_Block
             if player.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Loss_HP
-            if enemy.hp_c < 1:
+            if enemy.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Victory_HP
             call battle_Enemy_Turn
             if player.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Loss_HP
-            if enemy.hp_c < 1:
+            if enemy.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Victory_HP
             jump battle_Begin_Round
         if player.Status_Charm_EffectActive == 1:
@@ -128,12 +128,12 @@ label battle_Iniative_Resolution:
             call battle_call_Enemy_Status_Check_Block
             if player.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Loss_HP
-            if enemy.hp_c < 1:
+            if enemy.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Victory_HP
             call battle_Enemy_Turn
             if player.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Loss_HP
-            if enemy.hp_c < 1:
+            if enemy.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Victory_HP
             jump battle_Begin_Round
         if player.Status_Sleep_EffectActive == 1:
@@ -146,12 +146,12 @@ label battle_Iniative_Resolution:
             call battle_call_Enemy_Status_Check_Block
             if player.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Loss_HP
-            if enemy.hp_c < 1:
+            if enemy.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Victory_HP
             call battle_Enemy_Turn
             if player.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Loss_HP
-            if enemy.hp_c < 1:
+            if enemy.X_HealthPoints_Current_X < 1:
                 jump battle_Player_Victory_HP
             jump battle_Begin_Round
 # The player's turn..
@@ -160,7 +160,7 @@ label battle_Iniative_Resolution:
 # Here, we make sure of any win/loss happening due to the player's new attack.
         if player.X_HealthPoints_Current_X < 1:
             jump battle_Player_Loss_HP
-        if enemy.hp_c < 1:
+        if enemy.X_HealthPoints_Current_X < 1:
             jump battle_Player_Victory_HP
 #  This section for the enemy turn will include first firing any status effects and other things that are 'start of turn',
 # picking out it's action, and executing it all in one go.
@@ -168,13 +168,13 @@ label battle_Iniative_Resolution:
         call battle_call_Enemy_Status_Check_Block
         if player.X_HealthPoints_Current_X < 1:
             jump battle_Player_Loss_HP
-        if enemy.hp_c < 1:
+        if enemy.X_HealthPoints_Current_X < 1:
             jump battle_Player_Victory_HP
         call battle_Enemy_Turn
 # Here, we make sure of any win/loss happening due to the enemy attack.
         if player.X_HealthPoints_Current_X < 1:
             jump battle_Player_Loss_HP
-        if enemy.hp_c < 1:
+        if enemy.X_HealthPoints_Current_X < 1:
             jump battle_Player_Victory_HP
 # Round over, start new round!
         jump battle_Begin_Round
@@ -185,28 +185,28 @@ label battle_Iniative_Resolution:
 
 label battle_Enemy_Turn:
  # If any of these are true, need to skip the enemy's turn.
-    if enemy.status_paralyse_duration > 0:
+    if enemy.Status_Paralyse_Duration > 0:
         "[enemy.name!t] is currently paralysed and cannot act!"
-        $ enemy.status_paralyse_duration -= 1
-        if enemy.status_paralyse_duration < 1:
+        $ enemy.Status_Paralyse_Duration -= 1
+        if enemy.Status_Paralyse_Duration < 1:
             "[enemy.name!t] feels the paralysation wearing off, and will be normal next turn."
         return
-    if enemy.status_charm_duration > 0:
+    if enemy.Status_Charm_Duration > 0:
         "[enemy.name!t] is currently charmed and cannot act!"
-        $ enemy.status_charm_duration -= 1
-        if enemy.status_charm_duration = 0:
+        $ enemy.Status_Charm_Duration -= 1
+        if enemy.Status_Charm_Duration = 0:
             "[enemy.name!t] feels the charm wearing off, and will be normal next turn."
         return
-    if enemy.status_sleep_duration > 0:
+    if enemy.Status_Sleep_Duration > 0:
         "[enemy.name!t] is currently asleep and cannot act!"
-        $ enemy.status_sleep_duration -= 1
-        if enemy.status_sleep_duration = 0:
+        $ enemy.Status_Sleep_Duration -= 1
+        if enemy.Status_Sleep_Duration = 0:
             "[enemy.name!t] feels the sleep wearing off, and will wake up next turn."
         return
 #  This calls up the list of actions this particular enemy can make, and with the call, picks one out randomly.
 # Check them out either in battle_calls, or later, under the enemy's own .rpy file to adjust them.  Check out
 # the start of battle_init.rpy to see how the weighted function is set up initially.
-    $EnemyAttackList = enemy.attack_list
+    $EnemyAttackList = enemy.Attack_List
     call expression EnemyAttackList
     return
 
@@ -220,15 +220,15 @@ label battle_Enemy_Turn:
 label battle_Enemy_Attack_Melee:
     "[enemy.name!t] attacks you with an equally genericly named weapon!"
     $enemy_roll_attack = renpy.random.randint(1,100)
-    if (enemy_roll_attack+enemy.accuracy_melee)-player.X_Dodge_X < 50:
-        "You dodge the attack! ([enemy_roll_attack] + [enemy.accuracy_melee] - [player.X_Dodge_X] vs 50)"
+    if (enemy_roll_attack+enemy.X_Accuracy_Melee_X)-player.X_Dodge_X < 50:
+        "You dodge the attack! ([enemy_roll_attack] + [enemy.X_Accuracy_Melee_X] - [player.X_Dodge_X] vs 50)"
         return
     else:
-        "You were hit! ([enemy_roll_attack] + [enemy.accuracy_melee] - [player.X_Dodge_X] vs 50)"
+        "You were hit! ([enemy_roll_attack] + [enemy.X_Accuracy_Melee_X] - [player.X_Dodge_X] vs 50)"
         jump battle_Enemy_Attack_Melee_Success
 
 label battle_Enemy_Attack_Melee_Success:
-    $enemy_roll_damage = renpy.random.randint(enemy.damage_melee_min,enemy.damage_melee_max)
+    $enemy_roll_damage = renpy.random.randint(enemy.X_Damage_Melee_Min_X,enemy.X_Damage_Melee_Max_X)
     $enemy_roll_damage_final = (enemy_roll_damage-player.X_Armor_Physical_X)
     if enemy_roll_damage_final < 1:
         "[enemy.name!t] hits, but does no damage.  ([enemy_roll_damage] - [player.X_Armor_Physical_X] = [enemy_roll_damage_final])"
@@ -261,13 +261,13 @@ label battle_Enemy_Wait:
 # back in the main VN proper.
 
 label battle_Player_Loss_HP:
-    $ player.battle_outcome = ename.battle_outcome_loss_hp
+    $ player.Battle_Outcome = ename.Battle_Outcomes_Loss_HP
     "You lost the fight!"
     
     return
 
 label battle_Player_Victory_HP:
-    $ player.battle_outcome = ename.battle_outcome_victory_hp
+    $ player.Battle_Outcome = ename.Battle_Outcomes_Victory_HP
     "You won the fight!"
     return
 

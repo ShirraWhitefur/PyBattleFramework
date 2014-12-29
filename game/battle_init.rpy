@@ -22,84 +22,77 @@ init python:
                 randval -= weight
 
 init:
-    $ player = DynamicCharacter("playername", color=(192, 64, 64, 255))
-    $ playername = "Fail"
-    $ playernametemp = playername
-    $ player.hp_c = 200
-    $ player.hp_m = 200
-    $ player.ap_c = 100
-    $ player.ap_m = 100
-    $ player.damage_melee_max = 12
-    $ player.damage_melee_min = 2
-    $ player.armor = 2
-    $ player.accuracy_melee = 15
-    $ player.dodge = 14
-    $ player.initiative_mod = 15
-    $ player.exp = 0
-    $ player.items_potions_hp = 3
-    $ player.items_potions_ap = 2
-    $ player.roll_attack = 0
-    $ player.roll_damage = 0
-    $ player.roll_damage_final = 0
-    $ player.roll_initiative = 0
-    $ player.battle_selected_action = "battle_Player_Wait"
-    $ player.status_poison_duration = 0
-    $ player.status_poison_strength = 0
-    $ player.status_regen_duration = 0
-    $ player.status_regen_strength = 0
-    $ player.status_slow_duration = 0
-    $ player.status_slow_strength = 0
-    $ player.status_haste_duration = 0
-    $ player.status_haste_strength = 0
-    $ player.status_weaken_duration = 0
-    $ player.status_weaken_strength = 0
-    $ player.status_strengthen_duration = 0
-    $ player.status_strengthen_strength = 0
-    $ player.status_paralyse_duration = 0
-    $ player.status_charm_duration = 0
-    $ player.status_sleep_duration = 0
-    $ player.initiative_mod_temp = 0
-    $ player.dodge_temp = 0
-    $ player.damage_melee_max_temp = 0
-    $ player.damage_melee_min_temp = 0
-    $ enemy = Character("Current Foe")
-    $ enemy.name = "FailedGoblin"
-    $ enemy.hp_c = 50
-    $ enemy.hp_m = 50
-    $ enemy.ap_c = 30
-    $ enemy.ap_m = 30
-    $ enemy.attack_list = "Attack_List_Goblin"
-    $ enemy.damage_melee_max = 5
-    $ enemy.damage_melee_min = 1
-    $ enemy.armor = 3
-    $ enemy.accuracy_melee = 7
-    $ enemy.dodge = 6
-    $ enemy.initiative_mod = 1
-    $ enemy.items_potions_hp = 0
-    $ enemy.roll_attack = 0
-    $ enemy.roll_damage = 0
-    $ enemy.roll_damage_final = 0
-    $ enemy.roll_initiative = 0
-    $ enemy.battle_selected_action = "battle_Enemy_Wait"
-    $ enemy.status_poison_duration = 0
-    $ enemy.status_poison_strength = 0
-    $ enemy.status_regen_duration = 0
-    $ enemy.status_regen_strength = 0
-    $ enemy.status_slow_duration = 0
-    $ enemy.status_slow_strength = 0
-    $ enemy.status_haste_duration = 0
-    $ enemy.status_haste_strength = 0
-    $ enemy.status_weaken_duration = 0
-    $ enemy.status_weaken_strength = 0
-    $ enemy.status_strengthen_duration = 0
-    $ enemy.status_strengthen_strength = 0
-    $ enemy.status_paralyse_duration = 0
-    $ enemy.status_charm_duration = 0
-    $ enemy.status_sleep_duration = 0
-    $ enemy.initiative_mod_temp = 0
-    $ enemy.dodge_temp = 0
-    $ enemy.damage_melee_max_temp = 0
-    $ enemy.damage_melee_min_temp = 0
-    $ ename = "Fail"
     $ battle = Character("BattleSettings")
     $ battle.roundcount = 0
+    $ ename = "FailName"
+#####################################################################
+# Enemy Init Section
+#####################################################################
+    $ enemy = Character("Current Foe")
+    $ enemy.name = "FailedEnemy"
+    $ enemy.battle_selected_action = "battle_Enemy_Wait"
+    $ enemy.Attack_List = "Attack_List_Goblin"
+# Base Stats - From these, when they're actually added and used, we'll get our base attributes.
+#
+# Base attributes, to be derived from Stats.. when we add the stats in.
+#
+# Equipment.. which may be derived.. if we add in equipment properly.
+#
+#  Equipment - Consumables.  Consider it a 'stock', and will handle the
+# potions, grenades, and other one use items and non-rechargables (like wands.)
+    $ enemy.Equipment_Consumables_Potions_HP_Restore = 0
+#  This block handles status effects, including the check to see if it's on.
+# EffectActive is probably going to be used mostly for the Screen/Frame/UI
+# stuff.
+    $ enemy.Status_Poison_EffectActive = 0
+    $ enemy.Status_Poison_Duration = 0
+    $ enemy.Status_Poison_Strength = 0
+    $ enemy.Status_Regen_EffectActive = 0
+    $ enemy.Status_Regen_Duration = 0
+    $ enemy.Status_Regen_Strength = 0
+    $ enemy.Status_Slow_EffectActive = 0
+    $ enemy.Status_Slow_Duration = 0
+    $ enemy.Status_Slow_Strength = 0
+    $ enemy.Status_Haste_EffectActive = 0
+    $ enemy.Status_Haste_Duration = 0
+    $ enemy.Status_Haste_Strength = 0
+    $ enemy.Status_Weaken_EffectActive = 0
+    $ enemy.Status_Weaken_Duration = 0
+    $ enemy.Status_Weaken_Strength = 0
+    $ enemy.Status_Strengthen_EffectActive = 0
+    $ enemy.Status_Strengthen_Duration = 0
+    $ enemy.Status_Strengthen_Strength = 0
+    $ enemy.Status_Paralyse_EffectActive = 0
+    $ enemy.Status_Paralyse_Duration = 0
+    $ enemy.Status_Charm_EffectActive = 0
+    $ enemy.Status_Charm_Duration = 0
+    $ enemy.Status_Sleep_EffectActive = 0
+    $ enemy.Status_Sleep_Duration = 0
+    $ enemy.Status_Block_EffectActive = 0
+    $ enemy.Status_Block_Strength = 0
+    $ enemy.Status_Dodge_EffectActive = 0
+    $ enemy.Status_Dodge_Strength = 0
+# Enemy's Calculated Attributes
+    $ enemy.X_HealthPoints_Current_X = 50
+    $ enemy.X_HealthPoints_Max_X = 50
+    $ enemy.X_AbilityPoints_Current_X = 30
+    $ enemy.X_AbilityPoints_Max_X = 30
+    $ enemy.X_WillPoints_Max_X = 0
+    $ enemy.X_WillPoints_Current_X = 0
+    $ enemy.X_PlaceholderStrength_X = 0
+    $ enemy.X_Accuracy_Melee_X = 0
+    $ enemy.X_Accuracy_Ranged_X = 0
+    $ enemy.X_Armor_Physical_X = 0
+    $ enemy.X_Armor_Magic_X = 0
+    $ enemy.X_Armor_Will_X = 0
+    $ enemy.X_Damage_Melee_Max_X = 0
+    $ enemy.X_Damage_Melee_Min_X = 0
+    $ enemy.X_Damage_Ranged_Max_X = 0
+    $ enemy.X_Damage_Ranged_Min_X = 0
+    $ enemy.X_Damage_Magic_Max_X = 0
+    $ enemy.X_Damage_Magic_Min_X = 0
+    $ enemy.X_Damage_Will_Max_X = 0
+    $ enemy.X_Damage_Will_Min_X = 0
+    $ enemy.X_Dodge_X = 0
+    $ enemy.X_Initiative_X = 0
+
