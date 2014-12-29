@@ -18,7 +18,7 @@ define nar = Character('Narrator', color="#c8ffc8")
 # all the calls and returns line up, so you can call the battle from in the
 # midst of your VN and properly return to it.
 #
-#  Please note, this is the work of only 3 days so far, and likely
+#  Please note, this is the work of only 5 days so far, and likely
 # incredibly ineffecient!
 #
 
