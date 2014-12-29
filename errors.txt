@@ -2,8 +2,8 @@
 errors listed below, and try again.
 
 
-File "game/battle_calls_status_effects.rpy", line 35: Line is indented, but the preceding return statement statement does not expect a block. Please check this line's indentation.
-    if player.Status_Paralyse_EffectActive == 1:
-    ^
+File "game/battle.rpy", line 163: expected statement.
+    battle_Enemy_Skipped
+                        ^
 
 Ren'Py Version: Ren'Py 6.18.3.761

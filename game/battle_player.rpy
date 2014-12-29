@@ -364,7 +364,7 @@ label battle_Player_Ability__Paralyse:
     $ enemy.Status_Paralyse_EffectActive = 1
     $ enemy.Status_Paralyse_Duration = renpy.random.randint(2,4)
     call battle_call_Player_AP_Loss(5)
-    "You paralyse them for [enemy.status_paralyze_duration] rounds."
+    "You paralyse them for [enemy.Status_Paralyse_Duration] rounds."
     return
 
 label battle_Player_Ability__Charm:
@@ -456,3 +456,6 @@ label battle_Player_Wait:
     "You decide to do nothing this turn."
     return
 
+label battle_Player_Skipped:
+    "Your turn was skipped."
+    return

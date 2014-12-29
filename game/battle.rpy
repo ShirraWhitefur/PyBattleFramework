@@ -51,40 +51,27 @@ label battle_Iniative_Resolution:
             jump battle_Player_Victory_HP
 # Here, we make the calls that runs the status effects and start of turn things for the player, before moving onward.
         call battle_call_Player_Status_Check_Block
- # If any of these are true, need to skip the player's turn.
         if player.Status_Paralyse_EffectActive == 1:
             "You are currently Paralysed and cannot act!"
             $ player.Status_Paralyse_Duration -= 1
             if player.Status_Paralyse_Duration == 0:
                 $ player.Status_Paralyse_EffectActive = 0
                 "You feel the Paralysation wearing off, and will be normal next turn."
-            if player.X_HealthPoints_Current_X < 1:
-                jump battle_Player_Loss_HP
-            if enemy.X_HealthPoints_Current_X < 1:
-                jump battle_Player_Victory_HP
-            jump battle_Begin_Round
+            $ player.battle_selected_action = "battle_Player_Skipped"
         if player.Status_Charm_EffectActive == 1:
             "You are currently Charmed and cannot act!"
             $ player.Status_Charm_Duration -= 1
             if player.Status_Charm_Duration == 0:
                 $ player.Status_Charm_EffectActive = 0
                 "You feel the Charm wearing off, and will be normal next turn."
-            if player.X_HealthPoints_Current_X < 1:
-                jump battle_Player_Loss_HP
-            if enemy.X_HealthPoints_Current_X < 1:
-                jump battle_Player_Victory_HP
-            jump battle_Begin_Round
+            $ player.battle_selected_action = "battle_Player_Skipped"
         if player.Status_Sleep_EffectActive == 1:
             "You are currently asleep and cannot act!"
             $ player.Status_Sleep_Duration -= 1
             if player.Status_Sleep_Duration == 0:
                 $ player.Status_Sleep_EffectActive = 0
                 "You feel the Sleep wearing off, and will wake up next turn."
-            if player.X_HealthPoints_Current_X < 1:
-                jump battle_Player_Loss_HP
-            if enemy.X_HealthPoints_Current_X < 1:
-                jump battle_Player_Victory_HP
-            jump battle_Begin_Round
+            $ player.battle_selected_action = "battle_Player_Skipped"
 # The player's turn..
         $PlayerBattleSelectedAction = player.battle_selected_action
         call expression PlayerBattleSelectedAction
@@ -99,61 +86,27 @@ label battle_Iniative_Resolution:
         "You go first.  Initiative - [playername!t] [player_initiative] vs [enemy.name!t] [enemy_initiative]"
 # Here, we make the calls that runs the status effects and start of turn things for the player, before moving onward.
         call battle_call_Player_Status_Check_Block
- # If any of these are true, need to skip the player's turn.
         if player.Status_Paralyse_EffectActive == 1:
             "You are currently Paralysed and cannot act!"
             $ player.Status_Paralyse_Duration -= 1
             if player.Status_Paralyse_Duration == 0:
                 $ player.Status_Paralyse_EffectActive = 0
                 "You feel the Paralysation wearing off, and will be normal next turn."
-# Here, we make the calls that runs the status effects and start of turn things for the enemy, before moving onward.
-            call battle_call_Enemy_Status_Check_Block
-            if player.X_HealthPoints_Current_X < 1:
-                jump battle_Player_Loss_HP
-            if enemy.X_HealthPoints_Current_X < 1:
-                jump battle_Player_Victory_HP
-            call battle_Enemy_Turn
-            if player.X_HealthPoints_Current_X < 1:
-                jump battle_Player_Loss_HP
-            if enemy.X_HealthPoints_Current_X < 1:
-                jump battle_Player_Victory_HP
-            jump battle_Begin_Round
+            $ player.battle_selected_action = "battle_Player_Skipped"
         if player.Status_Charm_EffectActive == 1:
             "You are currently Charmed and cannot act!"
             $ player.Status_Charm_Duration -= 1
             if player.Status_Charm_Duration == 0:
                 $ player.Status_Charm_EffectActive = 0
                 "You feel the Charm wearing off, and will be normal next turn."
-# Here, we make the calls that runs the status effects and start of turn things for the enemy, before moving onward.
-            call battle_call_Enemy_Status_Check_Block
-            if player.X_HealthPoints_Current_X < 1:
-                jump battle_Player_Loss_HP
-            if enemy.X_HealthPoints_Current_X < 1:
-                jump battle_Player_Victory_HP
-            call battle_Enemy_Turn
-            if player.X_HealthPoints_Current_X < 1:
-                jump battle_Player_Loss_HP
-            if enemy.X_HealthPoints_Current_X < 1:
-                jump battle_Player_Victory_HP
-            jump battle_Begin_Round
+            $ player.battle_selected_action = "battle_Player_Skipped"
         if player.Status_Sleep_EffectActive == 1:
             "You are currently asleep and cannot act!"
             $ player.Status_Sleep_Duration -= 1
             if player.Status_Sleep_Duration == 0:
                 $ player.Status_Sleep_EffectActive = 0
                 "You feel the Sleep wearing off, and will wake up next turn."
-# Here, we make the calls that runs the status effects and start of turn things for the enemy, before moving onward.
-            call battle_call_Enemy_Status_Check_Block
-            if player.X_HealthPoints_Current_X < 1:
-                jump battle_Player_Loss_HP
-            if enemy.X_HealthPoints_Current_X < 1:
-                jump battle_Player_Victory_HP
-            call battle_Enemy_Turn
-            if player.X_HealthPoints_Current_X < 1:
-                jump battle_Player_Loss_HP
-            if enemy.X_HealthPoints_Current_X < 1:
-                jump battle_Player_Victory_HP
-            jump battle_Begin_Round
+            $ player.battle_selected_action = "battle_Player_Skipped"
 # The player's turn..
         $PlayerBattleSelectedAction = player.battle_selected_action
         call expression PlayerBattleSelectedAction
@@ -185,24 +138,28 @@ label battle_Iniative_Resolution:
 
 label battle_Enemy_Turn:
  # If any of these are true, need to skip the enemy's turn.
-    if enemy.Status_Paralyse_Duration > 0:
+    if enemy.Status_Paralyse_EffectActive == 1:
         "[enemy.name!t] is currently paralysed and cannot act!"
         $ enemy.Status_Paralyse_Duration -= 1
-        if enemy.Status_Paralyse_Duration < 1:
+        if enemy.Status_Paralyse_Duration == 0:
+            $ enemy.Status_Paralyse_EffectActive = 0
             "[enemy.name!t] feels the paralysation wearing off, and will be normal next turn."
-        return
-    if enemy.Status_Charm_Duration > 0:
+        jump battle_Enemy_Skipped
+    if enemy.Status_Charm_EffectActive == 1:
         "[enemy.name!t] is currently charmed and cannot act!"
         $ enemy.Status_Charm_Duration -= 1
-        if enemy.Status_Charm_Duration = 0:
+        if enemy.Status_Charm_Duration == 0:
+            $ enemy.Status_Charm_EffectActive = 0
             "[enemy.name!t] feels the charm wearing off, and will be normal next turn."
-        return
-    if enemy.Status_Sleep_Duration > 0:
+        jump battle_Enemy_Skipped
+    if enemy.Status_Sleep_EffectActive == 1:
         "[enemy.name!t] is currently asleep and cannot act!"
         $ enemy.Status_Sleep_Duration -= 1
-        if enemy.Status_Sleep_Duration = 0:
+        if enemy.Status_Sleep_Duration == 0:
+            $ enemy.Status_Sleep_EffectActive = 0
             "[enemy.name!t] feels the sleep wearing off, and will wake up next turn."
-        return
+        jump battle_Enemy_Skipped
+
 #  This calls up the list of actions this particular enemy can make, and with the call, picks one out randomly.
 # Check them out either in battle_calls, or later, under the enemy's own .rpy file to adjust them.  Check out
 # the start of battle_init.rpy to see how the weighted function is set up initially.
@@ -251,6 +208,10 @@ label battle_Enemy_Ability__Fire:
 
 label battle_Enemy_Wait:
     "[enemy.name!t] decides to do nothing this turn."
+    return
+
+label battle_Enemy_Skipped:
+    "[enemy.name!t] turn was skipped."
     return
 
 #####################################################################
