@@ -19,8 +19,8 @@ init:
 # battle calls.  There should be enough examples to know where and how to
 # use it.
     $ player.Attribute_HealthPoints_Max = 295
-    $ player.Attribute_AbilityPoints_Max = 292
-    $ player.Attribute_WillPoints_Max = 290
+    $ player.Attribute_AbilityPoints_Max = 192
+    $ player.Attribute_WillPoints_Max = 90
     $ player.Attribute_Accuracy_Melee = 5
     $ player.Attribute_Accuracy_Ranged = 5
     $ player.Attribute_Armor_Physical = 1
