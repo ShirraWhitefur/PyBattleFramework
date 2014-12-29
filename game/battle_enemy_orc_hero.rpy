@@ -7,20 +7,45 @@
 init:
     $ Orc_Hero = Character("Orc Hero")
     $ Orc_Hero.name = "Orc Hero"
-    $ Orc_Hero.X_HealthPoints_Current_X = 100
-    $ Orc_Hero.X_HealthPoints_Max_X = 100
-    $ Orc_Hero.X_AbilityPoints_Current_X = 60
-    $ Orc_Hero.X_AbilityPoints_Max_X = 60
     $ Orc_Hero.Attack_List = "Attack_List_Orc_Hero"
-    $ Orc_Hero.X_Damage_Melee_Max_X = 10
-    $ Orc_Hero.X_Damage_Melee_Min_X = 2
-    $ Orc_Hero.X_Armor_Physical_X = 3
-    $ Orc_Hero.X_Accuracy_Melee_X = 7
-    $ Orc_Hero.X_Dodge_X = 6
-    $ Orc_Hero.X_Initiative_X = 3
-    $ Orc_Hero.Equipment_Consumables_Potions_HP_Restore = 1
     $ Orc_Hero.Battle_Outcomes_Loss_HP = "test02_orc_loss_hp"
     $ Orc_Hero.Battle_Outcomes_Victory_HP = "test02_orc_victory_hp"
+    $ Orc_Hero.Stats_PlaceholderStrength = 0
+    $ Orc_Hero.Attribute_HealthPoints_Max = 120
+    $ Orc_Hero.Attribute_AbilityPoints_Max = 65
+    $ Orc_Hero.Attribute_WillPoints_Max = 100
+    $ Orc_Hero.Attribute_Accuracy_Melee = 7
+    $ Orc_Hero.Attribute_Accuracy_Ranged = 6
+    $ Orc_Hero.Attribute_Armor_Physical = 3
+    $ Orc_Hero.Attribute_Armor_Magic = 2
+    $ Orc_Hero.Attribute_Armor_Will = 1
+    $ Orc_Hero.Attribute_Damage_Melee_Max = 5
+    $ Orc_Hero.Attribute_Damage_Ranged_Max = 1
+    $ Orc_Hero.Attribute_Damage_Magic_Max = 1
+    $ Orc_Hero.Attribute_Damage_Will_Max = 1
+    $ Orc_Hero.Attribute_Dodge = 6
+    $ Orc_Hero.Attribute_Initiative = 3
+    $ Orc_Hero.Equipment_HealthPoints_Max = 0
+    $ Orc_Hero.Equipment_AbilityPoints_Max = 0
+    $ Orc_Hero.Equipment_WillPoints_Max = 0
+    $ Orc_Hero.Equipment_Accuracy_Melee = 0
+    $ Orc_Hero.Equipment_Accuracy_Ranged = 0
+    $ Orc_Hero.Equipment_Armor_Physical = 0
+    $ Orc_Hero.Equipment_Armor_Magic = 0
+    $ Orc_Hero.Equipment_Armor_Will = 0
+    $ Orc_Hero.Equipment_Damage_Melee_Max = 10
+    $ Orc_Hero.Equipment_Damage_Melee_Min = 2
+    $ Orc_Hero.Equipment_Damage_Ranged_Max = 5
+    $ Orc_Hero.Equipment_Damage_Ranged_Min = 1
+    $ Orc_Hero.Equipment_Damage_Magic_Max = 2
+    $ Orc_Hero.Equipment_Damage_Magic_Min = 1
+    $ Orc_Hero.Equipment_Damage_Will_Max = 2
+    $ Orc_Hero.Equipment_Damage_Will_Min = 1
+    $ Orc_Hero.Equipment_Dodge = 0
+    $ Orc_Hero.Equipment_Initiative = 0
+    $ Orc_Hero.Equipment_Consumables_Potions_HP_Restore = 1
+    $ Orc_Hero.Equipment_Consumables_Potions_AP_Restore = 0
+    $ Orc_Hero.Equipment_Consumables_Potions_WP_Restore = 0
 
 #####################################################################
 # Enemy AI Section

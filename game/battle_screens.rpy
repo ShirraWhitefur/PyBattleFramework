@@ -68,26 +68,31 @@ screen stats_frame2(ename):
                         bar value enemy.X_AbilityPoints_Current_X range enemy.X_AbilityPoints_Max_X xmaximum 150
                 vbox: # \/ This section is kinda 'debug'.  Heck, most of the frame is.  Comment out the blocks you don't need!
                     hbox:
-                        if enemy.Status_Regen_Strength > 0:
+                        if enemy.Status_Regen_EffectActive == 1:
                             text (" Regen ") size 20
-                        if enemy.Status_Haste_Strength > 0:
+                        if enemy.Status_Haste_EffectActive == 1:
                             text (" Haste ") size 20
-                        if enemy.Status_Strengthen_Strength > 0:
+                        if enemy.Status_Strengthen_EffectActive == 1:
                             text (" Strength ") size 20
                     hbox:
-                        if enemy.Status_Poison_Strength > 0:
+                        if enemy.Status_Poison_EffectActive == 1:
                             text (" Poison ") size 20
-                        if enemy.Status_Slow_Strength > 0:
+                        if enemy.Status_Slow_EffectActive == 1:
                             text (" Slow ") size 20
-                        if enemy.Status_Weaken_Strength > 0:
+                        if enemy.Status_Weaken_EffectActive == 1:
                             text (" Weaken ") size 20
                     hbox:
-                        if enemy.Status_Paralyse_Duration > 0:
+                        if enemy.Status_Paralyse_EffectActive == 1:
                             text (" Paralyse ") size 20
-                        if enemy.Status_Charm_Duration > 0:
+                        if enemy.Status_Charm_EffectActive == 1:
                             text (" Charm ") size 20
-                        if enemy.Status_Sleep_Duration > 0:
+                        if enemy.Status_Sleep_EffectActive == 1:
                             text (" Sleep ") size 20
+                    hbox:
+                        if enemy.Status_Block_EffectActive == 1:
+                            text (" Block ") size 20
+                        if enemy.Status_Dodge_EffectActive == 1:
+                            text (" Dodge ") size 20
                       # /\ The end of the 'status block'
             vbox: # Level from (hp/maxhp)
 # Removed a level note here, because I don't use levels.  Left it around in case it's needed.

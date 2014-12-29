@@ -33,14 +33,46 @@ init:
     $ enemy.battle_selected_action = "battle_Enemy_Wait"
     $ enemy.Attack_List = "Attack_List_Goblin"
 # Base Stats - From these, when they're actually added and used, we'll get our base attributes.
-#
+    $ enemy.Stats_PlaceholderStrength = 0
 # Base attributes, to be derived from Stats.. when we add the stats in.
-#
+    $ enemy.Attribute_HealthPoints_Max = 5
+    $ enemy.Attribute_AbilityPoints_Max = 5
+    $ enemy.Attribute_WillPoints_Max = 5
+    $ enemy.Attribute_Accuracy_Melee = 0
+    $ enemy.Attribute_Accuracy_Ranged = 0
+    $ enemy.Attribute_Armor_Physical = 0
+    $ enemy.Attribute_Armor_Magic = 0
+    $ enemy.Attribute_Armor_Will = 0
+    $ enemy.Attribute_Damage_Melee_Max = 0
+    $ enemy.Attribute_Damage_Ranged_Max = 0
+    $ enemy.Attribute_Damage_Magic_Max = 0
+    $ enemy.Attribute_Damage_Will_Max = 0
+    $ enemy.Attribute_Dodge = 0
+    $ enemy.Attribute_Initiative = 0
 # Equipment.. which may be derived.. if we add in equipment properly.
-#
+    $ enemy.Equipment_HealthPoints_Max = 5
+    $ enemy.Equipment_AbilityPoints_Max = 5
+    $ enemy.Equipment_WillPoints_Max = 5
+    $ enemy.Equipment_Accuracy_Melee = 0
+    $ enemy.Equipment_Accuracy_Ranged = 0
+    $ enemy.Equipment_Armor_Physical = 0
+    $ enemy.Equipment_Armor_Magic = 0
+    $ enemy.Equipment_Armor_Will = 0
+    $ enemy.Equipment_Damage_Melee_Max = 5
+    $ enemy.Equipment_Damage_Melee_Min = 1
+    $ enemy.Equipment_Damage_Ranged_Max = 5
+    $ enemy.Equipment_Damage_Ranged_Min = 1
+    $ enemy.Equipment_Damage_Magic_Max = 2
+    $ enemy.Equipment_Damage_Magic_Min = 1
+    $ enemy.Equipment_Damage_Will_Max = 2
+    $ enemy.Equipment_Damage_Will_Min = 1
+    $ enemy.Equipment_Dodge = 0
+    $ enemy.Equipment_Initiative = 0
 #  Equipment - Consumables.  Consider it a 'stock', and will handle the
 # potions, grenades, and other one use items and non-rechargables (like wands.)
     $ enemy.Equipment_Consumables_Potions_HP_Restore = 0
+    $ enemy.Equipment_Consumables_Potions_AP_Restore = 0
+    $ enemy.Equipment_Consumables_Potions_WP_Restore = 0
 #  This block handles status effects, including the check to see if it's on.
 # EffectActive is probably going to be used mostly for the Screen/Frame/UI
 # stuff.

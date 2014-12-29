@@ -189,12 +189,12 @@ label battle_Player_Ability_Debuff_Menu:
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Weaken"
                 return
-        "Paralyze - 5 AP":
+        "Paralyse - 5 AP":
             if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
                 jump battle_Player_Ability_Menu
             else:
-                $ player.battle_selected_action = "battle_Player_Ability__Paralyze"
+                $ player.battle_selected_action = "battle_Player_Ability__Paralyse"
                 return
         "Charm - 5 AP":
             if player.X_AbilityPoints_Current_X < 5:
@@ -334,6 +334,7 @@ label battle_Player_Ability__Thunder:
 
 label battle_Player_Ability__Poison:
     "You cast Poison on [enemy.name!t]!"
+    $ enemy.Status_Poison_EffectActive = 1
     $ enemy.Status_Poison_Duration = renpy.random.randint(4,6)
     $ enemy.Status_Poison_Strength = renpy.random.randint(2,5)
     call battle_call_Player_AP_Loss(5)
@@ -342,6 +343,7 @@ label battle_Player_Ability__Poison:
 
 label battle_Player_Ability__Slow:
     "You cast Slow on [enemy.name!t]!"
+    $ enemy.Status_Slow_EffectActive = 1
     $ enemy.Status_Slow_Duration = renpy.random.randint(4,6)
     $ enemy.Status_Slow_Strength = renpy.random.randint(2,5)
     call battle_call_Player_AP_Loss(5)
@@ -350,21 +352,24 @@ label battle_Player_Ability__Slow:
 
 label battle_Player_Ability__Weaken:
     "You cast Weaken on [enemy.name!t]!"
+    $ enemy.Status_Weaken_EffectActive = 1
     $ enemy.Status_Weaken_Duration = renpy.random.randint(4,6)
     $ enemy.Status_Weaken_Strength = renpy.random.randint(2,5)
     call battle_call_Player_AP_Loss(5)
     "You weaken them for [enemy.Status_Weaken_Duration] rounds, at [enemy.Status_Weaken_Strength] strength."
     return
 
-label battle_Player_Ability__Paralyze:
-    "You cast Paralyze on [enemy.name!t]!"
-    $ enemy.status_paralyze_duration = renpy.random.randint(2,4)
+label battle_Player_Ability__Paralyse:
+    "You cast Paralyse on [enemy.name!t]!"
+    $ enemy.Status_Paralyse_EffectActive = 1
+    $ enemy.Status_Paralyse_Duration = renpy.random.randint(2,4)
     call battle_call_Player_AP_Loss(5)
-    "You paralyze them for [enemy.status_paralyze_duration] rounds."
+    "You paralyse them for [enemy.status_paralyze_duration] rounds."
     return
 
 label battle_Player_Ability__Charm:
     "You cast Charm on [enemy.name!t]!"
+    $ enemy.Status_Charm_EffectActive = 1
     $ enemy.Status_Charm_Duration = renpy.random.randint(2,4)
     call battle_call_Player_AP_Loss(5)
     "You charm them for [enemy.Status_Charm_Duration] rounds."
@@ -372,6 +377,7 @@ label battle_Player_Ability__Charm:
 
 label battle_Player_Ability__Sleep:
     "You cast Sleep on [enemy.name!t]!"
+    $ enemy.Status_Sleep_EffectActive = 1
     $ enemy.Status_Sleep_Duration = renpy.random.randint(2,4)
     call battle_call_Player_AP_Loss(5)
     "You sleep them for [enemy.Status_Sleep_Duration] rounds."

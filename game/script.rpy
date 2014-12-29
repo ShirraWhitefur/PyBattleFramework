@@ -32,18 +32,18 @@ label firstmenu:
         "Test 01 - Goblin Test Battle":
 # This line tells the upcoming section what enemy information to pull.
             $ ename = Goblin
-            jump test01_Goblin
+            jump test01_Battle
 
         "Test 02 - Orc Test Battle":
 # This line tells the upcoming section what enemy information to pull.
             $ ename = Orc_Hero
-            jump test02_Orc
+            jump test01_Battle
 
         "Test 03 - Checking Init Variables":
             jump test03_VariableCheck
     return
 
-label test01_Goblin:
+label test01_Battle:
     nar "Here we go!"
     $ playername = renpy.input(_("What is your name?")) or _("Alex")
     player "My name is [playername!t]."
@@ -53,36 +53,76 @@ label test01_Goblin:
     $ enemy = ename
     $ enemy.name = ename.name
     $ enemy.battle_selected_action = "battle_Enemy_Wait"
-    $ enemy.X_HealthPoints_Current_X = ename.X_HealthPoints_Current_X
-    $ enemy.X_HealthPoints_Max_X = ename.X_HealthPoints_Max_X
-    $ enemy.X_AbilityPoints_Current_X = ename.X_AbilityPoints_Current_X
-    $ enemy.X_AbilityPoints_Max_X = ename.X_AbilityPoints_Max_X
     $ enemy.Attack_List = ename.Attack_List
-    $ enemy.X_Damage_Melee_Max_X = ename.X_Damage_Melee_Max_X
-    $ enemy.X_Damage_Melee_Min_X = ename.X_Damage_Melee_Min_X
-    $ enemy.X_Armor_Physical_X = ename.X_Armor_Physical_X
-    $ enemy.X_Accuracy_Melee_X = ename.X_Accuracy_Melee_X
-    $ enemy.X_Dodge_X = ename.X_Dodge_X
-    $ enemy.X_Initiative_X = ename.X_Initiative_X
+# And when in doubt, import in order..
+    $ enemy.Stats_PlaceholderStrength = ename.Stats_PlaceholderStrength
+    $ enemy.Attribute_HealthPoints_Max = ename.Attribute_HealthPoints_Max
+    $ enemy.Attribute_AbilityPoints_Max = ename.Attribute_AbilityPoints_Max
+    $ enemy.Attribute_WillPoints_Max = ename.Attribute_WillPoints_Max
+    $ enemy.Attribute_Accuracy_Melee = ename.Attribute_Accuracy_Melee
+    $ enemy.Attribute_Accuracy_Ranged = ename.Attribute_Accuracy_Ranged
+    $ enemy.Attribute_Armor_Physical = ename.Attribute_Armor_Physical
+    $ enemy.Attribute_Armor_Magic = ename.Attribute_Armor_Magic
+    $ enemy.Attribute_Armor_Will = ename.Attribute_Armor_Will
+    $ enemy.Attribute_Damage_Melee_Max = ename.Attribute_Damage_Melee_Max
+    $ enemy.Attribute_Damage_Ranged_Max = ename.Attribute_Damage_Ranged_Max
+    $ enemy.Attribute_Damage_Magic_Max = ename.Attribute_Damage_Magic_Max
+    $ enemy.Attribute_Damage_Will_Max = ename.Attribute_Damage_Will_Max
+    $ enemy.Attribute_Dodge = ename.Attribute_Dodge
+    $ enemy.Attribute_Initiative = ename.Attribute_Initiative
+    $ enemy.Equipment_HealthPoints_Max = ename.Equipment_HealthPoints_Max
+    $ enemy.Equipment_AbilityPoints_Max = ename.Equipment_AbilityPoints_Max
+    $ enemy.Equipment_WillPoints_Max = ename.Equipment_WillPoints_Max
+    $ enemy.Equipment_Accuracy_Melee = ename.Equipment_Accuracy_Melee
+    $ enemy.Equipment_Accuracy_Ranged = ename.Equipment_Accuracy_Ranged
+    $ enemy.Equipment_Armor_Physical = ename.Equipment_Armor_Physical
+    $ enemy.Equipment_Armor_Magic = ename.Equipment_Armor_Magic
+    $ enemy.Equipment_Armor_Will = ename.Equipment_Armor_Will
+    $ enemy.Equipment_Damage_Melee_Max = ename.Equipment_Damage_Melee_Max
+    $ enemy.Equipment_Damage_Melee_Min = ename.Equipment_Damage_Melee_Min
+    $ enemy.Equipment_Damage_Ranged_Max = ename.Equipment_Damage_Ranged_Max
+    $ enemy.Equipment_Damage_Ranged_Min = ename.Equipment_Damage_Ranged_Min
+    $ enemy.Equipment_Damage_Magic_Max = ename.Equipment_Damage_Magic_Max
+    $ enemy.Equipment_Damage_Magic_Min = ename.Equipment_Damage_Magic_Min
+    $ enemy.Equipment_Damage_Will_Max = ename.Equipment_Damage_Will_Max
+    $ enemy.Equipment_Damage_Will_Min = ename.Equipment_Damage_Will_Min
+    $ enemy.Equipment_Dodge = ename.Equipment_Dodge
+    $ enemy.Equipment_Initiative = ename.Equipment_Initiative
     $ enemy.Equipment_Consumables_Potions_HP_Restore = ename.Equipment_Consumables_Potions_HP_Restore
+    $ enemy.Equipment_Consumables_Potions_AP_Restore = ename.Equipment_Consumables_Potions_AP_Restore
+    $ enemy.Equipment_Consumables_Potions_WP_Restore = ename.Equipment_Consumables_Potions_WP_Restore
 # \/ This block is here, because evidently init: isn't -properly- initing them elsewhere, not completely.
 # \/ Don't ask me, I don't know why not.
+    $ enemy.Status_Poison_EffectActive = 0
     $ enemy.Status_Poison_Duration = 0
     $ enemy.Status_Poison_Strength = 0
+    $ enemy.Status_Regen_EffectActive = 0
     $ enemy.Status_Regen_Duration = 0
     $ enemy.Status_Regen_Strength = 0
+    $ enemy.Status_Slow_EffectActive = 0
     $ enemy.Status_Slow_Duration = 0
     $ enemy.Status_Slow_Strength = 0
+    $ enemy.Status_Haste_EffectActive = 0
     $ enemy.Status_Haste_Duration = 0
     $ enemy.Status_Haste_Strength = 0
+    $ enemy.Status_Weaken_EffectActive = 0
     $ enemy.Status_Weaken_Duration = 0
     $ enemy.Status_Weaken_Strength = 0
+    $ enemy.Status_Strengthen_EffectActive = 0
     $ enemy.Status_Strengthen_Duration = 0
     $ enemy.Status_Strengthen_Strength = 0
+    $ enemy.Status_Paralyse_EffectActive = 0
     $ enemy.Status_Paralyse_Duration = 0
+    $ enemy.Status_Charm_EffectActive = 0
     $ enemy.Status_Charm_Duration = 0
+    $ enemy.Status_Sleep_EffectActive = 0
     $ enemy.Status_Sleep_Duration = 0
+    $ enemy.Status_Block_EffectActive = 0
+    $ enemy.Status_Block_Strength = 0
+    $ enemy.Status_Dodge_EffectActive = 0
+    $ enemy.Status_Dodge_Strength = 0
 # /\ Status effect inits.
+    call battle_call_Enemy_Full_StartCheck
     call battle_start
     $playerbattleoutcome = player.Battle_Outcome
     jump expression playerbattleoutcome
@@ -98,50 +138,6 @@ label test01_goblin_victory_hp:
     hide screen fight
     nar "And so you triumphed over the evil tester goblin."
     jump end
-
-label test02_Orc:
-    nar "Here we go!"
-    $ playername = renpy.input(_("What is your name?")) or _("Alex")
-    player "My name is [playername!t]."
-    "The foe is named [ename.name!t]"
-#  This big block below is pulling the enemy information and copying it into the battle system, so you don't
-# accidently mess up the original template.
-    $ enemy = ename
-    $ enemy.name = ename.name
-    $ enemy.battle_selected_action = "battle_Enemy_Wait"
-    $ enemy.X_HealthPoints_Current_X = ename.X_HealthPoints_Current_X
-    $ enemy.X_HealthPoints_Max_X = ename.X_HealthPoints_Max_X
-    $ enemy.X_AbilityPoints_Current_X = ename.X_AbilityPoints_Current_X
-    $ enemy.X_AbilityPoints_Max_X = ename.X_AbilityPoints_Max_X
-    $ enemy.Attack_List = ename.Attack_List
-    $ enemy.X_Damage_Melee_Max_X = ename.X_Damage_Melee_Max_X
-    $ enemy.X_Damage_Melee_Min_X = ename.X_Damage_Melee_Min_X
-    $ enemy.X_Armor_Physical_X = ename.X_Armor_Physical_X
-    $ enemy.X_Accuracy_Melee_X = ename.X_Accuracy_Melee_X
-    $ enemy.X_Dodge_X = ename.X_Dodge_X
-    $ enemy.X_Initiative_X = ename.X_Initiative_X
-    $ enemy.Equipment_Consumables_Potions_HP_Restore = ename.Equipment_Consumables_Potions_HP_Restore
-# \/ This block is here, because evidently init: isn't -properly- initing them elsewhere, not completely.
-# \/ Don't ask me, I don't know why not.
-    $ enemy.Status_Poison_Duration = 0
-    $ enemy.Status_Poison_Strength = 0
-    $ enemy.Status_Regen_Duration = 0
-    $ enemy.Status_Regen_Strength = 0
-    $ enemy.Status_Slow_Duration = 0
-    $ enemy.Status_Slow_Strength = 0
-    $ enemy.Status_Haste_Duration = 0
-    $ enemy.Status_Haste_Strength = 0
-    $ enemy.Status_Weaken_Duration = 0
-    $ enemy.Status_Weaken_Strength = 0
-    $ enemy.Status_Strengthen_Duration = 0
-    $ enemy.Status_Strengthen_Strength = 0
-    $ enemy.Status_Paralyse_Duration = 0
-    $ enemy.Status_Charm_Duration = 0
-    $ enemy.Status_Sleep_Duration = 0
-# /\ Status effect inits.
-    call battle_start
-    $playerbattleoutcome = player.Battle_Outcome
-    jump expression playerbattleoutcome
 
 label test02_orc_loss_hp:
 # This hides our "lovely" Name/HP/AP screen-frames.
@@ -164,8 +160,6 @@ label test03_VariableCheck:
     nar "Dodge [player.X_Dodge_X] ; Initiative Bonus [player.X_Initiative_X]"
     
     jump end
-
-
 
 label end:
     "Done!"
