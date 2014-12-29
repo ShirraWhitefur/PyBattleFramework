@@ -1,0 +1,37 @@
+﻿I'm sorry, but an uncaught exception occurred.
+
+While running game code:
+  File "game/script.rpy", line 54, in script call
+    call battle_call_Enemy_Data_Import
+  File "game/battle_calls.rpy", line 308, in script call
+    call call_Enemy_Equipment_Slot_Initialize_All
+  File "game/battle_calls_equipment.rpy", line 332, in script call
+    call call_Enemy_Equipment_Slot_Equip_Weapon
+  File "game/battle_calls_equipment.rpy", line 396, in script
+    $ enemy.Equipment_Slot_Weapon_Name = eweaponname.Equipment_Slot_Weapon_Name
+  File "game/battle_calls_equipment.rpy", line 396, in <module>
+    $ enemy.Equipment_Slot_Weapon_Name = eweaponname.Equipment_Slot_Weapon_Name
+AttributeError: 'str' object has no attribute 'Equipment_Slot_Weapon_Name'
+
+-- Full Traceback ------------------------------------------------------------
+
+Full traceback:
+  File "game/script.rpy", line 54, in script call
+    call battle_call_Enemy_Data_Import
+  File "game/battle_calls.rpy", line 308, in script call
+    call call_Enemy_Equipment_Slot_Initialize_All
+  File "game/battle_calls_equipment.rpy", line 332, in script call
+    call call_Enemy_Equipment_Slot_Equip_Weapon
+  File "game/battle_calls_equipment.rpy", line 396, in script
+    $ enemy.Equipment_Slot_Weapon_Name = eweaponname.Equipment_Slot_Weapon_Name
+  File "D:\Projects\renpy-6.18.3-sdk\renpy\ast.py", line 785, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "D:\Projects\renpy-6.18.3-sdk\renpy\python.py", line 1382, in py_exec_bytecode
+    exec bytecode in globals, locals
+  File "game/battle_calls_equipment.rpy", line 396, in <module>
+    $ enemy.Equipment_Slot_Weapon_Name = eweaponname.Equipment_Slot_Weapon_Name
+AttributeError: 'str' object has no attribute 'Equipment_Slot_Weapon_Name'
+
+Windows-7-6.1.7601-SP1
+Ren'Py 6.18.3.761
+Shirra's Ren'Py Battle Framework 0.5

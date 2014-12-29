@@ -58,13 +58,18 @@ init:
     $ player.Equipment_Weapon_Damage_Will_Max = 10
     $ player.Equipment_Weapon_Damage_Will_Min = 1
 # Equipment Slots and Weapon Type
-    $ player.Equipment_Slot_Weapon_Name = "NoWeapon"
+    $ player.Equipment_Slot_Weapon_Name = "no_weapon"
+    $ player.Equipment_Slot_Weapon_Name_Text = "Gear Init Failed."
     $ player.Equipment_Slot_Weapon_Accuracy_Type = "Melee"
     $ player.Equipment_Slot_Weapon_Damage_Type = "Melee"
-    $ player.Equipment_Slot_UpperBodyArmor_Name = "NoUpperArmor"
-    $ player.Equipment_Slot_LowerBodyArmor_Name = "NoLowerArmor"
-    $ player.Equipment_Slot_Necklace_Name = "NoNecklace"
-    $ player.Equipment_Slot_Ring_Name = "NoRing"
+    $ player.Equipment_Slot_UpperBodyArmor_Name = "no_upper_armor"
+    $ player.Equipment_Slot_UpperBodyArmor_Name_Text = "Gear Init Failed."
+    $ player.Equipment_Slot_LowerBodyArmor_Name = "no_lower_armor"
+    $ player.Equipment_Slot_LowerBodyArmor_Name_Text = "Gear Init Failed."
+    $ player.Equipment_Slot_Necklace_Name = "no_necklace"
+    $ player.Equipment_Slot_Necklace_Name_Text = "Gear Init Failed."
+    $ player.Equipment_Slot_Ring_Name = "no_ring"
+    $ player.Equipment_Slot_Ring_Name_Text = "Gear Init Failed."
 #  Equipment - Consumables.  Consider it a 'stock', and will handle the
 # potions, grenades, and other one use items and non-rechargables (like wands.)
     $ player.Equipment_Consumables_Potions_HP_Restore = 3

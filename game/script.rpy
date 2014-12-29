@@ -42,7 +42,7 @@ label firstmenu:
             jump test01_Battle
 
         "Test 03 - Checking Init Variables":
-            jump test03_VariableCheck
+            call test03_VariableCheck(no_weapon)
     return
 
 label test01_Battle:
@@ -80,8 +80,10 @@ label test02_orc_victory_hp:
     nar "And so you triumphed over the evil tester orc."
     jump end
 
-label test03_VariableCheck:
+label test03_VariableCheck(weaponname):
     nar "Time to test variables."
+    $ player.Equipment_Currency = weaponname.Equipment_Slot_Weapon_Name_Text
+    nar "[player.Equipment_Currency] funds."
     nar "HP Max [player.X_HealthPoints_Max_X] ; HP Cur [player.X_HealthPoints_Current_X] ; AP Max [player.X_AbilityPoints_Max_X] ; AP Cur [player.X_AbilityPoints_Current_X] ; WP Max [player.X_WillPoints_Max_X] ; WP Cur [player.X_WillPoints_Current_X]"
     nar "Accuracy - Melee [player.X_Weapon_Accuracy_Melee_X] ; Accuracy - Ranged [player.X_Weapon_Accuracy_Ranged_X]"
     nar "Armor - Phys [player.X_Armor_Physical_X] ; Armor - Magic [player.X_Armor_Magic_X] ; Armor - Will [player.X_Armor_Will_X]"

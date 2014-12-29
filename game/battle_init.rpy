@@ -31,6 +31,7 @@ init python:
 init:
     $ battle = Character("BattleSettings")
     $ battle.roundcount = 0
+    $ battle.EquipGearName = "no_weapon"
     $ ename = "FailName"
 #####################################################################
 # Enemy Init Section
@@ -63,9 +64,9 @@ init:
     $ enemy.Attribute_Dodge = 0
     $ enemy.Attribute_Initiative = 0
 # Equipment.. which may be derived.. if we add in equipment properly.
-    $ enemy.Equipment_HealthPoints_Max = 5
-    $ enemy.Equipment_AbilityPoints_Max = 5
-    $ enemy.Equipment_WillPoints_Max = 5
+    $ enemy.Equipment_HealthPoints_Max = 0
+    $ enemy.Equipment_AbilityPoints_Max = 0
+    $ enemy.Equipment_WillPoints_Max = 0
     $ enemy.Equipment_Accuracy_Melee = 0
     $ enemy.Equipment_Accuracy_Ranged = 0
     $ enemy.Equipment_Armor_Physical = 0
@@ -88,13 +89,18 @@ init:
     $ enemy.Equipment_Weapon_Damage_Will_Max = 5
     $ enemy.Equipment_Weapon_Damage_Will_Min = 1
 # Equipment Slots and Weapon Type
-    $ enemy.Equipment_Slot_Weapon_Name = "NoWeapon"
+    $ enemy.Equipment_Slot_Weapon_Name = "no_weapon"
+    $ enemy.Equipment_Slot_Weapon_Name_Text = "Gear Init Failed."
     $ enemy.Equipment_Slot_Weapon_Accuracy_Type = "Melee"
     $ enemy.Equipment_Slot_Weapon_Damage_Type = "Melee"
-    $ enemy.Equipment_Slot_UpperBodyArmor_Name = "NoUpperArmor"
-    $ enemy.Equipment_Slot_LowerBodyArmor_Name = "NoLowerArmor"
-    $ enemy.Equipment_Slot_Necklace_Name = "NoNecklace"
-    $ enemy.Equipment_Slot_Ring_Name = "NoRing"
+    $ enemy.Equipment_Slot_UpperBodyArmor_Name = "no_upper_armor"
+    $ enemy.Equipment_Slot_UpperBodyArmor_Name_Text = "Gear Init Failed."
+    $ enemy.Equipment_Slot_LowerBodyArmor_Name = "no_lower_armor"
+    $ enemy.Equipment_Slot_LowerBodyArmor_Name_Text = "Gear Init Failed."
+    $ enemy.Equipment_Slot_Necklace_Name = "no_necklace"
+    $ enemy.Equipment_Slot_Necklace_Name_Text = "Gear Init Failed."
+    $ enemy.Equipment_Slot_Ring_Name = "no_ring"
+    $ enemy.Equipment_Slot_Ring_Name_Text = "Gear Init Failed."
 #  Equipment - Consumables.  Consider it a 'stock', and will handle the
 # potions, grenades, and other one use items and non-rechargables (like wands.)
     $ enemy.Equipment_Consumables_Potions_HP_Restore = 0

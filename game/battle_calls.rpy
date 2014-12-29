@@ -85,8 +85,7 @@ label battle_call_Enemy_AP_Gain(apgain):
 #####################################################################
 # Stat and Attribute Bonus Setting
 #####################################################################
-
-# These will be changed later, once the stat system and equipment system are in.
+# These will be changed later, once the stat system is in.
 
 # For now though, it's basically
 # Current (to be referenced almost everywhere) = (Base)+(Buffs)-(Debuffs)
@@ -238,6 +237,9 @@ label battle_call_Enemy_Weapon_Damage_Recheck:
     return
 
 #####################################################################
+# Enemy Data import and initialization
+#####################################################################
+# Make sure you set that ename variable!
 
 label battle_call_Enemy_Data_Import:
 #  This big block below is pulling the enemy information and copying it into the
@@ -262,38 +264,14 @@ label battle_call_Enemy_Data_Import:
     $ enemy.Attribute_Damage_Bonus_Will_Max = ename.Attribute_Damage_Bonus_Will_Max
     $ enemy.Attribute_Dodge = ename.Attribute_Dodge
     $ enemy.Attribute_Initiative = ename.Attribute_Initiative
-    $ enemy.Equipment_HealthPoints_Max = ename.Equipment_HealthPoints_Max
-    $ enemy.Equipment_AbilityPoints_Max = ename.Equipment_AbilityPoints_Max
-    $ enemy.Equipment_WillPoints_Max = ename.Equipment_WillPoints_Max
-    $ enemy.Equipment_Armor_Physical = ename.Equipment_Armor_Physical
-    $ enemy.Equipment_Armor_Magic = ename.Equipment_Armor_Magic
-    $ enemy.Equipment_Armor_Will = ename.Equipment_Armor_Will
-    $ enemy.Equipment_Damage_Bonus_Melee_Max = ename.Equipment_Damage_Bonus_Melee_Max
-    $ enemy.Equipment_Damage_Bonus_Ranged_Max = ename.Equipment_Damage_Bonus_Ranged_Max
-    $ enemy.Equipment_Damage_Bonus_Magic_Max = ename.Equipment_Damage_Bonus_Magic_Max
-    $ enemy.Equipment_Damage_Bonus_Will_Max = ename.Equipment_Damage_Bonus_Will_Max
-    $ enemy.Equipment_Dodge = ename.Equipment_Dodge
-    $ enemy.Equipment_Initiative = ename.Equipment_Initiative
-    $ enemy.Equipment_Weapon_Accuracy_Melee = ename.Equipment_Weapon_Accuracy_Melee
-    $ enemy.Equipment_Weapon_Accuracy_Ranged = ename.Equipment_Weapon_Accuracy_Ranged
-    $ enemy.Equipment_Weapon_Damage_Melee_Max = ename.Equipment_Weapon_Damage_Melee_Max
-    $ enemy.Equipment_Weapon_Damage_Melee_Min = ename.Equipment_Weapon_Damage_Melee_Min
-    $ enemy.Equipment_Weapon_Damage_Ranged_Max = ename.Equipment_Weapon_Damage_Ranged_Max
-    $ enemy.Equipment_Weapon_Damage_Ranged_Min = ename.Equipment_Weapon_Damage_Ranged_Min
-    $ enemy.Equipment_Weapon_Damage_Magic_Max = ename.Equipment_Weapon_Damage_Magic_Max
-    $ enemy.Equipment_Weapon_Damage_Magic_Min = ename.Equipment_Weapon_Damage_Magic_Min
-    $ enemy.Equipment_Weapon_Damage_Will_Max = ename.Equipment_Weapon_Damage_Will_Max
-    $ enemy.Equipment_Weapon_Damage_Will_Min = ename.Equipment_Weapon_Damage_Will_Min
-    $ enemy.Equipment_Consumables_Potions_HP_Restore = ename.Equipment_Consumables_Potions_HP_Restore
-    $ enemy.Equipment_Consumables_Potions_AP_Restore = ename.Equipment_Consumables_Potions_AP_Restore
-    $ enemy.Equipment_Consumables_Potions_WP_Restore = ename.Equipment_Consumables_Potions_WP_Restore
     $ enemy.Equipment_Slot_Weapon_Name = ename.Equipment_Slot_Weapon_Name
-    $ enemy.Equipment_Slot_Weapon_Accuracy_Type = ename.Equipment_Slot_Weapon_Accuracy_Type
-    $ enemy.Equipment_Slot_Weapon_Damage_Type = ename.Equipment_Slot_Weapon_Damage_Type
     $ enemy.Equipment_Slot_UpperBodyArmor_Name = ename.Equipment_Slot_UpperBodyArmor_Name
     $ enemy.Equipment_Slot_LowerBodyArmor_Name = ename.Equipment_Slot_LowerBodyArmor_Name
     $ enemy.Equipment_Slot_Necklace_Name = ename.Equipment_Slot_Necklace_Name
     $ enemy.Equipment_Slot_Ring_Name = ename.Equipment_Slot_Ring_Name
+    $ enemy.Equipment_Consumables_Potions_HP_Restore = ename.Equipment_Consumables_Potions_HP_Restore
+    $ enemy.Equipment_Consumables_Potions_AP_Restore = ename.Equipment_Consumables_Potions_AP_Restore
+    $ enemy.Equipment_Consumables_Potions_WP_Restore = ename.Equipment_Consumables_Potions_WP_Restore
 # \/  This block is here, because evidently init: isn't -properly- initing them
 # \/ elsewhere, not completely.  Don't ask me, I don't know why it's not.
     $ enemy.Status_Poison_EffectActive = 0
@@ -327,5 +305,6 @@ label battle_call_Enemy_Data_Import:
 # /\ Status effect inits.
 #  This line basically tells the game to go 'Okay, now calculate all the
 # variables based on the data we've imported.  Saves us a mess of lines here.
+    call call_Enemy_Equipment_Slot_Initialize_All
     call battle_call_Enemy_Full_StartCheck
     return

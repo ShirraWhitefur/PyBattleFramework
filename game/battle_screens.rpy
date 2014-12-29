@@ -68,7 +68,24 @@ screen stats_frame(pname):
                         if player.Status_Sleep_EffectActive == 1:
                             text (" Sleep ") size 12
 # /\ The end of the 'status block'
-
+# \/  This section is definitely a debug section, to make sure that the items
+# \/ are being properly equipped.  You'll probably want to just delete this,
+# \/ unless you need it to test your work.
+    frame xfill(False) yminimum(None) background(None) xpos 0.01 ypos 0.175:
+            hbox:
+                vbox:
+                        text ("Weapon -") xalign 1.0 size 12
+                        text ("UpperArmor -") xalign 1.0 size 12
+                        text ("LowerArmor -") xalign 1.0 size 12
+                        text ("Necklace -") xalign 1.0 size 12
+                        text ("Ring -") xalign 1.0 size 12
+                vbox:
+                        text ("[player.Equipment_Slot_Weapon_Name_Text] - Acc - [player.Equipment_Slot_Weapon_Accuracy_Type] - Dmg - [player.Equipment_Slot_Weapon_Damage_Type]") size 12
+                        text ("[player.Equipment_Slot_UpperBodyArmor_Name_Text]") size 12
+                        text ("[player.Equipment_Slot_LowerBodyArmor_Name_Text]") size 12
+                        text ("[player.Equipment_Slot_Necklace_Name_Text]") size 12
+                        text ("[player.Equipment_Slot_Ring_Name_Text]") size 12
+# /\ The end of the 'equipment block'
 
 #  If you don't like the (very bad) 'mirrored' effect, remove the xalign's, then
 # tinker with the xpos's until you get it on screen in the spot you want!
