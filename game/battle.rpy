@@ -190,15 +190,15 @@ label battle_Enemy_Turn:
 label battle_Enemy_Attack_Melee:
     "[enemy.name!t] attacks you with an equally genericly named weapon!"
     $enemy_roll_attack = renpy.random.randint(1,100)
-    if (enemy_roll_attack+enemy.X_Accuracy_Melee_X)-player.X_Dodge_X < 50:
-        "You dodge the attack! ([enemy_roll_attack] + [enemy.X_Accuracy_Melee_X] - [player.X_Dodge_X] vs 50)"
+    if (enemy_roll_attack+enemy.X_Weapon_Accuracy_Melee_X)-player.X_Dodge_X < 50:
+        "You dodge the attack! ([enemy_roll_attack] + [enemy.X_Weapon_Accuracy_Melee_X] - [player.X_Dodge_X] vs 50)"
         return
     else:
-        "You were hit! ([enemy_roll_attack] + [enemy.X_Accuracy_Melee_X] - [player.X_Dodge_X] vs 50)"
+        "You were hit! ([enemy_roll_attack] + [enemy.X_Weapon_Accuracy_Melee_X] - [player.X_Dodge_X] vs 50)"
         jump battle_Enemy_Attack_Melee_Success
 
 label battle_Enemy_Attack_Melee_Success:
-    $enemy_roll_damage = renpy.random.randint(enemy.X_Damage_Melee_Min_X,enemy.X_Damage_Melee_Max_X)
+    $enemy_roll_damage = renpy.random.randint(enemy.X_Weapon_Damage_Melee_Min_X,enemy.X_Weapon_Damage_Melee_Max_X)
     $enemy_roll_damage_final = (enemy_roll_damage-player.X_Armor_Physical_X)
     if enemy_roll_damage_final < 1:
         "[enemy.name!t] hits, but does no damage.  ([enemy_roll_damage] - [player.X_Armor_Physical_X] = [enemy_roll_damage_final])"

@@ -19,28 +19,28 @@ init:
     $ Orc_Hero.Attribute_Armor_Physical = 3
     $ Orc_Hero.Attribute_Armor_Magic = 2
     $ Orc_Hero.Attribute_Armor_Will = 1
-    $ Orc_Hero.Attribute_Damage_Melee_Max = 5
-    $ Orc_Hero.Attribute_Damage_Ranged_Max = 1
-    $ Orc_Hero.Attribute_Damage_Magic_Max = 1
-    $ Orc_Hero.Attribute_Damage_Will_Max = 1
+    $ Orc_Hero.Attribute_Damage_Bonus_Melee_Max = 5
+    $ Orc_Hero.Attribute_Damage_Bonus_Ranged_Max = 1
+    $ Orc_Hero.Attribute_Damage_Bonus_Magic_Max = 1
+    $ Orc_Hero.Attribute_Damage_Bonus_Will_Max = 1
     $ Orc_Hero.Attribute_Dodge = 6
     $ Orc_Hero.Attribute_Initiative = 3
     $ Orc_Hero.Equipment_HealthPoints_Max = 0
     $ Orc_Hero.Equipment_AbilityPoints_Max = 0
     $ Orc_Hero.Equipment_WillPoints_Max = 0
-    $ Orc_Hero.Equipment_Accuracy_Melee = 0
-    $ Orc_Hero.Equipment_Accuracy_Ranged = 0
+    $ Orc_Hero.Equipment_Weapon_Accuracy_Melee = 0
+    $ Orc_Hero.Equipment_Weapon_Accuracy_Ranged = 0
     $ Orc_Hero.Equipment_Armor_Physical = 0
     $ Orc_Hero.Equipment_Armor_Magic = 0
     $ Orc_Hero.Equipment_Armor_Will = 0
-    $ Orc_Hero.Equipment_Damage_Melee_Max = 10
-    $ Orc_Hero.Equipment_Damage_Melee_Min = 2
-    $ Orc_Hero.Equipment_Damage_Ranged_Max = 5
-    $ Orc_Hero.Equipment_Damage_Ranged_Min = 1
-    $ Orc_Hero.Equipment_Damage_Magic_Max = 2
-    $ Orc_Hero.Equipment_Damage_Magic_Min = 1
-    $ Orc_Hero.Equipment_Damage_Will_Max = 2
-    $ Orc_Hero.Equipment_Damage_Will_Min = 1
+    $ Orc_Hero.Equipment_Weapon_Damage_Melee_Max = 10
+    $ Orc_Hero.Equipment_Weapon_Damage_Melee_Min = 2
+    $ Orc_Hero.Equipment_Weapon_Damage_Ranged_Max = 5
+    $ Orc_Hero.Equipment_Weapon_Damage_Ranged_Min = 1
+    $ Orc_Hero.Equipment_Weapon_Damage_Magic_Max = 2
+    $ Orc_Hero.Equipment_Weapon_Damage_Magic_Min = 1
+    $ Orc_Hero.Equipment_Weapon_Damage_Will_Max = 2
+    $ Orc_Hero.Equipment_Weapon_Damage_Will_Min = 1
     $ Orc_Hero.Equipment_Dodge = 0
     $ Orc_Hero.Equipment_Initiative = 0
     $ Orc_Hero.Equipment_Consumables_Potions_HP_Restore = 1
@@ -79,15 +79,15 @@ label Attack_List_Orc_Hero:
 label battle_Orc_Hero_Attack_Melee:
     "[enemy.name!t] comes screaming at you with his axe!"
     $enemy_roll_attack = renpy.random.randint(1,100)
-    if (enemy_roll_attack+enemy.X_Accuracy_Melee_X)-player.X_Dodge_X < 50:
-        "You dodge the attack! ([enemy_roll_attack] + [enemy.X_Accuracy_Melee_X] - [player.X_Dodge_X] vs 50)"
+    if (enemy_roll_attack+enemy.X_Weapon_Accuracy_Melee_X)-player.X_Dodge_X < 50:
+        "You dodge the attack! ([enemy_roll_attack] + [enemy.X_Weapon_Accuracy_Melee_X] - [player.X_Dodge_X] vs 50)"
         return
     else:
-        "You were hit! ([enemy_roll_attack] + [enemy.X_Accuracy_Melee_X] - [player.X_Dodge_X] vs 50)"
+        "You were hit! ([enemy_roll_attack] + [enemy.X_Weapon_Accuracy_Melee_X] - [player.X_Dodge_X] vs 50)"
         jump battle_Orc_Hero_Attack_Melee_Success
 
 label battle_Orc_Hero_Attack_Melee_Success:
-    $enemy_roll_damage = renpy.random.randint(enemy.X_Damage_Melee_Min_X,enemy.X_Damage_Melee_Max_X)
+    $enemy_roll_damage = renpy.random.randint(enemy.X_Weapon_Damage_Melee_Min_X,enemy.X_Weapon_Damage_Melee_Max_X)
     $enemy_roll_damage_final = (enemy_roll_damage-player.X_Armor_Physical_X)
     if enemy_roll_damage_final < 1:
         "[enemy.name!t] hits, but does no damage, taking a moment to glare at your infuriating armor.  ([enemy_roll_damage] - [player.X_Armor_Physical_X] = [enemy_roll_damage_final])"

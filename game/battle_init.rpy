@@ -44,7 +44,7 @@ init:
     $ enemy.Stats_PlaceholderStrength = 0
 #  Base attributes, to be derived from Stats.. when we add the stats in.
 # The idea here being something like you set up Strength above, then set 
-# player.Attribute_Damage_Melee_Max = player.Stats_Strength/5, or something
+# player.Attribute_Damage_Bonus_Melee_Max = player.Stats_Strength/5, or something
 # similar.  Set up an initialization/recheck call for players and enemies under
 # battle calls.  There should be enough examples to know where and how to
 # use it.
@@ -56,10 +56,10 @@ init:
     $ enemy.Attribute_Armor_Physical = 0
     $ enemy.Attribute_Armor_Magic = 0
     $ enemy.Attribute_Armor_Will = 0
-    $ enemy.Attribute_Damage_Melee_Max = 0
-    $ enemy.Attribute_Damage_Ranged_Max = 0
-    $ enemy.Attribute_Damage_Magic_Max = 0
-    $ enemy.Attribute_Damage_Will_Max = 0
+    $ enemy.Attribute_Damage_Bonus_Melee_Max = 0
+    $ enemy.Attribute_Damage_Bonus_Ranged_Max = 0
+    $ enemy.Attribute_Damage_Bonus_Magic_Max = 0
+    $ enemy.Attribute_Damage_Bonus_Will_Max = 0
     $ enemy.Attribute_Dodge = 0
     $ enemy.Attribute_Initiative = 0
 # Equipment.. which may be derived.. if we add in equipment properly.
@@ -71,16 +71,30 @@ init:
     $ enemy.Equipment_Armor_Physical = 0
     $ enemy.Equipment_Armor_Magic = 0
     $ enemy.Equipment_Armor_Will = 0
-    $ enemy.Equipment_Damage_Melee_Max = 5
-    $ enemy.Equipment_Damage_Melee_Min = 1
-    $ enemy.Equipment_Damage_Ranged_Max = 5
-    $ enemy.Equipment_Damage_Ranged_Min = 1
-    $ enemy.Equipment_Damage_Magic_Max = 2
-    $ enemy.Equipment_Damage_Magic_Min = 1
-    $ enemy.Equipment_Damage_Will_Max = 2
-    $ enemy.Equipment_Damage_Will_Min = 1
+    $ enemy.Equipment_Damage_Bonus_Melee_Max = 0
+    $ enemy.Equipment_Damage_Bonus_Ranged_Max = 0
+    $ enemy.Equipment_Damage_Bonus_Magic_Max = 0
+    $ enemy.Equipment_Damage_Bonus_Will_Max = 0
     $ enemy.Equipment_Dodge = 0
     $ enemy.Equipment_Initiative = 0
+    $ enemy.Equipment_Weapon_Accuracy_Melee = 0
+    $ enemy.Equipment_Weapon_Accuracy_Ranged = 0
+    $ enemy.Equipment_Weapon_Damage_Melee_Max = 5
+    $ enemy.Equipment_Weapon_Damage_Melee_Min = 1
+    $ enemy.Equipment_Weapon_Damage_Ranged_Max = 5
+    $ enemy.Equipment_Weapon_Damage_Ranged_Min = 1
+    $ enemy.Equipment_Weapon_Damage_Magic_Max = 5
+    $ enemy.Equipment_Weapon_Damage_Magic_Min = 1
+    $ enemy.Equipment_Weapon_Damage_Will_Max = 5
+    $ enemy.Equipment_Weapon_Damage_Will_Min = 1
+# Equipment Slots and Weapon Type
+    $ enemy.Equipment_Slot_Weapon_Name = "NoWeapon"
+    $ enemy.Equipment_Slot_Weapon_Accuracy_Type = "Melee"
+    $ enemy.Equipment_Slot_Weapon_Damage_Type = "Melee"
+    $ enemy.Equipment_Slot_UpperBodyArmor_Name = "NoUpperArmor"
+    $ enemy.Equipment_Slot_LowerBodyArmor_Name = "NoLowerArmor"
+    $ enemy.Equipment_Slot_Necklace_Name = "NoNecklace"
+    $ enemy.Equipment_Slot_Ring_Name = "NoRing"
 #  Equipment - Consumables.  Consider it a 'stock', and will handle the
 # potions, grenades, and other one use items and non-rechargables (like wands.)
     $ enemy.Equipment_Consumables_Potions_HP_Restore = 0
@@ -130,14 +144,20 @@ init:
     $ enemy.X_Armor_Physical_X = 0
     $ enemy.X_Armor_Magic_X = 0
     $ enemy.X_Armor_Will_X = 0
-    $ enemy.X_Damage_Melee_Max_X = 0
-    $ enemy.X_Damage_Melee_Min_X = 0
-    $ enemy.X_Damage_Ranged_Max_X = 0
-    $ enemy.X_Damage_Ranged_Min_X = 0
-    $ enemy.X_Damage_Magic_Max_X = 0
-    $ enemy.X_Damage_Magic_Min_X = 0
-    $ enemy.X_Damage_Will_Max_X = 0
-    $ enemy.X_Damage_Will_Min_X = 0
+    $ enemy.X_Damage_Bonus_Melee_Max_X = 0
+    $ enemy.X_Damage_Bonus_Ranged_Max_X = 0
+    $ enemy.X_Damage_Bonus_Magic_Max_X = 0
+    $ enemy.X_Damage_Bonus_Will_Max_X = 0
     $ enemy.X_Dodge_X = 0
     $ enemy.X_Initiative_X = 0
+    $ enemy.X_Weapon_Accuracy_Melee_X = 0
+    $ enemy.X_Weapon_Accuracy_Ranged_X = 0
+    $ enemy.X_Weapon_Damage_Melee_Max_X = 0
+    $ enemy.X_Weapon_Damage_Melee_Min_X = 0
+    $ enemy.X_Weapon_Damage_Ranged_Max_X = 0
+    $ enemy.X_Weapon_Damage_Ranged_Min_X = 0
+    $ enemy.X_Weapon_Damage_Magic_Max_X = 0
+    $ enemy.X_Weapon_Damage_Magic_Min_X = 0
+    $ enemy.X_Weapon_Damage_Will_Max_X = 0
+    $ enemy.X_Weapon_Damage_Will_Min_X = 0
 

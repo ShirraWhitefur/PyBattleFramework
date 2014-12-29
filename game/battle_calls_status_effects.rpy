@@ -83,16 +83,16 @@ label battle_call_Player_Status_WeakenCheck:
     if player.Status_Weaken_EffectActive == 1:
         if player.Status_Weaken_Duration > 0:
             "You are currently weakened!"
-            call battle_call_Player_Damage_Melee_Recheck
-            call battle_call_Player_Damage_Ranged_Recheck
+            call battle_call_Player_Damage_Bonus_Recheck
+            call battle_call_Player_Weapon_Damage_Recheck
             $ player.Status_Weaken_Duration -= 1
             "You damage is [player.Status_Weaken_Strength] points worse due to weaken.  [player.Status_Weaken_Duration] rounds of Weaken remaining."
             return
         if player.Status_Weaken_Duration == 0:
             $ player.Status_Weaken_EffectActive = 0
             $ player.Status_Weaken_Strength = 0
-            call battle_call_Player_Damage_Melee_Recheck
-            call battle_call_Player_Damage_Ranged_Recheck
+            call battle_call_Player_Damage_Bonus_Recheck
+            call battle_call_Player_Weapon_Damage_Recheck
             "You feel your strength returning to normal as Weaken wears off."
     return
 
@@ -100,16 +100,16 @@ label battle_call_Player_Status_StrengthenCheck:
     if player.Status_Strengthen_EffectActive == 1:
         if player.Status_Strengthen_Duration > 0:
             "You are currently strengthed!"
-            call battle_call_Player_Damage_Melee_Recheck
-            call battle_call_Player_Damage_Ranged_Recheck
+            call battle_call_Player_Damage_Bonus_Recheck
+            call battle_call_Player_Weapon_Damage_Recheck
             $ player.Status_Strengthen_Duration -= 1
             "You damage is [player.Status_Strengthen_Strength] points better due to strengthen.  [player.Status_Strengthen_Duration] rounds of Strengthen remaining."
             return
         if player.Status_Strengthen_Duration == 0:
             $ player.Status_Strengthen_EffectActive = 0
             $ player.Status_Strengthen_Strength = 0
-            call battle_call_Player_Damage_Melee_Recheck
-            call battle_call_Player_Damage_Ranged_Recheck
+            call battle_call_Player_Damage_Bonus_Recheck
+            call battle_call_Player_Weapon_Damage_Recheck
             "You feel your strength returning to normal as Strengthen wears off."
     return
 
@@ -213,16 +213,16 @@ label battle_call_Enemy_Status_WeakenCheck:
     if enemy.Status_Weaken_EffectActive == 1:
         if enemy.Status_Weaken_Duration > 0:
             "[enemy.name!t] is currently weakened!"
-            call battle_call_Enemy_Damage_Melee_Recheck
-            call battle_call_Enemy_Damage_Ranged_Recheck
+            call battle_call_Enemy_Damage_Bonus_Recheck
+            call battle_call_Enemy_Weapon_Damage_Recheck
             $ enemy.Status_Weaken_Duration -= 1
             "[enemy.name!t]'s damage is [enemy.Status_Weaken_Strength] points worse due to weaken.  [enemy.Status_Weaken_Duration] rounds of Weaken remaining."
             return
         if enemy.Status_Weaken_Duration == 0:
             $ enemy.Status_Weaken_EffectActive = 0
             $ enemy.Status_Weaken_Strength = 0
-            call battle_call_Enemy_Damage_Melee_Recheck
-            call battle_call_Enemy_Damage_Ranged_Recheck
+            call battle_call_Enemy_Damage_Bonus_Recheck
+            call battle_call_Enemy_Weapon_Damage_Recheck
             "[enemy.name!t] feels their strength returning to normal as Weaken wears off."
     return
 
@@ -230,16 +230,16 @@ label battle_call_Enemy_Status_StrengthenCheck:
     if enemy.Status_Strengthen_EffectActive == 1:
         if enemy.Status_Strengthen_Duration > 0:
             "[enemy.name!t] is currently strengthed!"
-            call battle_call_Enemy_Damage_Melee_Recheck
-            call battle_call_Enemy_Damage_Ranged_Recheck
+            call battle_call_Enemy_Damage_Bonus_Recheck
+            call battle_call_Enemy_Weapon_Damage_Recheck
             $ enemy.Status_Strengthen_Duration -= 1
             "[enemy.name!t]'s damage is [enemy.Status_Strengthen_Strength] points better due to strengthen.  [enemy.Status_Strengthen_Duration] rounds of Strengthen remaining."
             return
         if enemy.Status_Strengthen_Duration == 0:
             $ enemy.Status_Strengthen_EffectActive = 0
             $ enemy.Status_Strengthen_Strength = 0
-            call battle_call_Enemy_Damage_Melee_Recheck
-            call battle_call_Enemy_Damage_Ranged_Recheck
+            call battle_call_Enemy_Damage_Bonus_Recheck
+            call battle_call_Enemy_Weapon_Damage_Recheck
             "[enemy.name!t] feel their strength returning to normal as Strengthen wears off."
     return
 

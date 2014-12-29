@@ -14,7 +14,7 @@ init:
     $ player.Stats_PlaceholderStrength = 0
 #  Base attributes, to be derived from Stats.. when we add the stats in.
 # The idea here being something like you set up Strength above, then set 
-# player.Attribute_Damage_Melee_Max = player.Stats_Strength/5, or something
+# player.Attribute_Damage_Bonus_Melee_Max = player.Stats_Strength/5, or something
 # similar.  Set up an initialization/recheck call for players and enemies under
 # battle calls.  There should be enough examples to know where and how to
 # use it.
@@ -26,10 +26,10 @@ init:
     $ player.Attribute_Armor_Physical = 1
     $ player.Attribute_Armor_Magic = 1
     $ player.Attribute_Armor_Will = 1
-    $ player.Attribute_Damage_Melee_Max = 10
-    $ player.Attribute_Damage_Ranged_Max = 10
-    $ player.Attribute_Damage_Magic_Max = 10
-    $ player.Attribute_Damage_Will_Max = 10
+    $ player.Attribute_Damage_Bonus_Melee_Max = 10
+    $ player.Attribute_Damage_Bonus_Ranged_Max = 10
+    $ player.Attribute_Damage_Bonus_Magic_Max = 10
+    $ player.Attribute_Damage_Bonus_Will_Max = 10
     $ player.Attribute_Dodge = 5
     $ player.Attribute_Initiative = 5
 # Equipment.. which may be derived.. if we add in equipment properly.
@@ -41,16 +41,30 @@ init:
     $ player.Equipment_Armor_Physical = 2
     $ player.Equipment_Armor_Magic = 2
     $ player.Equipment_Armor_Will = 2
-    $ player.Equipment_Damage_Melee_Max = 10
-    $ player.Equipment_Damage_Melee_Min = 1
-    $ player.Equipment_Damage_Ranged_Max = 10
-    $ player.Equipment_Damage_Ranged_Min = 1
-    $ player.Equipment_Damage_Magic_Max = 10
-    $ player.Equipment_Damage_Magic_Min = 1
-    $ player.Equipment_Damage_Will_Max = 10
-    $ player.Equipment_Damage_Will_Min = 1
+    $ player.Equipment_Damage_Bonus_Melee_Max = 0
+    $ player.Equipment_Damage_Bonus_Ranged_Max = 0
+    $ player.Equipment_Damage_Bonus_Magic_Max = 0
+    $ player.Equipment_Damage_Bonus_Will_Max = 0
     $ player.Equipment_Dodge = 4
     $ player.Equipment_Initiative = 4
+    $ player.Equipment_Weapon_Accuracy_Melee = 0
+    $ player.Equipment_Weapon_Accuracy_Ranged = 0
+    $ player.Equipment_Weapon_Damage_Melee_Max = 10
+    $ player.Equipment_Weapon_Damage_Melee_Min = 1
+    $ player.Equipment_Weapon_Damage_Ranged_Max = 10
+    $ player.Equipment_Weapon_Damage_Ranged_Min = 1
+    $ player.Equipment_Weapon_Damage_Magic_Max = 10
+    $ player.Equipment_Weapon_Damage_Magic_Min = 1
+    $ player.Equipment_Weapon_Damage_Will_Max = 10
+    $ player.Equipment_Weapon_Damage_Will_Min = 1
+# Equipment Slots and Weapon Type
+    $ player.Equipment_Slot_Weapon_Name = "NoWeapon"
+    $ player.Equipment_Slot_Weapon_Accuracy_Type = "Melee"
+    $ player.Equipment_Slot_Weapon_Damage_Type = "Melee"
+    $ player.Equipment_Slot_UpperBodyArmor_Name = "NoUpperArmor"
+    $ player.Equipment_Slot_LowerBodyArmor_Name = "NoLowerArmor"
+    $ player.Equipment_Slot_Necklace_Name = "NoNecklace"
+    $ player.Equipment_Slot_Ring_Name = "NoRing"
 #  Equipment - Consumables.  Consider it a 'stock', and will handle the
 # potions, grenades, and other one use items and non-rechargables (like wands.)
     $ player.Equipment_Consumables_Potions_HP_Restore = 3
@@ -100,21 +114,26 @@ init:
     $ player.X_Armor_Physical_X = player.Attribute_Armor_Physical+player.Equipment_Armor_Physical+player.Status_Block_Strength
     $ player.X_Armor_Magic_X = player.Attribute_Armor_Magic+player.Equipment_Armor_Magic+player.Status_Block_Strength
     $ player.X_Armor_Will_X = player.Attribute_Armor_Will+player.Equipment_Armor_Will
-    $ player.X_Damage_Melee_Max_X = player.Equipment_Damage_Melee_Max+player.Attribute_Damage_Melee_Max+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
-    $ player.X_Damage_Melee_Min_X = int(player.Equipment_Damage_Melee_Min+(round(player.Attribute_Damage_Melee_Max/10,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
-    $ player.X_Damage_Ranged_Max_X = player.Equipment_Damage_Ranged_Max+player.Attribute_Damage_Ranged_Max+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
-    $ player.X_Damage_Ranged_Min_X = int(player.Equipment_Damage_Ranged_Min+(round(player.Attribute_Damage_Ranged_Max/10,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
-    $ player.X_Damage_Magic_Max_X = player.Equipment_Damage_Magic_Max+player.Attribute_Damage_Magic_Max
-    $ player.X_Damage_Magic_Min_X = int(player.Equipment_Damage_Magic_Min+(round(player.Attribute_Damage_Magic_Max/10,0)))
-    $ player.X_Damage_Will_Max_X = player.Equipment_Damage_Will_Max+player.Attribute_Damage_Will_Max
-    $ player.X_Damage_Will_Min_X = int(player.Equipment_Damage_Will_Min+(round(player.Attribute_Damage_Will_Max/10,0)))
+    $ player.X_Damage_Bonus_Melee_Max_X = player.Attribute_Damage_Bonus_Melee_Max+player.Equipment_Damage_Bonus_Melee_Max+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
+    $ player.X_Damage_Bonus_Ranged_Max_X = player.Attribute_Damage_Bonus_Ranged_Max+player.Equipment_Damage_Bonus_Ranged_Max+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
+    $ player.X_Damage_Bonus_Magic_Max_X = player.Attribute_Damage_Bonus_Magic_Max+player.Equipment_Damage_Bonus_Magic_Max
+    $ player.X_Damage_Bonus_Will_Max_X = player.Attribute_Damage_Bonus_Will_Max+player.Equipment_Damage_Bonus_Will_Max
     $ player.X_Dodge_X = player.Attribute_Dodge+player.Equipment_Dodge+player.Status_Haste_Strength+player.Status_Dodge_Strength-player.Status_Slow_Strength
     $ player.X_Initiative_X = player.Attribute_Initiative+player.Equipment_Initiative+player.Status_Haste_Strength-player.Status_Slow_Strength
-# Extra bits.  Trying to obsolete these.
-#    $ player.roll_attack = 0
-#    $ player.roll_damage = 0
-#    $ player.roll_damage_final = 0
-#    $ player.roll_initiative = 0
+    $ player.X_Weapon_Accuracy_Melee_X = player.Attribute_Accuracy_Melee+player.Equipment_Weapon_Accuracy_Melee+player.Equipment_Accuracy_Melee
+    $ player.X_Weapon_Accuracy_Ranged_X = player.Attribute_Accuracy_Ranged+player.Equipment_Weapon_Accuracy_Ranged+player.Equipment_Accuracy_Ranged
+    $ player.X_Weapon_Damage_Melee_Max_X = player.Equipment_Weapon_Damage_Melee_Max+player.Attribute_Damage_Bonus_Melee_Max+player.Equipment_Damage_Bonus_Melee_Max+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
+    $ player.X_Weapon_Damage_Melee_Min_X = int(player.Equipment_Weapon_Damage_Melee_Min+(round(player.Attribute_Damage_Bonus_Melee_Max/10,0))+(round(player.Equipment_Damage_Bonus_Melee_Max/10,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
+    $ player.X_Weapon_Damage_Ranged_Max_X = player.Equipment_Weapon_Damage_Ranged_Max+player.Attribute_Damage_Bonus_Ranged_Max+player.Equipment_Damage_Bonus_Ranged_Max+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
+    $ player.X_Weapon_Damage_Ranged_Min_X = int(player.Equipment_Weapon_Damage_Ranged_Min+(round(player.Attribute_Damage_Bonus_Ranged_Max/10,0))+(round(player.Equipment_Damage_Bonus_Ranged_Max/10,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
+    $ player.X_Weapon_Damage_Magic_Max_X = player.Equipment_Weapon_Damage_Magic_Max+player.Attribute_Damage_Bonus_Magic_Max+player.Equipment_Damage_Bonus_Magic_Max
+    $ player.X_Weapon_Damage_Magic_Min_X = int(player.Equipment_Weapon_Damage_Magic_Min+(round(player.Attribute_Damage_Bonus_Magic_Max/10,0)))+(round(player.Equipment_Damage_Bonus_Magic_Max/10,0))
+    $ player.X_Weapon_Damage_Will_Max_X = player.Equipment_Weapon_Damage_Will_Max+player.Attribute_Damage_Bonus_Will_Max+player.Equipment_Damage_Bonus_Will_Max
+    $ player.X_Weapon_Damage_Will_Min_X = int(player.Equipment_Weapon_Damage_Will_Min+(round(player.Attribute_Damage_Bonus_Will_Max/10,0))+(round(player.Equipment_Damage_Bonus_Will_Max/10,0)))
+# Extra bits.
+    $ player.Equipment_Currency = 12345678
+    
+
 
 #####################################################################
 # Player Menu Section
@@ -290,11 +309,11 @@ label battle_Player_Item_Menu:
 label battle_Player_Attack_Melee:
     "You attack [enemy.name!t] with your weapon of generic name!"
     $player_roll_attack = renpy.random.randint(1,100)
-    if (player_roll_attack+player.X_Accuracy_Melee_X)-enemy.X_Dodge_X < 50:
-        "[enemy.name!t] dodges the attack! ([player_roll_attack] + [player.X_Accuracy_Melee_X] - [enemy.X_Dodge_X] vs 50)"
+    if (player_roll_attack+player.X_Weapon_Accuracy_Melee_X)-enemy.X_Dodge_X < 50:
+        "[enemy.name!t] dodges the attack! ([player_roll_attack] + [player.X_Weapon_Accuracy_Melee_X] - [enemy.X_Dodge_X] vs 50)"
         return
     else:
-        "[enemy.name!t] was hit! ([player_roll_attack] + [player.X_Accuracy_Melee_X] - [enemy.X_Dodge_X] vs 50)"
+        "[enemy.name!t] was hit! ([player_roll_attack] + [player.X_Weapon_Accuracy_Melee_X] - [enemy.X_Dodge_X] vs 50)"
         jump battle_Player_Attack_Melee_Success
 
 #  You may ask why we seperate the attack from the successful hit damage, but
@@ -303,7 +322,7 @@ label battle_Player_Attack_Melee:
 # nature.
 
 label battle_Player_Attack_Melee_Success:
-    $player_roll_damage = renpy.random.randint(player.X_Damage_Melee_Min_X,player.X_Damage_Melee_Max_X)
+    $player_roll_damage = renpy.random.randint(player.X_Weapon_Damage_Melee_Min_X,player.X_Weapon_Damage_Melee_Max_X)
     $player_roll_damage_final = (player_roll_damage-enemy.X_Armor_Physical_X)
     if player_roll_damage_final < 1:
         "You hit, but do no damage.  ([player_roll_damage] - [enemy.X_Armor_Physical_X] = [player_roll_damage_final])"
@@ -331,7 +350,7 @@ label battle_Player_Dodge:
 
 label battle_Player_Ability__Fire:
     "You cast Fire on [enemy.name!t]!"
-    $player_roll_damage_final = renpy.random.randint((25+player.X_Damage_Magic_Min_X),(35+player.X_Damage_Magic_Max_X))
+    $player_roll_damage_final = renpy.random.randint((25+player.X_Weapon_Damage_Magic_Min_X),(35+player.X_Weapon_Damage_Magic_Max_X))
     call battle_call_Enemy_HP_Loss(player_roll_damage_final)
     call battle_call_Player_AP_Loss(20)
     "You sear them for [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X]."
@@ -339,7 +358,7 @@ label battle_Player_Ability__Fire:
    
 label battle_Player_Ability__Blizzard:
     "You cast Blizzard on [enemy.name!t]!"
-    $player_roll_damage_final = renpy.random.randint((15+player.X_Damage_Magic_Min_X),(25+player.X_Damage_Magic_Max_X))
+    $player_roll_damage_final = renpy.random.randint((15+player.X_Weapon_Damage_Magic_Min_X),(25+player.X_Weapon_Damage_Magic_Max_X))
     call battle_call_Enemy_HP_Loss(player_roll_damage_final)
     call battle_call_Player_AP_Loss(10)
     "You flashfreeze them for [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X]."
@@ -347,7 +366,7 @@ label battle_Player_Ability__Blizzard:
 
 label battle_Player_Ability__Thunder:
     "You cast Thunder on [enemy.name!t]!"
-    $player_roll_damage_final = renpy.random.randint((30+player.X_Damage_Magic_Min_X),(50+player.X_Damage_Magic_Max_X))
+    $player_roll_damage_final = renpy.random.randint((30+player.X_Weapon_Damage_Magic_Min_X),(50+player.X_Weapon_Damage_Magic_Max_X))
     call battle_call_Enemy_HP_Loss(player_roll_damage_final)
     call battle_call_Player_AP_Loss(30)
     "You zap them for [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X]."
