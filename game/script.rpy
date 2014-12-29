@@ -39,9 +39,8 @@ label firstmenu:
             $ ename = Orc_Hero
             jump test02_Orc
 
-        "Test 03 - The same as the first, for now.":
-            $ ename = Goblin
-            jump test01_Goblin
+        "Test 03 - Checking Init Variables":
+            jump test03_VariableCheck
     return
 
 label test01_Goblin:
@@ -172,7 +171,18 @@ label test02_orc_victory_hp:
     nar "And so you triumphed over the evil tester orc."
     jump end
 
+label test03_VariableCheck:
+    nar "Time to test variables."
+    nar "HP Max [player.X_HealthPoints_Max_X] ; HP Cur [player.X_HealthPoints_Current_X] ; AP Max [player.X_AbilityPoints_Max_X] ; AP Cur [player.X_AbilityPoints_Current_X] ; WP Max [player.X_WillPoints_Max_X] ; WP Cur [player.X_WillPoints_Current_X]"
+    nar "Accuracy - Melee [player.X_Accuracy_Melee_X] ; Accuracy - Ranged [player.X_Accuracy_Ranged_X]"
+    nar "Armor - Phys [player.X_Armor_Physical_X] ; Armor - Magic [player.X_Armor_Magic_X] ; Armor - Will [player.X_Armor_Will_X]"
+    nar "Damage Melee [player.X_Damage_Melee_Min_X] to [player.X_Damage_Melee_Max_X] ; Damage Ranged [player.X_Damage_Ranged_Min_X] to [player.X_Damage_Ranged_Max_X] ; Damage Magic [player.X_Damage_Magic_Min_X] to [player.X_Damage_Magic_Max_X] ; Damage Will [player.X_Damage_Will_Min_X] to [player.X_Damage_Will_Max_X]"
+    nar "Dodge [player.X_Dodge_X] ; Initiative Bonus [player.X_Initiative_X]"
+    
+    jump end
+
+
+
 label end:
     "Done!"
     return
-
