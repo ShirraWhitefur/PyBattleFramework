@@ -60,4 +60,3 @@ Huge thanks go out to:
   Whoever made the tutorial - Since I don't see any credits in it.  Thanks for that lovely thing.  It got me over a few questions.. though I admit to only realizing I had it 24 hours into coding.  Hehe.
   The Forums In General - There's a ton of people on http://lemmasoft.renai.us who are really really helpful, and my websearches there answered probably a dozen quick questions before I had to ask them.
     Rock on folks.
-	
