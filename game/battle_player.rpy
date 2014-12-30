@@ -1,3 +1,7 @@
+# Shirra's Ren'Py Battle Framework
+# https://github.com/ShirraWhitefur/PyBattleFramework
+# http://creativecommons.org/licenses/by-nc/3.0/
+
 #  This file will contain initialization setup for the player, as well as all
 # of the menus for selecting what action players will take, and then the
 # actions, abilities, and items themselves, so as to keep things tidy.
@@ -62,22 +66,28 @@ init -50:
     $ player.Equipment_Weapon_Damage_Will_Min = 1
 # Equipment Slots and Weapon Type
     $ player.Equipment_Slot_Weapon_Name = no_weapon
+    $ player.Equipment_Slot_Weapon_Name_Temp = no_weapon
     $ player.Equipment_Slot_Weapon_Name_Text = "Gear Init Failed."
     $ player.Equipment_Slot_Weapon_Accuracy_Type = "Melee"
     $ player.Equipment_Slot_Weapon_Damage_Type = "Melee"
     $ player.Equipment_Slot_UpperBodyArmor_Name = no_upper_armor
+    $ player.Equipment_Slot_UpperBodyArmor_Name_Temp = no_upper_armor
     $ player.Equipment_Slot_UpperBodyArmor_Name_Text = "Gear Init Failed."
     $ player.Equipment_Slot_LowerBodyArmor_Name = no_lower_armor
+    $ player.Equipment_Slot_LowerBodyArmor_Name_Temp = no_lower_armor
     $ player.Equipment_Slot_LowerBodyArmor_Name_Text = "Gear Init Failed."
     $ player.Equipment_Slot_Necklace_Name = no_necklace
+    $ player.Equipment_Slot_Necklace_Name_Temp = no_necklace
     $ player.Equipment_Slot_Necklace_Name_Text = "Gear Init Failed."
     $ player.Equipment_Slot_Ring_Name = no_ring
+    $ player.Equipment_Slot_Ring_Name_Temp = no_ring
     $ player.Equipment_Slot_Ring_Name_Text = "Gear Init Failed."
 #  Equipment - Consumables.  Consider it a 'stock', and will handle the
 # potions, grenades, and other one use items and non-rechargables (like wands.)
     $ player.Equipment_Consumables_Potions_HP_Restore = 3
     $ player.Equipment_Consumables_Potions_AP_Restore = 2
     $ player.Equipment_Consumables_Potions_WP_Restore = 1
+    $ player.Equipment_Currency = 5000
 #  This block handles status effects, including the check to see if it's on.
 # EffectActive is probably going to be used mostly for the Screen/Frame/UI
 # stuff.
@@ -109,8 +119,17 @@ init -50:
     $ player.Status_Block_Strength = 0
     $ player.Status_Dodge_EffectActive = 0
     $ player.Status_Dodge_Strength = 0
+    $ player.Status_EquipLoss_Weapon_Duration = 0
+    $ player.Status_EquipLoss_Weapon_EffectActive = 0
+    $ player.Status_EquipLoss_UpperBodyArmor_Duration = 0
+    $ player.Status_EquipLoss_UpperBodyArmor_EffectActive = 0
+    $ player.Status_EquipLoss_LowerBodyArmor_Duration = 0
+    $ player.Status_EquipLoss_LowerBodyArmor_EffectActive = 0
+    $ player.Status_EquipLoss_Necklace_Duration = 0
+    $ player.Status_EquipLoss_Necklace_EffectActive = 0
+    $ player.Status_EquipLoss_Ring_Duration = 0
+    $ player.Status_EquipLoss_Ring_EffectActive = 0
 # Player's Calculated Attributes
-# battle.Damage_Bonus_Min_Divisor
     $ player.X_HealthPoints_Max_X = player.Attribute_HealthPoints_Max+player.Equipment_HealthPoints_Max
     $ player.X_HealthPoints_Current_X = player.X_HealthPoints_Max_X
     $ player.X_AbilityPoints_Max_X = player.Attribute_AbilityPoints_Max+player.Equipment_AbilityPoints_Max
@@ -143,8 +162,6 @@ init -50:
     $ player.X_Weapon_Damage_Magic_Min_X = int(player.Equipment_Weapon_Damage_Magic_Min+(round(player.Attribute_Damage_Bonus_Magic_Max/battle.Damage_Bonus_Min_Divisor,0)))+(round(player.Equipment_Damage_Bonus_Magic_Max/battle.Damage_Bonus_Min_Divisor,0))
     $ player.X_Weapon_Damage_Will_Max_X = player.Equipment_Weapon_Damage_Will_Max+player.Attribute_Damage_Bonus_Will_Max+player.Equipment_Damage_Bonus_Will_Max
     $ player.X_Weapon_Damage_Will_Min_X = int(player.Equipment_Weapon_Damage_Will_Min+(round(player.Attribute_Damage_Bonus_Will_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(player.Equipment_Damage_Bonus_Will_Max/battle.Damage_Bonus_Min_Divisor,0)))
-# Extra bits.
-    $ player.Equipment_Currency = 12345678
     
 
 
@@ -382,6 +399,8 @@ label battle_Player_Attack_Main_Success:
         call battle_call_Enemy_HP_Loss(player_roll_damage_final)
         "You land a solid blow, dealing [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X].  ([player_roll_damage] - [enemy.X_Armor_Will_X])"
         return
+    nar "You broke my system with a wierd damage type.  Stop that."
+    jump end
 
 #  You may ask why we seperate the attack from the successful hit damage, but
 # this is to allow for abilities that would do a single attack roll, but

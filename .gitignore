@@ -2,9 +2,9 @@
 ## Shirra's Junk
 #################
 game/saves/
-#log.txt
-#traceback.txt
-#errors.txt
+log.txt
+traceback.txt
+errors.txt
 
 #################
 ## Eclipse

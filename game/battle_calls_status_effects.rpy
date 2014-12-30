@@ -1,6 +1,18 @@
+# Shirra's Ren'Py Battle Framework
+# https://github.com/ShirraWhitefur/PyBattleFramework
+# http://creativecommons.org/licenses/by-nc/3.0/
+
 # Status Effects file!
 #  Paralyse, Charm, and Sleep, due to how they interrupt the action flow, will
 # stay in battle.rpy as mostly if-else statements.
+#  Notably!  Being hit with the same status effect while it's already active
+# will overwrite the duration and strength of the original!
+#  Checks are in place to make sure you don't get disarmed twice though, but the
+# duration can be changed on those as well.
+#
+#  Paralyse, Charm, and Sleep do _NOT_ currently disallow you from selecting
+# actions.. they just set your action to a skipped turn.  Maybe later we'll
+# make a more elegant setup, but this is a framework, so.. alas!
 
 #####################################################################
 # Status Effects - Player
@@ -15,6 +27,11 @@ label battle_call_Player_Status_Check_Block:
     call battle_call_Player_Status_StrengthenCheck
     call battle_call_Player_Status_Block
     call battle_call_Player_Status_Dodge
+    call battle_call_Player_Status_EquipLoss_Weapon_Check
+    call battle_call_Player_Status_EquipLoss_UpperBodyArmor_Check
+    call battle_call_Player_Status_EquipLoss_LowerBodyArmor_Check
+    call battle_call_Player_Status_EquipLoss_Necklace_Check
+    call battle_call_Player_Status_EquipLoss_Ring_Check
     return
 
 label battle_call_Player_Status_PoisonCheck:
@@ -129,8 +146,105 @@ label battle_call_Player_Status_Dodge:
         "You are no longer actively dodging!"
     return
 
-#label battle_call_Player_Status_EquipLoss_WeaponCheck:
-#label battle_call_Player_Status_EquipLoss_ArmorCheck:
+label battle_call_Player_Status_EquipLoss_Weapon_Check:
+    if player.Status_EquipLoss_Weapon_EffectActive == 1:
+        if player.Status_EquipLoss_Weapon_Duration > 0:
+            "You are currently disarmed!"
+            $ player.Status_EquipLoss_Weapon_Duration -= 1
+            "You will be disarmed for another [player.Status_EquipLoss_Weapon_Duration] rounds"
+            return
+        if player.Status_EquipLoss_Weapon_Duration == 0:
+            $ player.Status_EquipLoss_Weapon_EffectActive = 0
+            $ player.Equipment_Slot_Weapon_Name = player.Equipment_Slot_Weapon_Name_Temp
+            call call_Player_Equipment_Slot_Equip_Weapon(player.Equipment_Slot_Weapon_Name)
+            "You finally find where your weapon ended up and re-equip it."
+    return
+
+label battle_call_Player_Status_EquipLoss_UpperBodyArmor_Check:
+    if player.Status_EquipLoss_UpperBodyArmor_EffectActive == 1:
+        if player.Status_EquipLoss_UpperBodyArmor_Duration > 0:
+            "You are currently missing your upper body armor!"
+            $ player.Status_EquipLoss_UpperBodyArmor_Duration -= 1
+            "You will be without your upper body armor for another [player.Status_EquipLoss_UpperBodyArmor_Duration] rounds"
+            return
+        if player.Status_EquipLoss_UpperBodyArmor_Duration == 0:
+            $ player.Status_EquipLoss_UpperBodyArmor_EffectActive = 0
+            $ player.Equipment_Slot_UpperBodyArmor_Name = player.Equipment_Slot_UpperBodyArmor_Name_Temp
+            call call_Player_Equipment_Slot_Equip_UpperBodyArmor(player.Equipment_Slot_UpperBodyArmor_Name)
+            "You finally find where your upper body armor ended up and re-equip it."
+    return
+
+label battle_call_Player_Status_EquipLoss_LowerBodyArmor_Check:
+    if player.Status_EquipLoss_LowerBodyArmor_EffectActive == 1:
+        if player.Status_EquipLoss_LowerBodyArmor_Duration > 0:
+            "You are currently missing your upper body armor!"
+            $ player.Status_EquipLoss_LowerBodyArmor_Duration -= 1
+            "You will be without your lower body armor for another [player.Status_EquipLoss_LowerBodyArmor_Duration] rounds"
+            return
+        if player.Status_EquipLoss_LowerBodyArmor_Duration == 0:
+            $ player.Status_EquipLoss_LowerBodyArmor_EffectActive = 0
+            $ player.Equipment_Slot_LowerBodyArmor_Name = player.Equipment_Slot_LowerBodyArmor_Name_Temp
+            call call_Player_Equipment_Slot_Equip_LowerBodyArmor(player.Equipment_Slot_LowerBodyArmor_Name)
+            "You finally find where your upper body armor ended up and re-equip it."
+    return
+
+label battle_call_Player_Status_EquipLoss_Necklace_Check:
+    if player.Status_EquipLoss_Necklace_EffectActive == 1:
+        if player.Status_EquipLoss_Necklace_Duration > 0:
+            "You are currently missing your upper body armor!"
+            $ player.Status_EquipLoss_Necklace_Duration -= 1
+            "You will be without your necklace for another [player.Status_EquipLoss_Necklace_Duration] rounds"
+            return
+        if player.Status_EquipLoss_Necklace_Duration == 0:
+            $ player.Status_EquipLoss_Necklace_EffectActive = 0
+            $ player.Equipment_Slot_Necklace_Name = player.Equipment_Slot_Necklace_Name_Temp
+            call call_Player_Equipment_Slot_Equip_Necklace(player.Equipment_Slot_Necklace_Name)
+            "You finally find where your upper body armor ended up and re-equip it."
+    return
+
+label battle_call_Player_Status_EquipLoss_Ring_Check:
+    if player.Status_EquipLoss_Ring_EffectActive == 1:
+        if player.Status_EquipLoss_Ring_Duration > 0:
+            "You are currently missing your upper body armor!"
+            $ player.Status_EquipLoss_Ring_Duration -= 1
+            "You will be without your ring for another [player.Status_EquipLoss_Ring_Duration] rounds"
+            return
+        if player.Status_EquipLoss_Ring_Duration == 0:
+            $ player.Status_EquipLoss_Ring_EffectActive = 0
+            $ player.Equipment_Slot_Ring_Name = player.Equipment_Slot_Ring_Name_Temp
+            call call_Player_Equipment_Slot_Equip_Ring(player.Equipment_Slot_Ring_Name)
+            "You finally find where your upper body armor ended up and re-equip it."
+    return
+
+label battle_call_Player_Status_EquipLoss_Weapon_Remove:
+    if player.Status_EquipLoss_Weapon_EffectActive == 0:
+        $ player.Equipment_Slot_Weapon_Name_Temp = player.Equipment_Slot_Weapon_Name
+        call call_Player_Equipment_Slot_Unequip_Weapon(player.Equipment_Slot_Weapon_Name)
+    return
+
+label battle_call_Player_Status_EquipLoss_UpperBodyArmor_Remove:
+    if player.Status_EquipLoss_UpperBodyArmor_EffectActive == 0:
+        $ player.Equipment_Slot_UpperBodyArmor_Name_Temp = player.Equipment_Slot_UpperBodyArmor_Name
+        call call_Player_Equipment_Slot_Unequip_UpperBodyArmor(player.Equipment_Slot_UpperBodyArmor_Name)
+    return
+
+label battle_call_Player_Status_EquipLoss_LowerBodyArmor_Remove:
+    if player.Status_EquipLoss_LowerBodyArmor_EffectActive == 0:
+        $ player.Equipment_Slot_LowerBodyArmor_Name_Temp = player.Equipment_Slot_LowerBodyArmor_Name
+        call call_Player_Equipment_Slot_Unequip_LowerBodyArmor(player.Equipment_Slot_LowerBodyArmor_Name)
+    return
+
+label battle_call_Player_Status_EquipLoss_Necklace_Remove:
+    if player.Status_EquipLoss_Necklace_EffectActive == 0:
+        $ player.Equipment_Slot_Necklace_Name_Temp = player.Equipment_Slot_Necklace_Name
+        call call_Player_Equipment_Slot_Unequip_Necklace(player.Equipment_Slot_Necklace_Name)
+    return
+
+label battle_call_Player_Status_EquipLoss_Ring_Remove:
+    if player.Status_EquipLoss_Ring_EffectActive == 0:
+        $ player.Equipment_Slot_Ring_Name_Temp = player.Equipment_Slot_Ring_Name
+        call call_Player_Equipment_Slot_Unequip_Ring(player.Equipment_Slot_Ring_Name)
+    return
 
 #####################################################################
 # Status Effects - Enemy
@@ -145,6 +259,11 @@ label battle_call_Enemy_Status_Check_Block:
     call battle_call_Enemy_Status_StrengthenCheck
     call battle_call_Enemy_Status_Block
     call battle_call_Enemy_Status_Dodge
+    call battle_call_Enemy_Status_EquipLoss_Weapon_Check
+    call battle_call_Enemy_Status_EquipLoss_UpperBodyArmor_Check
+    call battle_call_Enemy_Status_EquipLoss_LowerBodyArmor_Check
+    call battle_call_Enemy_Status_EquipLoss_Necklace_Check
+    call battle_call_Enemy_Status_EquipLoss_Ring_Check
     return
 
 label battle_call_Enemy_Status_PoisonCheck:
@@ -259,5 +378,102 @@ label battle_call_Enemy_Status_Dodge:
         "[enemy.name!t] is no longer actively dodging!"
     return
 
-#label battle_call_Enemy_Status_EquipLoss_WeaponCheck:
-#label battle_call_Enemy_Status_EquipLoss_ArmorCheck:
+label battle_call_Enemy_Status_EquipLoss_Weapon_Check:
+    if enemy.Status_EquipLoss_Weapon_EffectActive == 1:
+        if enemy.Status_EquipLoss_Weapon_Duration > 0:
+            "[enemy.name!t] is currently disarmed!"
+            $ enemy.Status_EquipLoss_Weapon_Duration -= 1
+            "[enemy.name!t] will be disarmed for another [enemy.Status_EquipLoss_Weapon_Duration] rounds"
+            return
+        if enemy.Status_EquipLoss_Weapon_Duration == 0:
+            $ enemy.Status_EquipLoss_Weapon_EffectActive = 0
+            $ enemy.Equipment_Slot_Weapon_Name = enemy.Equipment_Slot_Weapon_Name_Temp
+            call call_Enemy_Equipment_Slot_Equip_Weapon(enemy.Equipment_Slot_Weapon_Name)
+            "[enemy.name!t] finally finds where their weapon ended up and re-equip it."
+    return
+
+label battle_call_Enemy_Status_EquipLoss_UpperBodyArmor_Check:
+    if enemy.Status_EquipLoss_UpperBodyArmor_EffectActive == 1:
+        if enemy.Status_EquipLoss_UpperBodyArmor_Duration > 0:
+            "[enemy.name!t] is currently missing their upper body armor!"
+            $ enemy.Status_EquipLoss_UpperBodyArmor_Duration -= 1
+            "[enemy.name!t] will be without their upper body armor for another [enemy.Status_EquipLoss_UpperBodyArmor_Duration] rounds"
+            return
+        if enemy.Status_EquipLoss_UpperBodyArmor_Duration == 0:
+            $ enemy.Status_EquipLoss_UpperBodyArmor_EffectActive = 0
+            $ enemy.Equipment_Slot_UpperBodyArmor_Name = enemy.Equipment_Slot_UpperBodyArmor_Name_Temp
+            call call_Enemy_Equipment_Slot_Equip_UpperBodyArmor(enemy.Equipment_Slot_UpperBodyArmor_Name)
+            "[enemy.name!t] finally finds where their upper body armor ended up and re-equip it."
+    return
+
+label battle_call_Enemy_Status_EquipLoss_LowerBodyArmor_Check:
+    if enemy.Status_EquipLoss_LowerBodyArmor_EffectActive == 1:
+        if enemy.Status_EquipLoss_LowerBodyArmor_Duration > 0:
+            "[enemy.name!t] is currently missing their upper body armor!"
+            $ enemy.Status_EquipLoss_LowerBodyArmor_Duration -= 1
+            "[enemy.name!t] will be without their lower body armor for another [enemy.Status_EquipLoss_LowerBodyArmor_Duration] rounds"
+            return
+        if enemy.Status_EquipLoss_LowerBodyArmor_Duration == 0:
+            $ enemy.Status_EquipLoss_LowerBodyArmor_EffectActive = 0
+            $ enemy.Equipment_Slot_LowerBodyArmor_Name = enemy.Equipment_Slot_LowerBodyArmor_Name_Temp
+            call call_Enemy_Equipment_Slot_Equip_LowerBodyArmor(enemy.Equipment_Slot_LowerBodyArmor_Name)
+            "[enemy.name!t] finally finds where their upper body armor ended up and re-equip it."
+    return
+
+label battle_call_Enemy_Status_EquipLoss_Necklace_Check:
+    if enemy.Status_EquipLoss_Necklace_EffectActive == 1:
+        if enemy.Status_EquipLoss_Necklace_Duration > 0:
+            "[enemy.name!t] is currently missing their upper body armor!"
+            $ enemy.Status_EquipLoss_Necklace_Duration -= 1
+            "[enemy.name!t] will be without their necklace for another [enemy.Status_EquipLoss_Necklace_Duration] rounds"
+            return
+        if enemy.Status_EquipLoss_Necklace_Duration == 0:
+            $ enemy.Status_EquipLoss_Necklace_EffectActive = 0
+            $ enemy.Equipment_Slot_Necklace_Name = enemy.Equipment_Slot_Necklace_Name_Temp
+            call call_Enemy_Equipment_Slot_Equip_Necklace(enemy.Equipment_Slot_Necklace_Name)
+            "[enemy.name!t] finally finds where their upper body armor ended up and re-equip it."
+    return
+
+label battle_call_Enemy_Status_EquipLoss_Ring_Check:
+    if enemy.Status_EquipLoss_Ring_EffectActive == 1:
+        if enemy.Status_EquipLoss_Ring_Duration > 0:
+            "[enemy.name!t] is currently missing their upper body armor!"
+            $ enemy.Status_EquipLoss_Ring_Duration -= 1
+            "[enemy.name!t] will be without their ring for another [enemy.Status_EquipLoss_Ring_Duration] rounds"
+            return
+        if enemy.Status_EquipLoss_Ring_Duration == 0:
+            $ enemy.Status_EquipLoss_Ring_EffectActive = 0
+            $ enemy.Equipment_Slot_Ring_Name = enemy.Equipment_Slot_Ring_Name_Temp
+            call call_Enemy_Equipment_Slot_Equip_Ring(enemy.Equipment_Slot_Ring_Name)
+            "[enemy.name!t] finally finds where their upper body armor ended up and re-equip it."
+    return
+
+label battle_call_Enemy_Status_EquipLoss_Weapon_Remove:
+    if enemy.Status_EquipLoss_Weapon_EffectActive == 0:
+        $ enemy.Equipment_Slot_Weapon_Name_Temp = enemy.Equipment_Slot_Weapon_Name
+        call call_Enemy_Equipment_Slot_Unequip_Weapon(enemy.Equipment_Slot_Weapon_Name)
+    return
+
+label battle_call_Enemy_Status_EquipLoss_UpperBodyArmor_Remove:
+    if enemy.Status_EquipLoss_UpperBodyArmor_EffectActive == 0:
+        $ enemy.Equipment_Slot_UpperBodyArmor_Name_Temp = enemy.Equipment_Slot_UpperBodyArmor_Name
+        call call_Enemy_Equipment_Slot_Unequip_UpperBodyArmor(enemy.Equipment_Slot_UpperBodyArmor_Name)
+    return
+
+label battle_call_Enemy_Status_EquipLoss_LowerBodyArmor_Remove:
+    if enemy.Status_EquipLoss_LowerBodyArmor_EffectActive == 0:
+        $ enemy.Equipment_Slot_LowerBodyArmor_Name_Temp = enemy.Equipment_Slot_LowerBodyArmor_Name
+        call call_Enemy_Equipment_Slot_Unequip_LowerBodyArmor(enemy.Equipment_Slot_LowerBodyArmor_Name)
+    return
+
+label battle_call_Enemy_Status_EquipLoss_Necklace_Remove:
+    if enemy.Status_EquipLoss_Necklace_EffectActive == 0:
+        $ enemy.Equipment_Slot_Necklace_Name_Temp = enemy.Equipment_Slot_Necklace_Name
+        call call_Enemy_Equipment_Slot_Unequip_Necklace(enemy.Equipment_Slot_Necklace_Name)
+    return
+
+label battle_call_Enemy_Status_EquipLoss_Ring_Remove:
+    if enemy.Status_EquipLoss_Ring_EffectActive == 0:
+        $ enemy.Equipment_Slot_Ring_Name_Temp = enemy.Equipment_Slot_Ring_Name
+        call call_Enemy_Equipment_Slot_Unequip_Ring(enemy.Equipment_Slot_Ring_Name)
+    return

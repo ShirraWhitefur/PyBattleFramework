@@ -1,4 +1,8 @@
-﻿# This is where any Screen/UI elements for battle will end up.
+﻿# Shirra's Ren'Py Battle Framework
+# https://github.com/ShirraWhitefur/PyBattleFramework
+# http://creativecommons.org/licenses/by-nc/3.0/
+
+# This is where any Screen/UI elements for battle will end up.
 
 #  This is called with your player name and enemy name, appearing on the left
 # and right upper corners.
@@ -157,7 +161,6 @@ screen stats_frame2(ename):
                         text ("- Debuff1") xalign 0.0 size 12
                         text ("- Debuff2") xalign 0.0 size 12
 # /\ The end of the 'status block'
-# /\ The end of the 'status block'
 # \/  This section is definitely a debug section, to make sure that the items
 # \/ are being properly equipped.  You'll probably want to just delete this,
 # \/ unless you need it to test your work.
@@ -179,3 +182,137 @@ screen stats_frame2(ename):
                         text ("- Ring") xalign 0.0 size 12
 # /\ The end of the 'equipment block'
 
+#####################################################################
+# Really Ugly Status Screen
+#####################################################################
+
+screen status_frame:
+    frame xfill(False) yminimum(None) background(None) xpos 0.01 ypos 0.005:
+# Player name ends up here..
+        text (playername) size 20
+    frame xfill(False) yminimum(None) background(None) xpos 0.01 ypos 0.045:
+        hbox:
+            vbox:
+                text ("HP") xalign 1.0 size 20
+                text ("AP") xalign 1.0 size 20
+                text ("WP") xalign 1.0 size 20
+            vbox:
+                bar value player.X_HealthPoints_Current_X range player.X_HealthPoints_Max_X xmaximum 150
+                bar value player.X_AbilityPoints_Current_X range player.X_AbilityPoints_Max_X xmaximum 150
+                bar value player.X_WillPoints_Current_X range player.X_WillPoints_Max_X xmaximum 150
+            vbox:
+                text ("%d/%d" % (player.X_HealthPoints_Current_X, player.X_HealthPoints_Max_X)) xalign 0.5 size 20
+                text ("%d/%d" % (player.X_AbilityPoints_Current_X, player.X_AbilityPoints_Max_X)) xalign 0.5 size 20
+                text ("%d/%d" % (player.X_WillPoints_Current_X, player.X_WillPoints_Max_X)) xalign 0.5 size 20
+# \/  This section is somewhat of a 'debug' section.  Primarily being used
+# \/ currently to show our (de)buffs and help track for errors in the code, it
+# \/ also serves as an example of how to set up statements to track the various
+# \/ (de)buffs, so you can then use it for triggering pretty status icons in the
+# \/ nifty UI you will undoubtedly make to replace this mess!  ^_^  It would
+# \/ probably be wise to call this with a seperate screen command..
+    frame xfill(False) yminimum(None) background(None) xpos 0.01 ypos 0.175:
+            hbox:
+                vbox:
+                        text ("Buff1 -") xalign 1.0 size 12
+                        text ("Buff2 -") xalign 1.0 size 12
+                        text ("Debuff1 -") xalign 1.0 size 12
+                        text ("Debuff2 -") xalign 1.0 size 12
+                vbox:
+                    hbox:
+                        text (" ") size 12
+                        if player.Status_Regen_EffectActive == 1:
+                            text (" Regen ") size 12
+                        if player.Status_Haste_EffectActive == 1:
+                            text (" Haste ") size 12
+                        if player.Status_Strengthen_EffectActive == 1:
+                            text (" Strength ") size 12
+                    hbox:
+                        text (" ") size 12
+                        if player.Status_Block_EffectActive == 1:
+                            text (" Block ") size 12
+                        if player.Status_Dodge_EffectActive == 1:
+                            text (" Dodge ") size 12
+                    hbox:
+                        text (" ") size 12
+                        if player.Status_Poison_EffectActive == 1:
+                            text (" Poison ") size 12
+                        if player.Status_Slow_EffectActive == 1:
+                            text (" Slow ") size 12
+                        if player.Status_Weaken_EffectActive == 1:
+                            text (" Weaken ") size 12
+                    hbox:
+                        if player.Status_Paralyse_EffectActive == 1:
+                            text (" Paralyse ") size 12
+                        if player.Status_Charm_EffectActive == 1:
+                            text (" Charm ") size 12
+                        if player.Status_Sleep_EffectActive == 1:
+                            text (" Sleep ") size 12
+# /\ The end of the 'status block'
+# \/  This section is definitely a debug section, to make sure that the items
+# \/ are being properly equipped.  You'll probably want to just delete this,
+# \/ unless you need it to test your work.
+    frame xfill(False) yminimum(None) background(None) xpos 0.01 ypos 0.27:
+            hbox:
+                vbox:
+                        text ("Weapon -") xalign 1.0 size 12
+                        text (" ") xalign 1.0 size 12
+                        text ("UpperArmor -") xalign 1.0 size 12
+                        text ("LowerArmor -") xalign 1.0 size 12
+                        text ("Necklace -") xalign 1.0 size 12
+                        text ("Ring -") xalign 1.0 size 12
+                vbox:
+                        text ("[player.Equipment_Slot_Weapon_Name_Text]") size 12
+                        text ("Acc - [player.Equipment_Slot_Weapon_Accuracy_Type] - Dmg - [player.Equipment_Slot_Weapon_Damage_Type]") size 12
+                        text ("[player.Equipment_Slot_UpperBodyArmor_Name_Text]") size 12
+                        text ("[player.Equipment_Slot_LowerBodyArmor_Name_Text]") size 12
+                        text ("[player.Equipment_Slot_Necklace_Name_Text]") size 12
+                        text ("[player.Equipment_Slot_Ring_Name_Text]") size 12
+# /\ The end of the 'equipment block'
+# \/ The 'Raw'ish Stats block'
+    frame xfill(False) yminimum(None) background(None) xpos 0.99 ypos 0.1 xalign 1.0:
+            hbox:
+                vbox xalign 1.0:
+                        text ("[player.X_Accuracy_Melee_X]") size 12
+                        text ("[player.X_Accuracy_Ranged_X]") size 12
+                        text ("[player.X_Armor_Physical_X]") size 12
+                        text ("[player.X_Armor_Magic_X]") size 12
+                        text ("[player.X_Armor_Will_X]") size 12
+                        text ("[player.X_Damage_Bonus_Melee_Min_X]-[player.X_Damage_Bonus_Melee_Max_X]") size 12
+                        text ("[player.X_Damage_Bonus_Ranged_Min_X]-[player.X_Damage_Bonus_Ranged_Max_X]") size 12
+                        text ("[player.X_Damage_Bonus_Magic_Min_X]-[player.X_Damage_Bonus_Magic_Max_X]") size 12
+                        text ("[player.X_Damage_Bonus_Will_Min_X]-[player.X_Damage_Bonus_Will_Max_X]") size 12
+                        text ("[player.X_Dodge_X]") size 12
+                        text ("[player.X_Initiative_X]") size 12
+                        text ("[player.X_Weapon_Accuracy_Melee_X]") size 12
+                        text ("[player.X_Weapon_Accuracy_Ranged_X]") size 12
+                        text ("[player.X_Weapon_Damage_Melee_Min_X]-[player.X_Weapon_Damage_Melee_Max_X]") size 12
+                        text ("[player.X_Weapon_Damage_Ranged_Min_X]-[player.X_Weapon_Damage_Ranged_Max_X]") size 12
+                        text ("[player.X_Weapon_Damage_Magic_Min_X]-[player.X_Weapon_Damage_Magic_Max_X]") size 12
+                        text ("[player.X_Weapon_Damage_Will_Min_X]-[player.X_Weapon_Damage_Will_Max_X]") size 12
+                        text ("[player.Equipment_Consumables_Potions_HP_Restore]") size 12
+                        text ("[player.Equipment_Consumables_Potions_AP_Restore]") size 12
+                        text ("[player.Equipment_Consumables_Potions_WP_Restore]") size 12
+                        text ("[player.Equipment_Currency]") size 12
+                vbox xalign 1.0:
+                        text ("- Accuracy Bonus - Melee") xalign 0.0 size 12
+                        text ("- Accuracy Bonus - Ranged") xalign 0.0 size 12
+                        text ("- Armor - Physical") xalign 0.0 size 12
+                        text ("- Armor - Magic") xalign 0.0 size 12
+                        text ("- Armor - Will") xalign 0.0 size 12
+                        text ("- Damage Bonus - Melee") xalign 0.0 size 12
+                        text ("- Damage Bonus - Ranged") xalign 0.0 size 12
+                        text ("- Damage Bonus - Magic") xalign 0.0 size 12
+                        text ("- Damage Bonus - Will") xalign 0.0 size 12
+                        text ("- Dodge") xalign 0.0 size 12
+                        text ("- Initiative") xalign 0.0 size 12
+                        text ("- Weapon Accuracy - Melee") xalign 0.0 size 12
+                        text ("- Weapon Accuracy - Ranged") xalign 0.0 size 12
+                        text ("- Weapon Damage - Melee") xalign 0.0 size 12
+                        text ("- Weapon Damage - Ranged") xalign 0.0 size 12
+                        text ("- Weapon Damage - Magic") xalign 0.0 size 12
+                        text ("- Weapon Damage - Will") xalign 0.0 size 12
+                        text ("- HP Potions") xalign 0.0 size 12
+                        text ("- AP Potions") xalign 0.0 size 12
+                        text ("- WP Potions") xalign 0.0 size 12
+                        text ("- Coins") xalign 0.0 size 12
+# /\ The end the 'Raw'ish Stats block'

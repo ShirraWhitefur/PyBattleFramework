@@ -1,3 +1,7 @@
+# Shirra's Ren'Py Battle Framework
+# https://github.com/ShirraWhitefur/PyBattleFramework
+# http://creativecommons.org/licenses/by-nc/3.0/
+
 # Equipment Database - UpperBodyArmor
 #  You might want to make an index of equipment sometime, just so you can find
 # things once this gets unwieldy.  
@@ -26,3 +30,39 @@ init -99:
     $ no_upper_armor.Equipment_Initiative = 0
     $ no_upper_armor.Equipment_Slot_UpperBodyArmor_Name = no_upper_armor
     $ no_upper_armor.Equipment_Slot_UpperBodyArmor_Name_Text = "No Armor Equipped"
+# UpperBodyArmor - Cloth Shirt - upper_cloth_shirt
+    $ upper_cloth_shirt = Character("upper_cloth_shirt")
+    $ upper_cloth_shirt.Equipment_HealthPoints_Max = 0
+    $ upper_cloth_shirt.Equipment_AbilityPoints_Max = 0
+    $ upper_cloth_shirt.Equipment_WillPoints_Max = 0
+    $ upper_cloth_shirt.Equipment_Accuracy_Melee = 0
+    $ upper_cloth_shirt.Equipment_Accuracy_Ranged = 0
+    $ upper_cloth_shirt.Equipment_Armor_Physical = 1
+    $ upper_cloth_shirt.Equipment_Armor_Magic = 1
+    $ upper_cloth_shirt.Equipment_Armor_Will = 3
+    $ upper_cloth_shirt.Equipment_Damage_Bonus_Melee_Max = 0
+    $ upper_cloth_shirt.Equipment_Damage_Bonus_Ranged_Max = 0
+    $ upper_cloth_shirt.Equipment_Damage_Bonus_Magic_Max = 0
+    $ upper_cloth_shirt.Equipment_Damage_Bonus_Will_Max = 0
+    $ upper_cloth_shirt.Equipment_Dodge = 2
+    $ upper_cloth_shirt.Equipment_Initiative = 2
+    $ upper_cloth_shirt.Equipment_Slot_UpperBodyArmor_Name = upper_cloth_shirt
+    $ upper_cloth_shirt.Equipment_Slot_UpperBodyArmor_Name_Text = "Cloth Shirt"
+# UpperBodyArmor - Chainmail Armor - upper_chain_armor
+    $ upper_chain_armor = Character("upper_chain_armor")
+    $ upper_chain_armor.Equipment_HealthPoints_Max = 5
+    $ upper_chain_armor.Equipment_AbilityPoints_Max = 0
+    $ upper_chain_armor.Equipment_WillPoints_Max = 0
+    $ upper_chain_armor.Equipment_Accuracy_Melee = 0
+    $ upper_chain_armor.Equipment_Accuracy_Ranged = 0
+    $ upper_chain_armor.Equipment_Armor_Physical = 8
+    $ upper_chain_armor.Equipment_Armor_Magic = 7
+    $ upper_chain_armor.Equipment_Armor_Will = 4
+    $ upper_chain_armor.Equipment_Damage_Bonus_Melee_Max = 0
+    $ upper_chain_armor.Equipment_Damage_Bonus_Ranged_Max = 0
+    $ upper_chain_armor.Equipment_Damage_Bonus_Magic_Max = 0
+    $ upper_chain_armor.Equipment_Damage_Bonus_Will_Max = 0
+    $ upper_chain_armor.Equipment_Dodge = 0
+    $ upper_chain_armor.Equipment_Initiative = 0
+    $ upper_chain_armor.Equipment_Slot_UpperBodyArmor_Name = upper_chain_armor
+    $ upper_chain_armor.Equipment_Slot_UpperBodyArmor_Name_Text = "Chainmail Armor"

@@ -1,4 +1,8 @@
-﻿#  We have to initialize a whole mess of variables for this system to work
+﻿# Shirra's Ren'Py Battle Framework
+# https://github.com/ShirraWhitefur/PyBattleFramework
+# http://creativecommons.org/licenses/by-nc/3.0/
+
+#  We have to initialize a whole mess of variables for this system to work
 # nicely, and the enemy needs a full set of them.  The enemy here though is
 # representing the -current- enemy, loaded into memory, a copy of one from the
 # enemy files.  Those are effectively a template.  To set up the enemies, make
@@ -107,6 +111,7 @@ init -75:
     $ enemy.Equipment_Consumables_Potions_HP_Restore = 0
     $ enemy.Equipment_Consumables_Potions_AP_Restore = 0
     $ enemy.Equipment_Consumables_Potions_WP_Restore = 0
+    $ enemy.Equipment_Currency = 0
 #  This block handles status effects, including the check to see if it's on.
 # EffectActive is probably going to be used mostly for the Screen/Frame/UI
 # stuff.
@@ -138,6 +143,16 @@ init -75:
     $ enemy.Status_Block_Strength = 0
     $ enemy.Status_Dodge_EffectActive = 0
     $ enemy.Status_Dodge_Strength = 0
+    $ enemy.Status_EquipLoss_Weapon_Duration = 0
+    $ enemy.Status_EquipLoss_Weapon_EffectActive = 0
+    $ enemy.Status_EquipLoss_UpperBodyArmor_Duration = 0
+    $ enemy.Status_EquipLoss_UpperBodyArmor_EffectActive = 0
+    $ enemy.Status_EquipLoss_LowerBodyArmor_Duration = 0
+    $ enemy.Status_EquipLoss_LowerBodyArmor_EffectActive = 0
+    $ enemy.Status_EquipLoss_Necklace_Duration = 0
+    $ enemy.Status_EquipLoss_Necklace_EffectActive = 0
+    $ enemy.Status_EquipLoss_Ring_Duration = 0
+    $ enemy.Status_EquipLoss_Ring_EffectActive = 0
 # Enemy's Calculated Attributes
     $ enemy.X_HealthPoints_Current_X = 50
     $ enemy.X_HealthPoints_Max_X = 50
@@ -171,4 +186,3 @@ init -75:
     $ enemy.X_Weapon_Damage_Magic_Min_X = 0
     $ enemy.X_Weapon_Damage_Will_Max_X = 0
     $ enemy.X_Weapon_Damage_Will_Min_X = 0
-

@@ -1,4 +1,10 @@
-﻿# Just a collection of little calls here.
+﻿# Shirra's Ren'Py Battle Framework
+# https://github.com/ShirraWhitefur/PyBattleFramework
+# http://creativecommons.org/licenses/by-nc/3.0/
+
+# Just a collection of battle system calls here.
+# If you're looking for status effects, try battle_calls_status_effects
+# Or equipment, try battle_calls_equipment
 
 #####################################################################
 # Variable Min-Max Stops
@@ -97,7 +103,7 @@ label battle_call_Enemy_AP_Gain(apgain):
 label battle_call_Player_Full_StartCheck:
 # call battle_call_Player_Initial_Equip
     call battle_call_Player_Full_Recheck
-    call battle_call_Player_HP_AP_WP_Current_to_Max_Set
+    call battle_call_Player_HP_AP_WP_Current_To_Max_Set
 
 label battle_call_Player_Full_Recheck:
     call battle_call_Player_HP_AP_WP_Max_Recheck
@@ -159,13 +165,13 @@ label battle_call_Player_Weapon_Accuracy_Recheck:
 
 label battle_call_Player_Weapon_Damage_Recheck:
     $ player.X_Weapon_Damage_Melee_Max_X = player.Equipment_Weapon_Damage_Melee_Max+player.Attribute_Damage_Bonus_Melee_Max+player.Equipment_Damage_Bonus_Melee_Max+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
-    $ player.X_Weapon_Damage_Melee_Min_X = int(player.Equipment_Weapon_Damage_Melee_Min+(round(player.Attribute_Damage_Bonus_Melee_Max/10,0))+(round(player.Equipment_Damage_Bonus_Melee_Max/10,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
+    $ player.X_Weapon_Damage_Melee_Min_X = int(player.Equipment_Weapon_Damage_Melee_Min+(round(player.Attribute_Damage_Bonus_Melee_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(player.Equipment_Damage_Bonus_Melee_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
     $ player.X_Weapon_Damage_Ranged_Max_X = player.Equipment_Weapon_Damage_Ranged_Max+player.Attribute_Damage_Bonus_Ranged_Max+player.Equipment_Damage_Bonus_Ranged_Max+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
-    $ player.X_Weapon_Damage_Ranged_Min_X = int(player.Equipment_Weapon_Damage_Ranged_Min+(round(player.Attribute_Damage_Bonus_Ranged_Max/10,0))+(round(player.Equipment_Damage_Bonus_Ranged_Max/10,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
+    $ player.X_Weapon_Damage_Ranged_Min_X = int(player.Equipment_Weapon_Damage_Ranged_Min+(round(player.Attribute_Damage_Bonus_Ranged_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(player.Equipment_Damage_Bonus_Ranged_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
     $ player.X_Weapon_Damage_Magic_Max_X = player.Equipment_Weapon_Damage_Magic_Max+player.Attribute_Damage_Bonus_Magic_Max+player.Equipment_Damage_Bonus_Magic_Max
-    $ player.X_Weapon_Damage_Magic_Min_X = int(player.Equipment_Weapon_Damage_Magic_Min+(round(player.Attribute_Damage_Bonus_Magic_Max/10,0)))+(round(player.Equipment_Damage_Bonus_Magic_Max/10,0))
+    $ player.X_Weapon_Damage_Magic_Min_X = int(player.Equipment_Weapon_Damage_Magic_Min+(round(player.Attribute_Damage_Bonus_Magic_Max/battle.Damage_Bonus_Min_Divisor,0)))+(round(player.Equipment_Damage_Bonus_Magic_Max/battle.Damage_Bonus_Min_Divisor,0))
     $ player.X_Weapon_Damage_Will_Max_X = player.Equipment_Weapon_Damage_Will_Max+player.Attribute_Damage_Bonus_Will_Max+player.Equipment_Damage_Bonus_Will_Max
-    $ player.X_Weapon_Damage_Will_Min_X = int(player.Equipment_Weapon_Damage_Will_Min+(round(player.Attribute_Damage_Bonus_Will_Max/10,0))+(round(player.Equipment_Damage_Bonus_Will_Max/10,0)))
+    $ player.X_Weapon_Damage_Will_Min_X = int(player.Equipment_Weapon_Damage_Will_Min+(round(player.Attribute_Damage_Bonus_Will_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(player.Equipment_Damage_Bonus_Will_Max/battle.Damage_Bonus_Min_Divisor,0)))
     return
 
 ##### - Enemy Set
@@ -235,13 +241,13 @@ label battle_call_Enemy_Weapon_Accuracy_Recheck:
 
 label battle_call_Enemy_Weapon_Damage_Recheck:
     $ enemy.X_Weapon_Damage_Melee_Max_X = enemy.Equipment_Weapon_Damage_Melee_Max+enemy.Attribute_Damage_Bonus_Melee_Max+enemy.Equipment_Damage_Bonus_Melee_Max+enemy.Status_Strengthen_Strength-enemy.Status_Weaken_Strength
-    $ enemy.X_Weapon_Damage_Melee_Min_X = int(enemy.Equipment_Weapon_Damage_Melee_Min+(round(enemy.Attribute_Damage_Bonus_Melee_Max/10,0))+(round(enemy.Equipment_Damage_Bonus_Melee_Max/10,0))+(round(enemy.Status_Strengthen_Strength/10,0))-(round(enemy.Status_Weaken_Strength/10,0)))
+    $ enemy.X_Weapon_Damage_Melee_Min_X = int(enemy.Equipment_Weapon_Damage_Melee_Min+(round(enemy.Attribute_Damage_Bonus_Melee_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(enemy.Equipment_Damage_Bonus_Melee_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(enemy.Status_Strengthen_Strength/10,0))-(round(enemy.Status_Weaken_Strength/10,0)))
     $ enemy.X_Weapon_Damage_Ranged_Max_X = enemy.Equipment_Weapon_Damage_Ranged_Max+enemy.Attribute_Damage_Bonus_Ranged_Max+enemy.Equipment_Damage_Bonus_Ranged_Max+enemy.Status_Strengthen_Strength-enemy.Status_Weaken_Strength
-    $ enemy.X_Weapon_Damage_Ranged_Min_X = int(enemy.Equipment_Weapon_Damage_Ranged_Min+(round(enemy.Attribute_Damage_Bonus_Ranged_Max/10,0))+(round(enemy.Equipment_Damage_Bonus_Ranged_Max/10,0))+(round(enemy.Status_Strengthen_Strength/10,0))-(round(enemy.Status_Weaken_Strength/10,0)))
+    $ enemy.X_Weapon_Damage_Ranged_Min_X = int(enemy.Equipment_Weapon_Damage_Ranged_Min+(round(enemy.Attribute_Damage_Bonus_Ranged_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(enemy.Equipment_Damage_Bonus_Ranged_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(enemy.Status_Strengthen_Strength/10,0))-(round(enemy.Status_Weaken_Strength/10,0)))
     $ enemy.X_Weapon_Damage_Magic_Max_X = enemy.Equipment_Weapon_Damage_Magic_Max+enemy.Attribute_Damage_Bonus_Magic_Max+enemy.Equipment_Damage_Bonus_Magic_Max
-    $ enemy.X_Weapon_Damage_Magic_Min_X = int(enemy.Equipment_Weapon_Damage_Magic_Min+(round(enemy.Attribute_Damage_Bonus_Magic_Max/10,0)))+(round(enemy.Equipment_Damage_Bonus_Magic_Max/10,0))
+    $ enemy.X_Weapon_Damage_Magic_Min_X = int(enemy.Equipment_Weapon_Damage_Magic_Min+(round(enemy.Attribute_Damage_Bonus_Magic_Max/battle.Damage_Bonus_Min_Divisor,0)))+(round(enemy.Equipment_Damage_Bonus_Magic_Max/battle.Damage_Bonus_Min_Divisor,0))
     $ enemy.X_Weapon_Damage_Will_Max_X = enemy.Equipment_Weapon_Damage_Will_Max+enemy.Attribute_Damage_Bonus_Will_Max+enemy.Equipment_Damage_Bonus_Will_Max
-    $ enemy.X_Weapon_Damage_Will_Min_X = int(enemy.Equipment_Weapon_Damage_Will_Min+(round(enemy.Attribute_Damage_Bonus_Will_Max/10,0))+(round(enemy.Equipment_Damage_Bonus_Will_Max/10,0)))
+    $ enemy.X_Weapon_Damage_Will_Min_X = int(enemy.Equipment_Weapon_Damage_Will_Min+(round(enemy.Attribute_Damage_Bonus_Will_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(enemy.Equipment_Damage_Bonus_Will_Max/battle.Damage_Bonus_Min_Divisor,0)))
     return
 
 #####################################################################
@@ -280,6 +286,7 @@ label battle_call_Enemy_Data_Import:
     $ enemy.Equipment_Consumables_Potions_HP_Restore = ename.Equipment_Consumables_Potions_HP_Restore
     $ enemy.Equipment_Consumables_Potions_AP_Restore = ename.Equipment_Consumables_Potions_AP_Restore
     $ enemy.Equipment_Consumables_Potions_WP_Restore = ename.Equipment_Consumables_Potions_WP_Restore
+    $ enemy.Equipment_Currency = ename.Equipment_Currency
 # \/  This block is here, because evidently init: isn't -properly- initing them
 # \/ elsewhere, not completely.  Don't ask me, I don't know why it's not.
     $ enemy.Status_Poison_EffectActive = 0
@@ -310,6 +317,16 @@ label battle_call_Enemy_Data_Import:
     $ enemy.Status_Block_Strength = 0
     $ enemy.Status_Dodge_EffectActive = 0
     $ enemy.Status_Dodge_Strength = 0
+    $ enemy.Status_EquipLoss_Weapon_Duration = 0
+    $ enemy.Status_EquipLoss_Weapon_EffectActive = 0
+    $ enemy.Status_EquipLoss_UpperBodyArmor_Duration = 0
+    $ enemy.Status_EquipLoss_UpperBodyArmor_EffectActive = 0
+    $ enemy.Status_EquipLoss_LowerBodyArmor_Duration = 0
+    $ enemy.Status_EquipLoss_LowerBodyArmor_EffectActive = 0
+    $ enemy.Status_EquipLoss_Necklace_Duration = 0
+    $ enemy.Status_EquipLoss_Necklace_EffectActive = 0
+    $ enemy.Status_EquipLoss_Ring_Duration = 0
+    $ enemy.Status_EquipLoss_Ring_EffectActive = 0
 # /\ Status effect inits.
 #  This line basically tells the game to go 'Okay, now calculate all the
 # variables based on the data we've imported.  Saves us a mess of lines here.

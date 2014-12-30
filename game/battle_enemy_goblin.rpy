@@ -1,3 +1,7 @@
+# Shirra's Ren'Py Battle Framework
+# https://github.com/ShirraWhitefur/PyBattleFramework
+# http://creativecommons.org/licenses/by-nc/3.0/
+
 #  This file, like the other Enemy files, will contain most all of the things
 # unique to the enemy, so it's all in one spot for easier reference.
 
@@ -25,14 +29,15 @@ init -25:
     $ Goblin.Attribute_Damage_Bonus_Will_Max = 1
     $ Goblin.Attribute_Dodge = 6
     $ Goblin.Attribute_Initiative = 1
-    $ Goblin.Equipment_Slot_Weapon_Name = no_weapon
-    $ Goblin.Equipment_Slot_UpperBodyArmor_Name = no_upper_armor
-    $ Goblin.Equipment_Slot_LowerBodyArmor_Name = no_lower_armor
+    $ Goblin.Equipment_Slot_Weapon_Name = bow_short
+    $ Goblin.Equipment_Slot_UpperBodyArmor_Name = upper_cloth_shirt
+    $ Goblin.Equipment_Slot_LowerBodyArmor_Name = lower_leather_rags
     $ Goblin.Equipment_Slot_Necklace_Name = no_necklace
     $ Goblin.Equipment_Slot_Ring_Name = no_ring
     $ Goblin.Equipment_Consumables_Potions_HP_Restore = 0
     $ Goblin.Equipment_Consumables_Potions_AP_Restore = 0
     $ Goblin.Equipment_Consumables_Potions_WP_Restore = 0
+    $ Goblin.Equipment_Currency = 22
 
 #####################################################################
 # Enemy AI Section
@@ -45,12 +50,16 @@ init -25:
 # use the ability!
 label Attack_List_Goblin:
     if enemy.X_AbilityPoints_Current_X > 19:
-        $rand_choice = WeightedChoice([("battle_Enemy_Attack_Melee", 0.40),
+        $rand_choice = WeightedChoice([("battle_Enemy_Attack_Main_TypeCheck", 0.40),
                                        ("battle_Enemy_Ability__Fire", 0.30),
-                                       ("battle_Enemy_Wait", 0.30)])
+                                       ("battle_Enemy_Dodge", 0.10),
+                                       ("battle_Enemy_Block", 0.10),
+                                       ("battle_Enemy_Wait", 0.10)])
         jump expression rand_choice
-    $rand_choice = WeightedChoice([("battle_Enemy_Attack_Melee", 0.70),
-                                   ("battle_Enemy_Wait", 0.30)])
+    $rand_choice = WeightedChoice([("battle_Enemy_Attack_Main_TypeCheck", 0.70),
+                                   ("battle_Enemy_Dodge", 0.10),
+                                   ("battle_Enemy_Block", 0.10),
+                                   ("battle_Enemy_Wait", 0.10)])
     jump expression rand_choice
         
 #####################################################################

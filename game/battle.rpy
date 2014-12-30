@@ -1,4 +1,8 @@
-﻿#  If you're looking for the screen frame for the HP and such, check
+﻿# Shirra's Ren'Py Battle Framework
+# https://github.com/ShirraWhitefur/PyBattleFramework
+# http://creativecommons.org/licenses/by-nc/3.0/
+
+#  If you're looking for the screen frame for the HP and such, check
 # battle_screens.rpy.  If you're looking for the init's, head to
 # battle_init.rpy, as well as battle_player.rpy, and the battle_enemy*.rpy.
 # If you're looking for some of the common calls we are been using, look inside
@@ -197,17 +201,8 @@ label battle_Enemy_Turn:
 # since every enemy will usually have it's own unique attack text for every
 # ability it uses.
 
-label battle_Enemy_Attack_Melee:
-    "[enemy.name!t] attacks you with an equally genericly named weapon!"
-    $enemy_roll_attack = renpy.random.randint(1,100)
-    if (enemy_roll_attack+enemy.X_Weapon_Accuracy_Melee_X)-player.X_Dodge_X < 50:
-        "You dodge the attack! ([enemy_roll_attack] + [enemy.X_Weapon_Accuracy_Melee_X] - [player.X_Dodge_X] vs 50)"
-        return
-    else:
-        "You were hit! ([enemy_roll_attack] + [enemy.X_Weapon_Accuracy_Melee_X] - [player.X_Dodge_X] vs 50)"
-        jump battle_Enemy_Attack_Melee_Success
 
-label battle_Enemy_Attack_Melee_Success:
+label battle_Enemy_Attack_Main_TypeCheck_Success:
     $enemy_roll_damage = renpy.random.randint(enemy.X_Weapon_Damage_Melee_Min_X,enemy.X_Weapon_Damage_Melee_Max_X)
     $enemy_roll_damage_final = (enemy_roll_damage-player.X_Armor_Physical_X)
     if enemy_roll_damage_final < 1:
@@ -217,6 +212,66 @@ label battle_Enemy_Attack_Melee_Success:
         call battle_call_Player_HP_Loss(enemy_roll_damage_final)
         "[enemy.name!t] lands a solid blow, dealing [enemy_roll_damage_final] damage.  [playername!t]'s HP at [player.X_HealthPoints_Current_X].  ([enemy_roll_damage] - [player.X_Armor_Physical_X])"
         return
+
+label battle_Enemy_Attack_Main_TypeCheck:
+    "[enemy.name!t] attacks you with their [enemy.Equipment_Slot_Weapon_Name_Text]"
+    $enemy_roll_attack = renpy.random.randint(1,100)
+    if enemy.Equipment_Slot_Weapon_Accuracy_Type == "Melee":
+        if (enemy_roll_attack+enemy.X_Weapon_Accuracy_Melee_X)-player.X_Dodge_X > 50:
+            "You were hit! ([enemy_roll_attack] + [enemy.X_Weapon_Accuracy_Melee_X] - [player.X_Dodge_X] vs 50)"
+            call battle_Enemy_Attack_Main_Success
+            return
+        "You dodge the attack! ([enemy_roll_attack] + [enemy.X_Weapon_Accuracy_Melee_X] - [player.X_Dodge_X] vs 50)"
+        return
+    if enemy.Equipment_Slot_Weapon_Accuracy_Type == "Ranged":
+        if (enemy_roll_attack+enemy.X_Weapon_Accuracy_Ranged_X)-player.X_Dodge_X > 50:
+            "You were hit! ([enemy_roll_attack] + [enemy.X_Weapon_Accuracy_Melee_X] - [player.X_Dodge_X] vs 50)"
+            call battle_Enemy_Attack_Main_Success
+            return
+        "You dodge the attack! ([enemy_roll_attack] + [enemy.X_Weapon_Accuracy_Melee_X] - [player.X_Dodge_X] vs 50)"
+        return
+    nar "You broke my system with a wierd accuracy type.  Stop that."
+    jump end
+        
+label battle_Enemy_Attack_Main_Success:
+    if enemy.Equipment_Slot_Weapon_Damage_Type == "Melee":
+        $enemy_roll_damage = renpy.random.randint(enemy.X_Weapon_Damage_Melee_Min_X,enemy.X_Weapon_Damage_Melee_Max_X)
+        $enemy_roll_damage_final = (enemy_roll_damage-player.X_Armor_Physical_X)
+        if enemy_roll_damage_final < 1:
+            "[enemy.name!t] hits, but does no damage.  ([enemy_roll_damage] - [player.X_Armor_Physical_X] = [enemy_roll_damage_final])"
+            return
+        call battle_call_Enemy_HP_Loss(enemy_roll_damage_final)
+        "[enemy.name!t] lands a solid blow, dealing [enemy_roll_damage_final] damage.  [playername!t]'s HP at [player.X_HealthPoints_Current_X].  ([enemy_roll_damage] - [player.X_Armor_Physical_X])"
+        return
+    if enemy.Equipment_Slot_Weapon_Damage_Type == "Ranged":
+        $enemy_roll_damage = renpy.random.randint(enemy.X_Weapon_Damage_Ranged_Min_X,enemy.X_Weapon_Damage_Ranged_Max_X)
+        $enemy_roll_damage_final = (enemy_roll_damage-player.X_Armor_Physical_X)
+        if enemy_roll_damage_final < 1:
+            "[enemy.name!t] hits, but does no damage.  ([enemy_roll_damage] - [player.X_Armor_Physical_X] = [enemy_roll_damage_final])"
+            return
+        call battle_call_Enemy_HP_Loss(enemy_roll_damage_final)
+        "[enemy.name!t] lands a solid blow, dealing [enemy_roll_damage_final] damage.  [playername!t]'s HP at [player.X_HealthPoints_Current_X].  ([enemy_roll_damage] - [player.X_Armor_Physical_X])"
+        return
+    if enemy.Equipment_Slot_Weapon_Damage_Type == "Magic":
+        $enemy_roll_damage = renpy.random.randint(enemy.X_Weapon_Damage_Magic_Min_X,enemy.X_Weapon_Damage_Magic_Max_X)
+        $enemy_roll_damage_final = (enemy_roll_damage-player.X_Armor_Magic_X)
+        if enemy_roll_damage_final < 1:
+            "[enemy.name!t] hits, but does no damage.  ([enemy_roll_damage] - [player.X_Armor_Magic_X] = [enemy_roll_damage_final])"
+            return
+        call battle_call_Enemy_HP_Loss(enemy_roll_damage_final)
+        "[enemy.name!t] lands a solid blow, dealing [enemy_roll_damage_final] damage.  [playername!t]'s HP at [player.X_HealthPoints_Current_X].  ([enemy_roll_damage] - [player.X_Armor_Magic_X])"
+        return
+    if enemy.Equipment_Slot_Weapon_Damage_Type == "Will":
+        $enemy_roll_damage = renpy.random.randint(enemy.X_Weapon_Damage_Will_Min_X,enemy.X_Weapon_Damage_Will_Max_X)
+        $enemy_roll_damage_final = (enemy_roll_damage-player.X_Armor_Will_X)
+        if enemy_roll_damage_final < 1:
+            "[enemy.name!t] hits, but does no damage.  ([enemy_roll_damage] - [player.X_Armor_Will_X] = [enemy_roll_damage_final])"
+            return
+        call battle_call_Enemy_HP_Loss(enemy_roll_damage_final)
+        "[enemy.name!t] lands a solid blow, dealing [enemy_roll_damage_final] damage.  [playername!t]'s HP at [player.X_HealthPoints_Current_X].  ([enemy_roll_damage] - [player.X_Armor_Will_X])"
+        return
+    nar "You broke my system with a wierd damage type.  Stop that."
+    jump end
 
 label battle_Enemy_Block:
     $ enemy.Status_Block_EffectActive = 1

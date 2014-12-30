@@ -1,3 +1,7 @@
+# Shirra's Ren'Py Battle Framework
+# https://github.com/ShirraWhitefur/PyBattleFramework
+# http://creativecommons.org/licenses/by-nc/3.0/
+
 # Equipment Database - Weapons
 #  You might want to make an index of equipment sometime, just so you can find
 # things once this gets unwieldy.  
