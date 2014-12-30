@@ -136,9 +136,13 @@ label battle_call_Player_Armor_Recheck:
 
 label battle_call_Player_Damage_Bonus_Recheck:
     $ player.X_Damage_Bonus_Melee_Max_X = player.Attribute_Damage_Bonus_Melee_Max+player.Equipment_Damage_Bonus_Melee_Max+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
+    $ player.X_Damage_Bonus_Melee_Min_X = int((round(player.Attribute_Damage_Bonus_Melee_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(player.Equipment_Damage_Bonus_Melee_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
     $ player.X_Damage_Bonus_Ranged_Max_X = player.Attribute_Damage_Bonus_Ranged_Max+player.Equipment_Damage_Bonus_Ranged_Max+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
+    $ player.X_Damage_Bonus_Ranged_Min_X = int((round(player.Attribute_Damage_Bonus_Ranged_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(player.Equipment_Damage_Bonus_Ranged_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
     $ player.X_Damage_Bonus_Magic_Max_X = player.Attribute_Damage_Bonus_Magic_Max+player.Equipment_Damage_Bonus_Magic_Max
+    $ player.X_Damage_Bonus_Magic_Min_X = int((round(player.Attribute_Damage_Bonus_Magic_Max/battle.Damage_Bonus_Min_Divisor,0)))+(round(player.Equipment_Damage_Bonus_Magic_Max/battle.Damage_Bonus_Min_Divisor,0))
     $ player.X_Damage_Bonus_Will_Max_X = player.Attribute_Damage_Bonus_Will_Max+player.Equipment_Damage_Bonus_Will_Max
+    $ player.X_Damage_Bonus_Will_Min_X = int((round(player.Attribute_Damage_Bonus_Will_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(player.Equipment_Damage_Bonus_Will_Max/battle.Damage_Bonus_Min_Divisor,0)))
     return
 
 label battle_call_Player_Dodge_Recheck:
@@ -208,9 +212,13 @@ label battle_call_Enemy_Armor_Recheck:
 
 label battle_call_Enemy_Damage_Bonus_Recheck:
     $ enemy.X_Damage_Bonus_Melee_Max_X = enemy.Attribute_Damage_Bonus_Melee_Max+enemy.Equipment_Damage_Bonus_Melee_Max+enemy.Status_Strengthen_Strength-enemy.Status_Weaken_Strength
+    $ enemy.X_Damage_Bonus_Melee_Min_X = int((round(enemy.Attribute_Damage_Bonus_Melee_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(enemy.Equipment_Damage_Bonus_Melee_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(enemy.Status_Strengthen_Strength/10,0))-(round(enemy.Status_Weaken_Strength/10,0)))
     $ enemy.X_Damage_Bonus_Ranged_Max_X = enemy.Attribute_Damage_Bonus_Ranged_Max+enemy.Equipment_Damage_Bonus_Ranged_Max+enemy.Status_Strengthen_Strength-enemy.Status_Weaken_Strength
+    $ enemy.X_Damage_Bonus_Ranged_Min_X = int((round(enemy.Attribute_Damage_Bonus_Ranged_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(enemy.Equipment_Damage_Bonus_Ranged_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(enemy.Status_Strengthen_Strength/10,0))-(round(enemy.Status_Weaken_Strength/10,0)))
     $ enemy.X_Damage_Bonus_Magic_Max_X = enemy.Attribute_Damage_Bonus_Magic_Max+enemy.Equipment_Damage_Bonus_Magic_Max
+    $ enemy.X_Damage_Bonus_Magic_Min_X = int((round(enemy.Attribute_Damage_Bonus_Magic_Max/battle.Damage_Bonus_Min_Divisor,0)))+(round(enemy.Equipment_Damage_Bonus_Magic_Max/battle.Damage_Bonus_Min_Divisor,0))
     $ enemy.X_Damage_Bonus_Will_Max_X = enemy.Attribute_Damage_Bonus_Will_Max+enemy.Equipment_Damage_Bonus_Will_Max
+    $ enemy.X_Damage_Bonus_Will_Min_X = int((round(enemy.Attribute_Damage_Bonus_Will_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(enemy.Equipment_Damage_Bonus_Will_Max/battle.Damage_Bonus_Min_Divisor,0)))
     return
 
 label battle_call_Enemy_Dodge_Recheck:

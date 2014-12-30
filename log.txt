@@ -1,4 +1,4 @@
-Mon Dec 29 18:55:45 2014
+Mon Dec 29 20:11:16 2014
 Windows-7-6.1.7601-SP1
 Ren'Py 6.18.3.761
 Shirra's Ren'Py Battle Framework 0.5
@@ -351,57 +351,8 @@ Texture testing:
 Performance test:
 - Target is 5 frames in 0.333333333333 seconds.
 - Frame drawn at 0.000000 seconds.
-- Frame drawn at 0.004000 seconds.
+- Frame drawn at 0.003000 seconds.
 - Frame drawn at 0.012000 seconds.
-- Frame drawn at 0.030000 seconds.
+- Frame drawn at 0.029000 seconds.
 - Frame drawn at 0.045000 seconds.
 - 0.045000 seconds to render 5 frames.
-Traceback (most recent call last):
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\execution.py", line 294, in run
-    node.execute()
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\ast.py", line 1405, in execute
-    choice = renpy.exports.menu(choices, self.set)
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\exports.py", line 711, in menu
-    rv = renpy.store.menu(items)
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\exports.py", line 887, in display_menu
-    rv = renpy.ui.interact(mouse='menu', type=type, roll_forward=roll_forward)
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\ui.py", line 247, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\display\core.py", line 2149, in interact
-    repeat, rv = self.interact_core(preloads=preloads, **kwargs)
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\display\core.py", line 2397, in interact_core
-    root_widget.visit_all(lambda i : i.per_interact())
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\display\core.py", line 338, in visit_all
-    d.visit_all(callback)
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\display\core.py", line 338, in visit_all
-    d.visit_all(callback)
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\display\core.py", line 338, in visit_all
-    d.visit_all(callback)
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\display\screen.py", line 382, in visit_all
-    callback(self)
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\display\core.py", line 2397, in <lambda>
-    root_widget.visit_all(lambda i : i.per_interact())
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\display\screen.py", line 394, in per_interact
-    self.update()
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\display\screen.py", line 555, in update
-    self.screen.function(**self.scope)
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\sl2\slast.py", line 1521, in __call__
-    self.execute(context)
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\sl2\slast.py", line 312, in execute
-    i.execute(context)
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\sl2\slast.py", line 1380, in execute
-    ast.execute(ctx)
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\sl2\slast.py", line 312, in execute
-    i.execute(context)
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\sl2\slast.py", line 675, in execute
-    i.execute(ctx)
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\sl2\slast.py", line 675, in execute
-    i.execute(ctx)
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\sl2\slast.py", line 675, in execute
-    i.execute(ctx)
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\sl2\slast.py", line 675, in execute
-    i.execute(ctx)
-  File "D:\Projects\renpy-6.18.3-sdk\renpy\sl2\slast.py", line 946, in execute
-    if cond is None or eval(cond, context.globals, context.scope):
-  File "<screen language>", line 141, in <module>
-AttributeError: 'ADVCharacter' object has no attribute 'Status_Poison_EffectActive'

@@ -9,8 +9,11 @@ init -50:
     $ playername = "SomethingFailed"
     $ player.Battle_Selected_Action = "battle_Player_Wait"
     $ player.Battle_Outcome = "end"
+#  We might want to go through and define 'Damage_Bonus_Min_Divisor', so we can
+# easily manipulate the system elsewhere to find our balance.  Right now, we're
+# using /10 of Damage_Bonus_*_Max as our method of getting the minimum bonus.
 #  Base Stats - From these, when they're actually added and used, we'll get our
-# base attributes.
+# base attributes.  Lets set this over on the battle variable in battle.init.
     $ player.Stats_PlaceholderStrength = 0
 #  Base attributes, to be derived from Stats.. when we add the stats in.
 # The idea here being something like you set up Strength above, then set 
@@ -107,6 +110,7 @@ init -50:
     $ player.Status_Dodge_EffectActive = 0
     $ player.Status_Dodge_Strength = 0
 # Player's Calculated Attributes
+# battle.Damage_Bonus_Min_Divisor
     $ player.X_HealthPoints_Max_X = player.Attribute_HealthPoints_Max+player.Equipment_HealthPoints_Max
     $ player.X_HealthPoints_Current_X = player.X_HealthPoints_Max_X
     $ player.X_AbilityPoints_Max_X = player.Attribute_AbilityPoints_Max+player.Equipment_AbilityPoints_Max
@@ -120,21 +124,25 @@ init -50:
     $ player.X_Armor_Magic_X = player.Attribute_Armor_Magic+player.Equipment_Armor_Magic+player.Status_Block_Strength
     $ player.X_Armor_Will_X = player.Attribute_Armor_Will+player.Equipment_Armor_Will
     $ player.X_Damage_Bonus_Melee_Max_X = player.Attribute_Damage_Bonus_Melee_Max+player.Equipment_Damage_Bonus_Melee_Max+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
+    $ player.X_Damage_Bonus_Melee_Min_X = int((round(player.Attribute_Damage_Bonus_Melee_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(player.Equipment_Damage_Bonus_Melee_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
     $ player.X_Damage_Bonus_Ranged_Max_X = player.Attribute_Damage_Bonus_Ranged_Max+player.Equipment_Damage_Bonus_Ranged_Max+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
+    $ player.X_Damage_Bonus_Ranged_Min_X = int((round(player.Attribute_Damage_Bonus_Ranged_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(player.Equipment_Damage_Bonus_Ranged_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
     $ player.X_Damage_Bonus_Magic_Max_X = player.Attribute_Damage_Bonus_Magic_Max+player.Equipment_Damage_Bonus_Magic_Max
+    $ player.X_Damage_Bonus_Magic_Min_X = int((round(player.Attribute_Damage_Bonus_Magic_Max/battle.Damage_Bonus_Min_Divisor,0)))+(round(player.Equipment_Damage_Bonus_Magic_Max/battle.Damage_Bonus_Min_Divisor,0))
     $ player.X_Damage_Bonus_Will_Max_X = player.Attribute_Damage_Bonus_Will_Max+player.Equipment_Damage_Bonus_Will_Max
+    $ player.X_Damage_Bonus_Will_Min_X = int((round(player.Attribute_Damage_Bonus_Will_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(player.Equipment_Damage_Bonus_Will_Max/battle.Damage_Bonus_Min_Divisor,0)))
     $ player.X_Dodge_X = player.Attribute_Dodge+player.Equipment_Dodge+player.Status_Haste_Strength+player.Status_Dodge_Strength-player.Status_Slow_Strength
     $ player.X_Initiative_X = player.Attribute_Initiative+player.Equipment_Initiative+player.Status_Haste_Strength-player.Status_Slow_Strength
     $ player.X_Weapon_Accuracy_Melee_X = player.Attribute_Accuracy_Melee+player.Equipment_Weapon_Accuracy_Melee+player.Equipment_Accuracy_Melee
     $ player.X_Weapon_Accuracy_Ranged_X = player.Attribute_Accuracy_Ranged+player.Equipment_Weapon_Accuracy_Ranged+player.Equipment_Accuracy_Ranged
     $ player.X_Weapon_Damage_Melee_Max_X = player.Equipment_Weapon_Damage_Melee_Max+player.Attribute_Damage_Bonus_Melee_Max+player.Equipment_Damage_Bonus_Melee_Max+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
-    $ player.X_Weapon_Damage_Melee_Min_X = int(player.Equipment_Weapon_Damage_Melee_Min+(round(player.Attribute_Damage_Bonus_Melee_Max/10,0))+(round(player.Equipment_Damage_Bonus_Melee_Max/10,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
+    $ player.X_Weapon_Damage_Melee_Min_X = int(player.Equipment_Weapon_Damage_Melee_Min+(round(player.Attribute_Damage_Bonus_Melee_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(player.Equipment_Damage_Bonus_Melee_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
     $ player.X_Weapon_Damage_Ranged_Max_X = player.Equipment_Weapon_Damage_Ranged_Max+player.Attribute_Damage_Bonus_Ranged_Max+player.Equipment_Damage_Bonus_Ranged_Max+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
-    $ player.X_Weapon_Damage_Ranged_Min_X = int(player.Equipment_Weapon_Damage_Ranged_Min+(round(player.Attribute_Damage_Bonus_Ranged_Max/10,0))+(round(player.Equipment_Damage_Bonus_Ranged_Max/10,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
+    $ player.X_Weapon_Damage_Ranged_Min_X = int(player.Equipment_Weapon_Damage_Ranged_Min+(round(player.Attribute_Damage_Bonus_Ranged_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(player.Equipment_Damage_Bonus_Ranged_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
     $ player.X_Weapon_Damage_Magic_Max_X = player.Equipment_Weapon_Damage_Magic_Max+player.Attribute_Damage_Bonus_Magic_Max+player.Equipment_Damage_Bonus_Magic_Max
-    $ player.X_Weapon_Damage_Magic_Min_X = int(player.Equipment_Weapon_Damage_Magic_Min+(round(player.Attribute_Damage_Bonus_Magic_Max/10,0)))+(round(player.Equipment_Damage_Bonus_Magic_Max/10,0))
+    $ player.X_Weapon_Damage_Magic_Min_X = int(player.Equipment_Weapon_Damage_Magic_Min+(round(player.Attribute_Damage_Bonus_Magic_Max/battle.Damage_Bonus_Min_Divisor,0)))+(round(player.Equipment_Damage_Bonus_Magic_Max/battle.Damage_Bonus_Min_Divisor,0))
     $ player.X_Weapon_Damage_Will_Max_X = player.Equipment_Weapon_Damage_Will_Max+player.Attribute_Damage_Bonus_Will_Max+player.Equipment_Damage_Bonus_Will_Max
-    $ player.X_Weapon_Damage_Will_Min_X = int(player.Equipment_Weapon_Damage_Will_Min+(round(player.Attribute_Damage_Bonus_Will_Max/10,0))+(round(player.Equipment_Damage_Bonus_Will_Max/10,0)))
+    $ player.X_Weapon_Damage_Will_Min_X = int(player.Equipment_Weapon_Damage_Will_Min+(round(player.Attribute_Damage_Bonus_Will_Max/battle.Damage_Bonus_Min_Divisor,0))+(round(player.Equipment_Damage_Bonus_Will_Max/battle.Damage_Bonus_Min_Divisor,0)))
 # Extra bits.
     $ player.Equipment_Currency = 12345678
     
@@ -147,8 +155,8 @@ init -50:
 label battle_Player_Menu:
     menu:
         "What will you do?"
-        "Attack - Melee":
-            $ player.battle_selected_action = "battle_Player_Attack_Melee"
+        "Attack - [player.Equipment_Slot_Weapon_Damage_Type]":
+            $ player.battle_selected_action = "battle_Player_Attack_Main_TypeCheck"
             return
         "Block":
             $ player.battle_selected_action = "battle_Player_Block"
@@ -311,31 +319,74 @@ label battle_Player_Item_Menu:
 # Player Action Section
 #####################################################################
 
-label battle_Player_Attack_Melee:
-    "You attack [enemy.name!t] with your weapon of generic name!"
+#  This is our main attack, and changes how it interacts based on the defined
+# pair of Types in the weapon.  You'll likely want to trim things of the debug
+# related 'showing what the numbers do', and consider wether you want the
+# weapon's attributes to include it's own attack miss/succeed, damage
+# fail/succeed messages.
+
+label battle_Player_Attack_Main_TypeCheck:
+    "You attack [enemy.name!t] with your [player.Equipment_Slot_Weapon_Name_Text]"
     $player_roll_attack = renpy.random.randint(1,100)
-    if (player_roll_attack+player.X_Weapon_Accuracy_Melee_X)-enemy.X_Dodge_X < 50:
+    if player.Equipment_Slot_Weapon_Accuracy_Type == "Melee":
+        if (player_roll_attack+player.X_Weapon_Accuracy_Melee_X)-enemy.X_Dodge_X > 50:
+            "[enemy.name!t] was hit! ([player_roll_attack] + [player.X_Weapon_Accuracy_Melee_X] - [enemy.X_Dodge_X] vs 50)"
+            call battle_Player_Attack_Main_Success
+            return
         "[enemy.name!t] dodges the attack! ([player_roll_attack] + [player.X_Weapon_Accuracy_Melee_X] - [enemy.X_Dodge_X] vs 50)"
         return
-    else:
-        "[enemy.name!t] was hit! ([player_roll_attack] + [player.X_Weapon_Accuracy_Melee_X] - [enemy.X_Dodge_X] vs 50)"
-        jump battle_Player_Attack_Melee_Success
+    if player.Equipment_Slot_Weapon_Accuracy_Type == "Ranged":
+        if (player_roll_attack+player.X_Weapon_Accuracy_Ranged_X)-enemy.X_Dodge_X > 50:
+            "[enemy.name!t] was hit! ([player_roll_attack] + [player.X_Weapon_Accuracy_Ranged_X] - [enemy.X_Dodge_X] vs 50)"
+            call battle_Player_Attack_Main_Success
+            return
+        "[enemy.name!t] dodges the attack! ([player_roll_attack] + [player.X_Weapon_Accuracy_Ranged_X] - [enemy.X_Dodge_X] vs 50)"
+        return
+    nar "You broke my system with a wierd accuracy type.  Stop that."
+    jump end
+        
+label battle_Player_Attack_Main_Success:
+    if player.Equipment_Slot_Weapon_Damage_Type == "Melee":
+        $player_roll_damage = renpy.random.randint(player.X_Weapon_Damage_Melee_Min_X,player.X_Weapon_Damage_Melee_Max_X)
+        $player_roll_damage_final = (player_roll_damage-enemy.X_Armor_Physical_X)
+        if player_roll_damage_final < 1:
+            "You hit, but do no damage.  ([player_roll_damage] - [enemy.X_Armor_Physical_X] = [player_roll_damage_final])"
+            return
+        call battle_call_Enemy_HP_Loss(player_roll_damage_final)
+        "You land a solid blow, dealing [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X].  ([player_roll_damage] - [enemy.X_Armor_Physical_X])"
+        return
+    if player.Equipment_Slot_Weapon_Damage_Type == "Ranged":
+        $player_roll_damage = renpy.random.randint(player.X_Weapon_Damage_Ranged_Min_X,player.X_Weapon_Damage_Ranged_Max_X)
+        $player_roll_damage_final = (player_roll_damage-enemy.X_Armor_Physical_X)
+        if player_roll_damage_final < 1:
+            "You hit, but do no damage.  ([player_roll_damage] - [enemy.X_Armor_Physical_X] = [player_roll_damage_final])"
+            return
+        call battle_call_Enemy_HP_Loss(player_roll_damage_final)
+        "You land a solid shot, dealing [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X].  ([player_roll_damage] - [enemy.X_Armor_Physical_X])"
+        return
+    if player.Equipment_Slot_Weapon_Damage_Type == "Magic":
+        $player_roll_damage = renpy.random.randint(player.X_Weapon_Damage_Magic_Min_X,player.X_Weapon_Damage_Magic_Max_X)
+        $player_roll_damage_final = (player_roll_damage-enemy.X_Armor_Magic_X)
+        if player_roll_damage_final < 1:
+            "You hit, but do no damage.  ([player_roll_damage] - [enemy.X_Armor_Magic_X] = [player_roll_damage_final])"
+            return
+        call battle_call_Enemy_HP_Loss(player_roll_damage_final)
+        "You land a solid blast, dealing [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X].  ([player_roll_damage] - [enemy.X_Armor_Magic_X])"
+        return
+    if player.Equipment_Slot_Weapon_Damage_Type == "Will":
+        $player_roll_damage = renpy.random.randint(player.X_Weapon_Damage_Will_Min_X,player.X_Weapon_Damage_Will_Max_X)
+        $player_roll_damage_final = (player_roll_damage-enemy.X_Armor_Will_X)
+        if player_roll_damage_final < 1:
+            "You hit, but do no damage.  ([player_roll_damage] - [enemy.X_Armor_Will_X] = [player_roll_damage_final])"
+            return
+        call battle_call_Enemy_HP_Loss(player_roll_damage_final)
+        "You land a solid blow, dealing [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X].  ([player_roll_damage] - [enemy.X_Armor_Will_X])"
+        return
 
 #  You may ask why we seperate the attack from the successful hit damage, but
 # this is to allow for abilities that would do a single attack roll, but
 # deliver damage of three seperate, 'standard' hits, and other things of that
 # nature.
-
-label battle_Player_Attack_Melee_Success:
-    $player_roll_damage = renpy.random.randint(player.X_Weapon_Damage_Melee_Min_X,player.X_Weapon_Damage_Melee_Max_X)
-    $player_roll_damage_final = (player_roll_damage-enemy.X_Armor_Physical_X)
-    if player_roll_damage_final < 1:
-        "You hit, but do no damage.  ([player_roll_damage] - [enemy.X_Armor_Physical_X] = [player_roll_damage_final])"
-        return
-    else:
-        call battle_call_Enemy_HP_Loss(player_roll_damage_final)
-        "You land a solid blow, dealing [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X].  ([player_roll_damage] - [enemy.X_Armor_Physical_X])"
-        return
 
 label battle_Player_Block:
     $ player.Status_Block_EffectActive = 1
@@ -355,26 +406,39 @@ label battle_Player_Dodge:
 
 label battle_Player_Ability__Fire:
     "You cast Fire on [enemy.name!t]!"
-    $player_roll_damage_final = renpy.random.randint((25+player.X_Weapon_Damage_Magic_Min_X),(35+player.X_Weapon_Damage_Magic_Max_X))
+#  For reference, you're looking at "25 to 35 damage, plus bonuses"
+    $player_roll_damage = renpy.random.randint((25+player.X_Damage_Bonus_Magic_Min_X),(35+player.X_Damage_Bonus_Magic_Max_X))
+    $player_roll_damage_final = (player_roll_damage-enemy.X_Armor_Magic_X)
+    if player_roll_damage_final < 1:
+        "Your magic hits, but does no damage.  ([player_roll_damage] - [enemy.X_Armor_Magic_X] = [player_roll_damage_final])"
+        return
     call battle_call_Enemy_HP_Loss(player_roll_damage_final)
     call battle_call_Player_AP_Loss(20)
-    "You sear them for [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X]."
+    "You sear them for [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X].  ([player_roll_damage] - [enemy.X_Armor_Magic_X] = [player_roll_damage_final])"
     return
    
 label battle_Player_Ability__Blizzard:
     "You cast Blizzard on [enemy.name!t]!"
-    $player_roll_damage_final = renpy.random.randint((15+player.X_Weapon_Damage_Magic_Min_X),(25+player.X_Weapon_Damage_Magic_Max_X))
+    $player_roll_damage = renpy.random.randint((15+player.X_Damage_Bonus_Magic_Min_X),(25+player.X_Damage_Bonus_Magic_Max_X))
+    $player_roll_damage_final = (player_roll_damage-enemy.X_Armor_Magic_X)
+    if player_roll_damage_final < 1:
+        "Your magic hits, but does no damage.  ([player_roll_damage] - [enemy.X_Armor_Magic_X] = [player_roll_damage_final])"
+        return
     call battle_call_Enemy_HP_Loss(player_roll_damage_final)
     call battle_call_Player_AP_Loss(10)
-    "You flashfreeze them for [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X]."
+    "You flashfreeze them for [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X].  ([player_roll_damage] - [enemy.X_Armor_Magic_X] = [player_roll_damage_final])"
     return
 
 label battle_Player_Ability__Thunder:
     "You cast Thunder on [enemy.name!t]!"
-    $player_roll_damage_final = renpy.random.randint((30+player.X_Weapon_Damage_Magic_Min_X),(50+player.X_Weapon_Damage_Magic_Max_X))
+    $player_roll_damage = renpy.random.randint((30+player.X_Damage_Bonus_Magic_Min_X),(50+player.X_Damage_Bonus_Magic_Max_X))
+    $player_roll_damage_final = (player_roll_damage-enemy.X_Armor_Magic_X)
+    if player_roll_damage_final < 1:
+        "Your magic hits, but does no damage.  ([player_roll_damage] - [enemy.X_Armor_Magic_X] = [player_roll_damage_final])"
+        return
     call battle_call_Enemy_HP_Loss(player_roll_damage_final)
     call battle_call_Player_AP_Loss(30)
-    "You zap them for [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X]."
+    "You zap them for [player_roll_damage_final] damage.  [enemy.name!t]'s HP at [enemy.X_HealthPoints_Current_X].  ([player_roll_damage] - [enemy.X_Armor_Magic_X] = [player_roll_damage_final])"
     return
 
 label battle_Player_Ability__Poison:

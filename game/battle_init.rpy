@@ -32,6 +32,7 @@ init -75:
     $ battle = Character("BattleSettings")
     $ battle.roundcount = 0
     $ battle.EquipGearName = "no_weapon"
+    $ battle.Damage_Bonus_Min_Divisor = 10
     $ ename = "FailName"
 #####################################################################
 # Enemy Init Section
@@ -89,17 +90,17 @@ init -75:
     $ enemy.Equipment_Weapon_Damage_Will_Max = 5
     $ enemy.Equipment_Weapon_Damage_Will_Min = 1
 # Equipment Slots and Weapon Type
-    $ enemy.Equipment_Slot_Weapon_Name = "no_weapon"
+    $ enemy.Equipment_Slot_Weapon_Name = no_weapon
     $ enemy.Equipment_Slot_Weapon_Name_Text = "Gear Init Failed."
     $ enemy.Equipment_Slot_Weapon_Accuracy_Type = "Melee"
     $ enemy.Equipment_Slot_Weapon_Damage_Type = "Melee"
-    $ enemy.Equipment_Slot_UpperBodyArmor_Name = "no_upper_armor"
+    $ enemy.Equipment_Slot_UpperBodyArmor_Name = no_upper_armor
     $ enemy.Equipment_Slot_UpperBodyArmor_Name_Text = "Gear Init Failed."
-    $ enemy.Equipment_Slot_LowerBodyArmor_Name = "no_lower_armor"
+    $ enemy.Equipment_Slot_LowerBodyArmor_Name = no_lower_armor
     $ enemy.Equipment_Slot_LowerBodyArmor_Name_Text = "Gear Init Failed."
-    $ enemy.Equipment_Slot_Necklace_Name = "no_necklace"
+    $ enemy.Equipment_Slot_Necklace_Name = no_necklace
     $ enemy.Equipment_Slot_Necklace_Name_Text = "Gear Init Failed."
-    $ enemy.Equipment_Slot_Ring_Name = "no_ring"
+    $ enemy.Equipment_Slot_Ring_Name = no_ring
     $ enemy.Equipment_Slot_Ring_Name_Text = "Gear Init Failed."
 #  Equipment - Consumables.  Consider it a 'stock', and will handle the
 # potions, grenades, and other one use items and non-rechargables (like wands.)
@@ -151,9 +152,13 @@ init -75:
     $ enemy.X_Armor_Magic_X = 0
     $ enemy.X_Armor_Will_X = 0
     $ enemy.X_Damage_Bonus_Melee_Max_X = 0
+    $ enemy.X_Damage_Bonus_Melee_Min_X = 0
     $ enemy.X_Damage_Bonus_Ranged_Max_X = 0
+    $ enemy.X_Damage_Bonus_Ranged_Min_X = 0
     $ enemy.X_Damage_Bonus_Magic_Max_X = 0
+    $ enemy.X_Damage_Bonus_Magic_Min_X = 0
     $ enemy.X_Damage_Bonus_Will_Max_X = 0
+    $ enemy.X_Damage_Bonus_Will_Min_X = 0
     $ enemy.X_Dodge_X = 0
     $ enemy.X_Initiative_X = 0
     $ enemy.X_Weapon_Accuracy_Melee_X = 0

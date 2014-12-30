@@ -43,6 +43,9 @@ label firstmenu:
 
         "Test 03 - Checking Init Variables":
             call test03_VariableCheck(no_weapon)
+
+        "Test 04 - Changing Player Equipment":
+            call test04_Equipping
     return
 
 label test01_Battle:
@@ -96,7 +99,35 @@ label test03_VariableCheck(weaponname):
     nar "[player.Equipment_Currency] funds."
     jump end
 
+label test04_Equipping:
+    nar "Weapons only for the moment.."
+    menu:
+        "Weapon - No weapon":
+            call call_Player_Equipment_Slot_Unequip_Weapon(player.Equipment_Slot_Weapon_Name)
+            nar "Weapon unequipped!"
+            jump firstmenu
+        "Weapon - Orcish Axe":
+            call call_Player_Equipment_Slot_Equip_Weapon(axe_orcish)
+            nar "Weapon equipped!"
+            jump firstmenu
+        "Weapon - Adventurer's Sword":
+            call call_Player_Equipment_Slot_Equip_Weapon(sword_adventurers)
+            nar "Weapon equipped!"
+            jump firstmenu
+        "Weapon - Short Bow":
+            call call_Player_Equipment_Slot_Equip_Weapon(bow_short)
+            nar "Weapon equipped!"
+            jump firstmenu
+        "Weapon - Wand of the Firemage":
+            call call_Player_Equipment_Slot_Equip_Weapon(wand_firemage)
+            nar "Weapon equipped!"
+            jump firstmenu
+        "Don't change weapon":
+            jump firstmenu
+    jump firstmenu
+
 label end:
     "Done!"
     return
 
+    

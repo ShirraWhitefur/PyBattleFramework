@@ -2,8 +2,24 @@
 errors listed below, and try again.
 
 
-File "game/battle_init.rpy", line 15: expected ':' not found.
-    init python -100:
-                ^
+File "game/script.rpy", line 106: expected 'name' not found.
+    call call call_Player_Equipment_Slot_Equip_Weapon(no_weapon.Equipment_Slot_Weapon_Name)
+        ^
+
+File "game/script.rpy", line 109: expected 'name' not found.
+    call call call_Player_Equipment_Slot_Equip_Weapon(axe_orcish)
+        ^
+
+File "game/script.rpy", line 112: expected 'name' not found.
+    call call call_Player_Equipment_Slot_Equip_Weapon(sword_adventurers)
+        ^
+
+File "game/script.rpy", line 115: expected 'name' not found.
+    call call call_Player_Equipment_Slot_Equip_Weapon(bow_short)
+        ^
+
+File "game/script.rpy", line 118: expected 'name' not found.
+    call call call_Player_Equipment_Slot_Equip_Weapon(wand_firemage)
+        ^
 
 Ren'Py Version: Ren'Py 6.18.3.761

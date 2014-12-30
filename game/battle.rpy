@@ -27,7 +27,9 @@ label battle_start:
 # This brings out our "lovely" Name/HP/AP/etc screen-frames in the corners.
     show screen fight(playername,enemy.name)
 #  I'm not saying I don't trust the equip code to get run properly elsewhere or
-# anything like that, but I like to be thorough.
+# anything like that, but I like to be thorough.  You'll probably want to remove
+# the unnecessary call if you're sure you've been thorough, and save some
+# processing time!
     call call_Player_Equipment_Slot_Initialize_All
 
 label battle_Begin_Round:
@@ -216,19 +218,6 @@ label battle_Enemy_Attack_Melee_Success:
         "[enemy.name!t] lands a solid blow, dealing [enemy_roll_damage_final] damage.  [playername!t]'s HP at [player.X_HealthPoints_Current_X].  ([enemy_roll_damage] - [player.X_Armor_Physical_X])"
         return
 
-label battle_Enemy_Ability__Fire:
-#  The AP check for this is over in the Enemy action list itself, by picking
-# lists that allow it.  Check the enemy file itself for more info!  Do -not-
-# forget to set the AP checks, or you'll have enemies casting into negative
-# AP happily, and you'll just feel silly.
-    "[enemy.name!t] casts Fire on you!"
-    $enemy_roll_damage = renpy.random.randint(25,35)
-    $enemy_roll_damage_final = (enemy_roll_damage-player.X_Armor_Magic_X)
-    call battle_call_Player_HP_Loss(enemy_roll_damage_final)
-    call battle_call_Enemy_AP_Loss(20)
-    "[enemy.name!t] sears you for [enemy_roll_damage_final] damage.  [playername!t]'s HP at [player.X_HealthPoints_Current_X].  ([enemy_roll_damage] - [player.X_Armor_Magic_X])"
-    return
-
 label battle_Enemy_Block:
     $ enemy.Status_Block_EffectActive = 1
 # Change the level of block strength when the game system is figured out!
@@ -252,6 +241,23 @@ label battle_Enemy_Wait:
 label battle_Enemy_Skipped:
     "[enemy.name!t] turn was skipped."
     return
+
+label battle_Enemy_Ability__Fire:
+#  The AP check for this is over in the Enemy action list itself, by picking
+# lists that allow it.  Check the enemy file itself for more info!  Do -not-
+# forget to set the AP checks, or you'll have enemies casting into negative
+# AP happily, and you'll just feel silly.
+    "[enemy.name!t] casts Fire on you!"
+    $enemy_roll_damage = renpy.random.randint((25+enemy.X_Damage_Bonus_Magic_Min_X),(35+enemy.X_Damage_Bonus_Magic_Max_X))
+    $enemy_roll_damage_final = (enemy_roll_damage-player.X_Armor_Magic_X)
+    if enemy_roll_damage_final < 1:
+        "[enemy.name!t]'s magic hits, but does no damage.  ([enemy_roll_damage] - [player.X_Armor_Magic_X] = [enemy_roll_damage_final])"
+        return
+    call battle_call_Player_HP_Loss(enemy_roll_damage_final)
+    call battle_call_Enemy_AP_Loss(20)
+    "[enemy.name!t] sears you for [enemy_roll_damage_final] damage.  [playername!t]'s HP at [player.X_HealthPoints_Current_X].  ([enemy_roll_damage] - [player.X_Armor_Magic_X] = [enemy_roll_damage_final])"
+    return
+
 
 #####################################################################
 # Win / Loss Section
