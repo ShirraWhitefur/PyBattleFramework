@@ -1,7 +1,6 @@
-PyBattleFramework
+Shirra's Ren'Py Battle Framework
 =================
 
-Shirra's Ren'Py Battle Framework
 Designed to handle a 1 on 1 battle setup, much like classic Dragon Warrior, or Monster Girl Quest.
 
 http://creativecommons.org/licenses/by-nc/3.0/
@@ -14,7 +13,7 @@ Current Builds - https://github.com/ShirraWhitefur/PyBattleFramework/tree/master
 Current Code - https://github.com/ShirraWhitefur/PyBattleFramework/tree/master/
 
 Feature List:
-  One on One battles (Only one on one though.)
+  One on One battles (And -only- one on one, not intended for more.)
   Initiative system (You and the enemy choose your actions, but who acts first is random.)
   14 Different attributes for bonuses.
   No statistic system built in, but room to add it.

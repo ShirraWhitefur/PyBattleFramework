@@ -42,7 +42,7 @@ label Framework_Test_Start:
     call call_Player_Equipment_Slot_Initialize_All
     call battle_call_Player_HP_AP_WP_Current_To_Max_Set
     nar "Wonderful!  Lets get you situated."
-    nar "Our testing are isn't exactly 'very furnished', but it should do well enough."
+    nar "Our testing area isn't exactly 'very furnished', but it should do well enough."
     jump Framework_Test_Room_Clearing
 
 label Framework_Test_Room_Clearing:
@@ -99,7 +99,7 @@ label test01_goblin_victory_hp:
 # This hides our "lovely" Name/HP/AP screen-frames.
     hide screen fight
     $ player.Equipment_Currency += enemy.Equipment_Currency
-    nar "And so you triumphed over the evil testing goblin.  He was carrying [enemy.Equipment_Currency], and unsurprisingly, you 'heroically' scavange it from them, leaving you with [player.Equipment_Currency]."
+    nar "And so you triumphed over the evil testing goblin.  He was carrying [enemy.Equipment_Currency] coins, and unsurprisingly, you 'heroically' scavange it from them, leaving you with [player.Equipment_Currency] coins."
     return
 
 label test02_orc_loss_hp:
@@ -112,7 +112,7 @@ label test02_orc_victory_hp:
 # This hides our "lovely" Name/HP/AP screen-frames.
     hide screen fight
     $ player.Equipment_Currency += enemy.Equipment_Currency
-    nar "And so you triumphed over the evil testing orc.  He was carrying [enemy.Equipment_Currency], and unsurprisingly, you 'heroically' scavange it from them, leaving you with [player.Equipment_Currency]."
+    nar "And so you triumphed over the evil testing orc.  He was carrying [enemy.Equipment_Currency] coins, and unsurprisingly, you 'heroically' scavange it from them, leaving you with [player.Equipment_Currency] coins."
     return
 
 label Framework_Test_Room_Vendor_Tent:

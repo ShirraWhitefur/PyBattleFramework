@@ -13,7 +13,7 @@ Shirra's Ren'Py Battle Framework
 <br>Current Code - https://github.com/ShirraWhitefur/PyBattleFramework/tree/master/
 <br>
 <br>Feature List:
-<br>  One on One battles (Only one on one though.)
+<br>  One on One battles (And -only- one on one, not intended for more.)
 <br>  Initiative system (You and the enemy choose your actions, but who acts first is random.)
 <br>  14 Different attributes for bonuses.
 <br>  No statistic system built in, but room to add it.
@@ -26,9 +26,9 @@ Shirra's Ren'Py Battle Framework
 <br>  Autodetection of weapon to-hit and damage type for main weapon attack.
 <br>  Weapon damages seperate from the damage bonuses
 <br>  Status Effects
-<br>  - Poison / Regen, Slow / Haste, Weaken / Strengthen
-<br>  - Paralyse, Charm, Sleep (The last two are functionally the same at the moment)
-<br>  - Disarm, Remove Equipment (To be used with Armor Break or other similar actions)
+<br>	Poison / Regen, Slow / Haste, Weaken / Strengthen
+<br>	Paralyse, Charm, Sleep (The last two are functionally the same at the moment)
+<br>	Disarm, Remove Equipment (To be used with Armor Break or other similar actions)
 <br>  Ugly Status frames in combat to show most of the above for debugging and ideas on how to link in your better looking graphical ui later.
 <br>  Likewise ugly out of combat status screen.
 <br>  Two premade, fairly simple enemies.. who use every variable the player does.

@@ -240,7 +240,7 @@ label battle_Enemy_Attack_Main_Success:
         if enemy_roll_damage_final < 1:
             "[enemy.name!t] hits, but does no damage.  ([enemy_roll_damage] - [player.X_Armor_Physical_X] = [enemy_roll_damage_final])"
             return
-        call battle_call_Enemy_HP_Loss(enemy_roll_damage_final)
+        call battle_call_Player_HP_Loss(enemy_roll_damage_final)
         "[enemy.name!t] lands a solid blow, dealing [enemy_roll_damage_final] damage.  [playername!t]'s HP at [player.X_HealthPoints_Current_X].  ([enemy_roll_damage] - [player.X_Armor_Physical_X])"
         return
     if enemy.Equipment_Slot_Weapon_Damage_Type == "Ranged":
@@ -249,7 +249,7 @@ label battle_Enemy_Attack_Main_Success:
         if enemy_roll_damage_final < 1:
             "[enemy.name!t] hits, but does no damage.  ([enemy_roll_damage] - [player.X_Armor_Physical_X] = [enemy_roll_damage_final])"
             return
-        call battle_call_Enemy_HP_Loss(enemy_roll_damage_final)
+        call battle_call_Player_HP_Loss(enemy_roll_damage_final)
         "[enemy.name!t] lands a solid blow, dealing [enemy_roll_damage_final] damage.  [playername!t]'s HP at [player.X_HealthPoints_Current_X].  ([enemy_roll_damage] - [player.X_Armor_Physical_X])"
         return
     if enemy.Equipment_Slot_Weapon_Damage_Type == "Magic":
@@ -258,7 +258,7 @@ label battle_Enemy_Attack_Main_Success:
         if enemy_roll_damage_final < 1:
             "[enemy.name!t] hits, but does no damage.  ([enemy_roll_damage] - [player.X_Armor_Magic_X] = [enemy_roll_damage_final])"
             return
-        call battle_call_Enemy_HP_Loss(enemy_roll_damage_final)
+        call battle_call_Player_HP_Loss(enemy_roll_damage_final)
         "[enemy.name!t] lands a solid blow, dealing [enemy_roll_damage_final] damage.  [playername!t]'s HP at [player.X_HealthPoints_Current_X].  ([enemy_roll_damage] - [player.X_Armor_Magic_X])"
         return
     if enemy.Equipment_Slot_Weapon_Damage_Type == "Will":
@@ -267,7 +267,7 @@ label battle_Enemy_Attack_Main_Success:
         if enemy_roll_damage_final < 1:
             "[enemy.name!t] hits, but does no damage.  ([enemy_roll_damage] - [player.X_Armor_Will_X] = [enemy_roll_damage_final])"
             return
-        call battle_call_Enemy_HP_Loss(enemy_roll_damage_final)
+        call battle_call_Player_HP_Loss(enemy_roll_damage_final)
         "[enemy.name!t] lands a solid blow, dealing [enemy_roll_damage_final] damage.  [playername!t]'s HP at [player.X_HealthPoints_Current_X].  ([enemy_roll_damage] - [player.X_Armor_Will_X])"
         return
     nar "You broke my system with a wierd damage type.  Stop that."
