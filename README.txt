@@ -10,6 +10,9 @@ Taking a page from the admittedly far more amazing Battle Engine for Ren'Py by J
 Uses Ren'Py v6.18.3.761
 http://www.renpy.org/latest.html
 
+Current Builds - https://github.com/ShirraWhitefur/PyBattleFramework/tree/master/Builds
+Current Code - https://github.com/ShirraWhitefur/PyBattleFramework/tree/master/
+
 Feature List:
   One on One battles (Only one on one though.)
   Initiative system (You and the enemy choose your actions, but who acts first is random.)

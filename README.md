@@ -9,6 +9,9 @@ Shirra's Ren'Py Battle Framework
 <br>Uses Ren'Py v6.18.3.761
 <br>http://www.renpy.org/latest.html
 <br>
+<br>Current Builds - https://github.com/ShirraWhitefur/PyBattleFramework/tree/master/Builds
+<br>Current Code - https://github.com/ShirraWhitefur/PyBattleFramework/tree/master/
+<br>
 <br>Feature List:
 <br>  One on One battles (Only one on one though.)
 <br>  Initiative system (You and the enemy choose your actions, but who acts first is random.)
