@@ -19,6 +19,13 @@
 # set up and started.  Alternatively, if you're starting them with no gear, you
 # might want to just use call_Player_Equipment_Slot_Strip_All instead?
 label call_Player_Equipment_Slot_Initialize_All:
+    $ player.Equipment_Strength = 0
+    $ player.Equipment_Precision = 0
+    $ player.Equipment_Insight = 0
+    $ player.Equipment_Deceit = 0
+    $ player.Equipment_Vigor = 0
+    $ player.Equipment_Spirit = 0
+    $ player.Equipment_Resolve = 0
     $ player.Equipment_HealthPoints_Max = 0
     $ player.Equipment_AbilityPoints_Max = 0
     $ player.Equipment_WillPoints_Max = 0
@@ -45,6 +52,13 @@ label call_Player_Equipment_Slot_Initialize_All:
 #  So, your player just woke up after being captured by slavers?  Lets get rid
 # of all that pesky equipment!
 label call_Player_Equipment_Slot_Strip_All:
+    $ player.Equipment_Strength = 0
+    $ player.Equipment_Precision = 0
+    $ player.Equipment_Insight = 0
+    $ player.Equipment_Deceit = 0
+    $ player.Equipment_Vigor = 0
+    $ player.Equipment_Spirit = 0
+    $ player.Equipment_Resolve = 0
     $ player.Equipment_HealthPoints_Max = 0
     $ player.Equipment_AbilityPoints_Max = 0
     $ player.Equipment_WillPoints_Max = 0
@@ -85,6 +99,13 @@ label call_Player_Equipment_Slot_Strip_All:
     return
 
 label call_Player_Equipment_Slot_Equip_Weapon(weaponname):
+    $ player.Equipment_Strength += weaponname.Equipment_Strength
+    $ player.Equipment_Precision += weaponname.Equipment_Precision
+    $ player.Equipment_Insight += weaponname.Equipment_Insight
+    $ player.Equipment_Deceit += weaponname.Equipment_Deceit
+    $ player.Equipment_Vigor += weaponname.Equipment_Vigor
+    $ player.Equipment_Spirit += weaponname.Equipment_Spirit
+    $ player.Equipment_Resolve += weaponname.Equipment_Resolve
     $ player.Equipment_HealthPoints_Max += weaponname.Equipment_HealthPoints_Max
     $ player.Equipment_AbilityPoints_Max += weaponname.Equipment_AbilityPoints_Max
     $ player.Equipment_WillPoints_Max += weaponname.Equipment_WillPoints_Max
@@ -117,6 +138,13 @@ label call_Player_Equipment_Slot_Equip_Weapon(weaponname):
     return
 
 label call_Player_Equipment_Slot_Unquip_Weapon(weaponname):
+    $ player.Equipment_Strength -= weaponname.Equipment_Strength
+    $ player.Equipment_Precision -= weaponname.Equipment_Precision
+    $ player.Equipment_Insight -= weaponname.Equipment_Insight
+    $ player.Equipment_Deceit -= weaponname.Equipment_Deceit
+    $ player.Equipment_Vigor -= weaponname.Equipment_Vigor
+    $ player.Equipment_Spirit -= weaponname.Equipment_Spirit
+    $ player.Equipment_Resolve -= weaponname.Equipment_Resolve
     $ player.Equipment_HealthPoints_Max -= weaponname.Equipment_HealthPoints_Max
     $ player.Equipment_AbilityPoints_Max -= weaponname.Equipment_AbilityPoints_Max
     $ player.Equipment_WillPoints_Max -= weaponname.Equipment_WillPoints_Max
@@ -149,6 +177,13 @@ label call_Player_Equipment_Slot_Unquip_Weapon(weaponname):
     return
 
 label call_Player_Equipment_Slot_Equip_UpperBodyArmor(upperbodyarmorname):
+    $ player.Equipment_Strength += upperbodyarmorname.Equipment_Strength
+    $ player.Equipment_Precision += upperbodyarmorname.Equipment_Precision
+    $ player.Equipment_Insight += upperbodyarmorname.Equipment_Insight
+    $ player.Equipment_Deceit += upperbodyarmorname.Equipment_Deceit
+    $ player.Equipment_Vigor += upperbodyarmorname.Equipment_Vigor
+    $ player.Equipment_Spirit += upperbodyarmorname.Equipment_Spirit
+    $ player.Equipment_Resolve += upperbodyarmorname.Equipment_Resolve
     $ player.Equipment_HealthPoints_Max += upperbodyarmorname.Equipment_HealthPoints_Max
     $ player.Equipment_AbilityPoints_Max += upperbodyarmorname.Equipment_AbilityPoints_Max
     $ player.Equipment_WillPoints_Max += upperbodyarmorname.Equipment_WillPoints_Max
@@ -169,6 +204,13 @@ label call_Player_Equipment_Slot_Equip_UpperBodyArmor(upperbodyarmorname):
     return
 
 label call_Player_Equipment_Slot_Unequip_UpperBodyArmor(upperbodyarmorname):
+    $ player.Equipment_Strength -= upperbodyarmorname.Equipment_Strength
+    $ player.Equipment_Precision -= upperbodyarmorname.Equipment_Precision
+    $ player.Equipment_Insight -= upperbodyarmorname.Equipment_Insight
+    $ player.Equipment_Deceit -= upperbodyarmorname.Equipment_Deceit
+    $ player.Equipment_Vigor -= upperbodyarmorname.Equipment_Vigor
+    $ player.Equipment_Spirit -= upperbodyarmorname.Equipment_Spirit
+    $ player.Equipment_Resolve -= upperbodyarmorname.Equipment_Resolve
     $ player.Equipment_HealthPoints_Max -= upperbodyarmorname.Equipment_HealthPoints_Max
     $ player.Equipment_AbilityPoints_Max -= upperbodyarmorname.Equipment_AbilityPoints_Max
     $ player.Equipment_WillPoints_Max -= upperbodyarmorname.Equipment_WillPoints_Max
@@ -189,6 +231,13 @@ label call_Player_Equipment_Slot_Unequip_UpperBodyArmor(upperbodyarmorname):
     return
 
 label call_Player_Equipment_Slot_Equip_LowerBodyArmor(lowerbodyarmorname):
+    $ player.Equipment_Strength += lowerbodyarmorname.Equipment_Strength
+    $ player.Equipment_Precision += lowerbodyarmorname.Equipment_Precision
+    $ player.Equipment_Insight += lowerbodyarmorname.Equipment_Insight
+    $ player.Equipment_Deceit += lowerbodyarmorname.Equipment_Deceit
+    $ player.Equipment_Vigor += lowerbodyarmorname.Equipment_Vigor
+    $ player.Equipment_Spirit += lowerbodyarmorname.Equipment_Spirit
+    $ player.Equipment_Resolve += lowerbodyarmorname.Equipment_Resolve
     $ player.Equipment_HealthPoints_Max += lowerbodyarmorname.Equipment_HealthPoints_Max
     $ player.Equipment_AbilityPoints_Max += lowerbodyarmorname.Equipment_AbilityPoints_Max
     $ player.Equipment_WillPoints_Max += lowerbodyarmorname.Equipment_WillPoints_Max
@@ -209,6 +258,13 @@ label call_Player_Equipment_Slot_Equip_LowerBodyArmor(lowerbodyarmorname):
     return
 
 label call_Player_Equipment_Slot_Unequip_LowerBodyArmor(lowerbodyarmorname):
+    $ player.Equipment_Strength -= lowerbodyarmorname.Equipment_Strength
+    $ player.Equipment_Precision -= lowerbodyarmorname.Equipment_Precision
+    $ player.Equipment_Insight -= lowerbodyarmorname.Equipment_Insight
+    $ player.Equipment_Deceit -= lowerbodyarmorname.Equipment_Deceit
+    $ player.Equipment_Vigor -= lowerbodyarmorname.Equipment_Vigor
+    $ player.Equipment_Spirit -= lowerbodyarmorname.Equipment_Spirit
+    $ player.Equipment_Resolve -= lowerbodyarmorname.Equipment_Resolve
     $ player.Equipment_HealthPoints_Max -= lowerbodyarmorname.Equipment_HealthPoints_Max
     $ player.Equipment_AbilityPoints_Max -= lowerbodyarmorname.Equipment_AbilityPoints_Max
     $ player.Equipment_WillPoints_Max -= lowerbodyarmorname.Equipment_WillPoints_Max
@@ -229,6 +285,13 @@ label call_Player_Equipment_Slot_Unequip_LowerBodyArmor(lowerbodyarmorname):
     return
 
 label call_Player_Equipment_Slot_Equip_Necklace(necklacename):
+    $ player.Equipment_Strength += necklacename.Equipment_Strength
+    $ player.Equipment_Precision += necklacename.Equipment_Precision
+    $ player.Equipment_Insight += necklacename.Equipment_Insight
+    $ player.Equipment_Deceit += necklacename.Equipment_Deceit
+    $ player.Equipment_Vigor += necklacename.Equipment_Vigor
+    $ player.Equipment_Spirit += necklacename.Equipment_Spirit
+    $ player.Equipment_Resolve += necklacename.Equipment_Resolve
     $ player.Equipment_HealthPoints_Max += necklacename.Equipment_HealthPoints_Max
     $ player.Equipment_AbilityPoints_Max += necklacename.Equipment_AbilityPoints_Max
     $ player.Equipment_WillPoints_Max += necklacename.Equipment_WillPoints_Max
@@ -249,6 +312,13 @@ label call_Player_Equipment_Slot_Equip_Necklace(necklacename):
     return
 
 label call_Player_Equipment_Slot_Unequip_Necklace(necklacename):
+    $ player.Equipment_Strength -= necklacename.Equipment_Strength
+    $ player.Equipment_Precision -= necklacename.Equipment_Precision
+    $ player.Equipment_Insight -= necklacename.Equipment_Insight
+    $ player.Equipment_Deceit -= necklacename.Equipment_Deceit
+    $ player.Equipment_Vigor -= necklacename.Equipment_Vigor
+    $ player.Equipment_Spirit -= necklacename.Equipment_Spirit
+    $ player.Equipment_Resolve -= necklacename.Equipment_Resolve
     $ player.Equipment_HealthPoints_Max -= necklacename.Equipment_HealthPoints_Max
     $ player.Equipment_AbilityPoints_Max -= necklacename.Equipment_AbilityPoints_Max
     $ player.Equipment_WillPoints_Max -= necklacename.Equipment_WillPoints_Max
@@ -269,6 +339,13 @@ label call_Player_Equipment_Slot_Unequip_Necklace(necklacename):
     return
 
 label call_Player_Equipment_Slot_Equip_Ring(ringname):
+    $ player.Equipment_Strength += ringname.Equipment_Strength
+    $ player.Equipment_Precision += ringname.Equipment_Precision
+    $ player.Equipment_Insight += ringname.Equipment_Insight
+    $ player.Equipment_Deceit += ringname.Equipment_Deceit
+    $ player.Equipment_Vigor += ringname.Equipment_Vigor
+    $ player.Equipment_Spirit += ringname.Equipment_Spirit
+    $ player.Equipment_Resolve += ringname.Equipment_Resolve
     $ player.Equipment_HealthPoints_Max += ringname.Equipment_HealthPoints_Max
     $ player.Equipment_AbilityPoints_Max += ringname.Equipment_AbilityPoints_Max
     $ player.Equipment_WillPoints_Max += ringname.Equipment_WillPoints_Max
@@ -289,6 +366,13 @@ label call_Player_Equipment_Slot_Equip_Ring(ringname):
     return
 
 label call_Player_Equipment_Slot_Unequip_Recklace(ringname):
+    $ player.Equipment_Strength -= ringname.Equipment_Strength
+    $ player.Equipment_Precision -= ringname.Equipment_Precision
+    $ player.Equipment_Insight -= ringname.Equipment_Insight
+    $ player.Equipment_Deceit -= ringname.Equipment_Deceit
+    $ player.Equipment_Vigor -= ringname.Equipment_Vigor
+    $ player.Equipment_Spirit -= ringname.Equipment_Spirit
+    $ player.Equipment_Resolve -= ringname.Equipment_Resolve
     $ player.Equipment_HealthPoints_Max -= ringname.Equipment_HealthPoints_Max
     $ player.Equipment_AbilityPoints_Max -= ringname.Equipment_AbilityPoints_Max
     $ player.Equipment_WillPoints_Max -= ringname.Equipment_WillPoints_Max

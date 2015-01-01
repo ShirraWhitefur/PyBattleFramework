@@ -14,6 +14,13 @@
 init -99:
 # Ring - No Ring Worn - no_ring
     $ no_ring = Character("no_ring")
+    $ no_ring.Equipment_Strength = 0
+    $ no_ring.Equipment_Precision = 0
+    $ no_ring.Equipment_Insight = 0
+    $ no_ring.Equipment_Deceit = 0
+    $ no_ring.Equipment_Vigor = 0
+    $ no_ring.Equipment_Spirit = 0
+    $ no_ring.Equipment_Resolve = 0
     $ no_ring.Equipment_HealthPoints_Max = 0
     $ no_ring.Equipment_AbilityPoints_Max = 0
     $ no_ring.Equipment_WillPoints_Max = 0
@@ -32,6 +39,13 @@ init -99:
     $ no_ring.Equipment_Slot_Ring_Name_Text = "No Ring Worn"
 # Ring - Ring of Magic Power - ring_magic_power
     $ ring_magic_power = Character("ring_magic_power")
+    $ ring_magic_power.Equipment_Strength = 0
+    $ ring_magic_power.Equipment_Precision = 0
+    $ ring_magic_power.Equipment_Insight = 0
+    $ ring_magic_power.Equipment_Deceit = 0
+    $ ring_magic_power.Equipment_Vigor = 0
+    $ ring_magic_power.Equipment_Spirit = 0
+    $ ring_magic_power.Equipment_Resolve = 0
     $ ring_magic_power.Equipment_HealthPoints_Max = 0
     $ ring_magic_power.Equipment_AbilityPoints_Max = 0
     $ ring_magic_power.Equipment_WillPoints_Max = 0
@@ -50,6 +64,13 @@ init -99:
     $ ring_magic_power.Equipment_Slot_Ring_Name_Text = "Ring of Magic Power"
 # Ring - Ring of Accuracy - ring_accuracy
     $ ring_accuracy = Character("ring_accuracy")
+    $ ring_accuracy.Equipment_Strength = 0
+    $ ring_accuracy.Equipment_Precision = 0
+    $ ring_accuracy.Equipment_Insight = 0
+    $ ring_accuracy.Equipment_Deceit = 0
+    $ ring_accuracy.Equipment_Vigor = 0
+    $ ring_accuracy.Equipment_Spirit = 0
+    $ ring_accuracy.Equipment_Resolve = 0
     $ ring_accuracy.Equipment_HealthPoints_Max = 0
     $ ring_accuracy.Equipment_AbilityPoints_Max = 0
     $ ring_accuracy.Equipment_WillPoints_Max = 0

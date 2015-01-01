@@ -14,6 +14,13 @@
 init -99:
 # LowerBodyArmor - No Armor Equipped - no_lower_armor
     $ no_lower_armor = Character("no_lower_armor")
+    $ no_lower_armor.Equipment_Strength = 0
+    $ no_lower_armor.Equipment_Precision = 0
+    $ no_lower_armor.Equipment_Insight = 0
+    $ no_lower_armor.Equipment_Deceit = 0
+    $ no_lower_armor.Equipment_Vigor = 0
+    $ no_lower_armor.Equipment_Spirit = 0
+    $ no_lower_armor.Equipment_Resolve = 0
     $ no_lower_armor.Equipment_HealthPoints_Max = 0
     $ no_lower_armor.Equipment_AbilityPoints_Max = 0
     $ no_lower_armor.Equipment_WillPoints_Max = 0
@@ -32,6 +39,13 @@ init -99:
     $ no_lower_armor.Equipment_Slot_LowerBodyArmor_Name_Text = "No Armor Equipped"
 # LowerBodyArmor - Ragged Leather Armor - lower_leather_rags
     $ lower_leather_rags = Character("lower_leather_rags")
+    $ lower_leather_rags.Equipment_Strength = 0
+    $ lower_leather_rags.Equipment_Precision = 0
+    $ lower_leather_rags.Equipment_Insight = 0
+    $ lower_leather_rags.Equipment_Deceit = 0
+    $ lower_leather_rags.Equipment_Vigor = 0
+    $ lower_leather_rags.Equipment_Spirit = 0
+    $ lower_leather_rags.Equipment_Resolve = 0
     $ lower_leather_rags.Equipment_HealthPoints_Max = 0
     $ lower_leather_rags.Equipment_AbilityPoints_Max = 0
     $ lower_leather_rags.Equipment_WillPoints_Max = 0
@@ -50,6 +64,13 @@ init -99:
     $ lower_leather_rags.Equipment_Slot_LowerBodyArmor_Name_Text = "Ragged Leather Armor"
 # LowerBodyArmor - Chainmail Leggings - lower_chain_armor
     $ lower_chain_armor = Character("lower_chain_armor")
+    $ lower_chain_armor.Equipment_Strength = 0
+    $ lower_chain_armor.Equipment_Precision = 0
+    $ lower_chain_armor.Equipment_Insight = 0
+    $ lower_chain_armor.Equipment_Deceit = 0
+    $ lower_chain_armor.Equipment_Vigor = 0
+    $ lower_chain_armor.Equipment_Spirit = 0
+    $ lower_chain_armor.Equipment_Resolve = 0
     $ lower_chain_armor.Equipment_HealthPoints_Max = 0
     $ lower_chain_armor.Equipment_AbilityPoints_Max = 0
     $ lower_chain_armor.Equipment_WillPoints_Max = 0

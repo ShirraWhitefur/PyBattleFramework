@@ -14,6 +14,13 @@
 init -99:
 # Necklace - No Necklace Worn - no_necklace
     $ no_necklace = Character("no_necklace")
+    $ no_necklace.Equipment_Strength = 0
+    $ no_necklace.Equipment_Precision = 0
+    $ no_necklace.Equipment_Insight = 0
+    $ no_necklace.Equipment_Deceit = 0
+    $ no_necklace.Equipment_Vigor = 0
+    $ no_necklace.Equipment_Spirit = 0
+    $ no_necklace.Equipment_Resolve = 0
     $ no_necklace.Equipment_HealthPoints_Max = 0
     $ no_necklace.Equipment_AbilityPoints_Max = 0
     $ no_necklace.Equipment_WillPoints_Max = 0
@@ -32,6 +39,13 @@ init -99:
     $ no_necklace.Equipment_Slot_Necklace_Name_Text = "No Necklace Worn"
 # Necklace - Necklace of Health - necklace_health
     $ necklace_health = Character("necklace_health")
+    $ necklace_health.Equipment_Strength = 0
+    $ necklace_health.Equipment_Precision = 0
+    $ necklace_health.Equipment_Insight = 0
+    $ necklace_health.Equipment_Deceit = 0
+    $ necklace_health.Equipment_Vigor = 10
+    $ necklace_health.Equipment_Spirit = 0
+    $ necklace_health.Equipment_Resolve = 0
     $ necklace_health.Equipment_HealthPoints_Max = 40
     $ necklace_health.Equipment_AbilityPoints_Max = 0
     $ necklace_health.Equipment_WillPoints_Max = 0
@@ -50,7 +64,14 @@ init -99:
     $ necklace_health.Equipment_Slot_Necklace_Name_Text = "Necklace of Health"
 # Necklace - Necklace of Frail Dodging - necklace_frail_dodge
     $ necklace_frail_dodge = Character("necklace_frail_dodge")
-    $ necklace_frail_dodge.Equipment_HealthPoints_Max = -40
+    $ necklace_frail_dodge.Equipment_Strength = 0
+    $ necklace_frail_dodge.Equipment_Precision = 0
+    $ necklace_frail_dodge.Equipment_Insight = 0
+    $ necklace_frail_dodge.Equipment_Deceit = 0
+    $ necklace_frail_dodge.Equipment_Vigor = -10
+    $ necklace_frail_dodge.Equipment_Spirit = 0
+    $ necklace_frail_dodge.Equipment_Resolve = 0
+    $ necklace_frail_dodge.Equipment_HealthPoints_Max = -35
     $ necklace_frail_dodge.Equipment_AbilityPoints_Max = 0
     $ necklace_frail_dodge.Equipment_WillPoints_Max = 0
     $ necklace_frail_dodge.Equipment_Accuracy_Melee = 0

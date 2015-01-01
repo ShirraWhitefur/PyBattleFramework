@@ -14,6 +14,13 @@
 init -99:
 # UpperBodyArmor - No Armor Equipped - no_upper_armor
     $ no_upper_armor = Character("no_upper_armor")
+    $ no_upper_armor.Equipment_Strength = 0
+    $ no_upper_armor.Equipment_Precision = 0
+    $ no_upper_armor.Equipment_Insight = 0
+    $ no_upper_armor.Equipment_Deceit = 0
+    $ no_upper_armor.Equipment_Vigor = 0
+    $ no_upper_armor.Equipment_Spirit = 0
+    $ no_upper_armor.Equipment_Resolve = 0
     $ no_upper_armor.Equipment_HealthPoints_Max = 0
     $ no_upper_armor.Equipment_AbilityPoints_Max = 0
     $ no_upper_armor.Equipment_WillPoints_Max = 0
@@ -32,6 +39,13 @@ init -99:
     $ no_upper_armor.Equipment_Slot_UpperBodyArmor_Name_Text = "No Armor Equipped"
 # UpperBodyArmor - Cloth Shirt - upper_cloth_shirt
     $ upper_cloth_shirt = Character("upper_cloth_shirt")
+    $ upper_cloth_shirt.Equipment_Strength = 0
+    $ upper_cloth_shirt.Equipment_Precision = 0
+    $ upper_cloth_shirt.Equipment_Insight = 0
+    $ upper_cloth_shirt.Equipment_Deceit = 0
+    $ upper_cloth_shirt.Equipment_Vigor = 0
+    $ upper_cloth_shirt.Equipment_Spirit = 0
+    $ upper_cloth_shirt.Equipment_Resolve = 0
     $ upper_cloth_shirt.Equipment_HealthPoints_Max = 0
     $ upper_cloth_shirt.Equipment_AbilityPoints_Max = 0
     $ upper_cloth_shirt.Equipment_WillPoints_Max = 0
@@ -50,6 +64,13 @@ init -99:
     $ upper_cloth_shirt.Equipment_Slot_UpperBodyArmor_Name_Text = "Cloth Shirt"
 # UpperBodyArmor - Chainmail Armor - upper_chain_armor
     $ upper_chain_armor = Character("upper_chain_armor")
+    $ upper_chain_armor.Equipment_Strength = 0
+    $ upper_chain_armor.Equipment_Precision = 0
+    $ upper_chain_armor.Equipment_Insight = 0
+    $ upper_chain_armor.Equipment_Deceit = 0
+    $ upper_chain_armor.Equipment_Vigor = 0
+    $ upper_chain_armor.Equipment_Spirit = 0
+    $ upper_chain_armor.Equipment_Resolve = 0
     $ upper_chain_armor.Equipment_HealthPoints_Max = 5
     $ upper_chain_armor.Equipment_AbilityPoints_Max = 0
     $ upper_chain_armor.Equipment_WillPoints_Max = 0

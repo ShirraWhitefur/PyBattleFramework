@@ -14,6 +14,13 @@
 init -99:
 # Weapon - No Weapon Equipped - Bare Hands - no_weapon
     $ no_weapon = Character("no_weapon")
+    $ no_weapon.Equipment_Strength = 0
+    $ no_weapon.Equipment_Precision = 0
+    $ no_weapon.Equipment_Insight = 0
+    $ no_weapon.Equipment_Deceit = 0
+    $ no_weapon.Equipment_Vigor = 0
+    $ no_weapon.Equipment_Spirit = 0
+    $ no_weapon.Equipment_Resolve = 0
     $ no_weapon.Equipment_HealthPoints_Max = 0
     $ no_weapon.Equipment_AbilityPoints_Max = 0
     $ no_weapon.Equipment_WillPoints_Max = 0
@@ -44,6 +51,13 @@ init -99:
     $ no_weapon.Equipment_Slot_Weapon_Damage_Type = "Melee"
 # Weapon - Axe, Orcish - axe_orcish
     $ axe_orcish = Character("axe_orcish")
+    $ axe_orcish.Equipment_Strength = 0
+    $ axe_orcish.Equipment_Precision = 0
+    $ axe_orcish.Equipment_Insight = 0
+    $ axe_orcish.Equipment_Deceit = 0
+    $ axe_orcish.Equipment_Vigor = 0
+    $ axe_orcish.Equipment_Spirit = 0
+    $ axe_orcish.Equipment_Resolve = 0
     $ axe_orcish.Equipment_HealthPoints_Max = 0
     $ axe_orcish.Equipment_AbilityPoints_Max = 0
     $ axe_orcish.Equipment_WillPoints_Max = 0
@@ -74,6 +88,13 @@ init -99:
     $ axe_orcish.Equipment_Slot_Weapon_Damage_Type = "Melee"
 # Weapon - Sword, Adventurer's - sword_adventurers
     $ sword_adventurers = Character("sword_adventurers")
+    $ sword_adventurers.Equipment_Strength = 0
+    $ sword_adventurers.Equipment_Precision = 0
+    $ sword_adventurers.Equipment_Insight = 0
+    $ sword_adventurers.Equipment_Deceit = 0
+    $ sword_adventurers.Equipment_Vigor = 0
+    $ sword_adventurers.Equipment_Spirit = 0
+    $ sword_adventurers.Equipment_Resolve = 0
     $ sword_adventurers.Equipment_HealthPoints_Max = 2
     $ sword_adventurers.Equipment_AbilityPoints_Max = 0
     $ sword_adventurers.Equipment_WillPoints_Max = 0
@@ -104,6 +125,13 @@ init -99:
     $ sword_adventurers.Equipment_Slot_Weapon_Damage_Type = "Melee"
 # Weapon - Bow, Short - bow_short
     $ bow_short = Character("bow_short")
+    $ bow_short.Equipment_Strength = 0
+    $ bow_short.Equipment_Precision = 5
+    $ bow_short.Equipment_Insight = 0
+    $ bow_short.Equipment_Deceit = 0
+    $ bow_short.Equipment_Vigor = 0
+    $ bow_short.Equipment_Spirit = 0
+    $ bow_short.Equipment_Resolve = 0
     $ bow_short.Equipment_HealthPoints_Max = 0
     $ bow_short.Equipment_AbilityPoints_Max = 0
     $ bow_short.Equipment_WillPoints_Max = 0
@@ -134,6 +162,13 @@ init -99:
     $ bow_short.Equipment_Slot_Weapon_Damage_Type = "Ranged"
 # Weapon - Wand of the Firemage - wand_firemage
     $ wand_firemage = Character("wand_firemage")
+    $ no_upper_armor.Equipment_Strength = 0
+    $ no_upper_armor.Equipment_Precision = 0
+    $ no_upper_armor.Equipment_Insight = 0
+    $ no_upper_armor.Equipment_Deceit = 0
+    $ no_upper_armor.Equipment_Vigor = 0
+    $ no_upper_armor.Equipment_Spirit = 0
+    $ no_upper_armor.Equipment_Resolve = 0
     $ wand_firemage.Equipment_HealthPoints_Max = 0
     $ wand_firemage.Equipment_AbilityPoints_Max = 20
     $ wand_firemage.Equipment_WillPoints_Max = 0
