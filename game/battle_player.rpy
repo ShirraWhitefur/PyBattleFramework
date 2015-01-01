@@ -13,6 +13,8 @@ init -50:
     $ playername = "SomethingFailed"
     $ player.Battle_Selected_Action = "battle_Player_Wait"
     $ player.Battle_Outcome = "end"
+######
+# Status Effects
 #  This block handles status effects, including the check to see if it's on.
 # EffectActive is probably going to be used mostly for the Screen/Frame/UI
 # stuff.
@@ -60,6 +62,7 @@ init -50:
     $ player.Status_EquipLoss_Necklace_EffectActive = 0
     $ player.Status_EquipLoss_Ring_Duration = 0
     $ player.Status_EquipLoss_Ring_EffectActive = 0
+######
 # Equipment Initilization
     $ player.Equipment_Strength = 1
     $ player.Equipment_Precision = 1
@@ -110,12 +113,14 @@ init -50:
     $ player.Equipment_Slot_Ring_Name = no_ring
     $ player.Equipment_Slot_Ring_Name_Temp = no_ring
     $ player.Equipment_Slot_Ring_Name_Text = "Gear Init Failed."
+######
 #  Equipment - Consumables.  Consider it a 'stock', and will handle the
 # potions, grenades, and other one use items and non-rechargables (like wands.)
     $ player.Equipment_Consumables_Potions_HP_Restore = 3
     $ player.Equipment_Consumables_Potions_AP_Restore = 2
     $ player.Equipment_Consumables_Potions_WP_Restore = 1
     $ player.Equipment_Currency = 5000
+######
 # Player's Base Statistics
 # Just for quick reference..
 #   Strength    Damage - Melee (percentage boost); Accuracy - Melee (integer boost)
