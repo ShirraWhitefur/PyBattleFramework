@@ -38,12 +38,24 @@ label battle_start:
 
 label battle_Begin_Round:
     $ battle.roundcount += 1
-#  This is the start of every round.  We call the player menu, and let them
-# select their actions, store it, and then go to Turn Resolution and see who
-# actually -acts- first.
+#  This is the start of every round.  First, we check to see if the player is
+# going to have their turn skipped, so we know if we display a menu of choices
+# at all.  Then we call the player menu, and let them select their actions,
+# store it, and then go to Turn Resolution and see who actually -acts- first.
+#  If you want the players to see a menu even while dealing with turnskip
+# status effects, then just comment out the block below.
+    if player.Status_Paralyse_EffectActive == 1:
+        "You are currently Paralysed and cannot act!"
+        jump battle_Turn_Resolution
+    if player.Status_Charm_EffectActive == 1:
+        "You are currently Charmed and cannot act!"
+        jump battle_Turn_Resolution
+    if player.Status_Sleep_EffectActive == 1:
+        "You are currently asleep and cannot act!"
+        jump battle_Turn_Resolution
+# End of turnskip checking.
     call battle_Player_Menu
     jump battle_Turn_Resolution
-
 
 label battle_Turn_Resolution:
     $player_initiative = renpy.random.randint(1,100)+player.X_Initiative_X 
@@ -72,21 +84,18 @@ label battle_Turn_Resolution:
 # for the player, before moving onward.
         call battle_call_Player_Status_Check_Block
         if player.Status_Paralyse_EffectActive == 1:
-            "You are currently Paralysed and cannot act!"
             $ player.Status_Paralyse_Duration -= 1
             if player.Status_Paralyse_Duration == 0:
                 $ player.Status_Paralyse_EffectActive = 0
                 "You feel the Paralysation wearing off, and will be normal next turn."
             $ player.battle_selected_action = "battle_Player_Skipped"
         if player.Status_Charm_EffectActive == 1:
-            "You are currently Charmed and cannot act!"
             $ player.Status_Charm_Duration -= 1
             if player.Status_Charm_Duration == 0:
                 $ player.Status_Charm_EffectActive = 0
                 "You feel the Charm wearing off, and will be normal next turn."
             $ player.battle_selected_action = "battle_Player_Skipped"
         if player.Status_Sleep_EffectActive == 1:
-            "You are currently asleep and cannot act!"
             $ player.Status_Sleep_Duration -= 1
             if player.Status_Sleep_Duration == 0:
                 $ player.Status_Sleep_EffectActive = 0
@@ -108,21 +117,18 @@ label battle_Turn_Resolution:
 # for the player, before moving onward.
         call battle_call_Player_Status_Check_Block
         if player.Status_Paralyse_EffectActive == 1:
-            "You are currently Paralysed and cannot act!"
             $ player.Status_Paralyse_Duration -= 1
             if player.Status_Paralyse_Duration == 0:
                 $ player.Status_Paralyse_EffectActive = 0
                 "You feel the Paralysation wearing off, and will be normal next turn."
             $ player.battle_selected_action = "battle_Player_Skipped"
         if player.Status_Charm_EffectActive == 1:
-            "You are currently Charmed and cannot act!"
             $ player.Status_Charm_Duration -= 1
             if player.Status_Charm_Duration == 0:
                 $ player.Status_Charm_EffectActive = 0
                 "You feel the Charm wearing off, and will be normal next turn."
             $ player.battle_selected_action = "battle_Player_Skipped"
         if player.Status_Sleep_EffectActive == 1:
-            "You are currently asleep and cannot act!"
             $ player.Status_Sleep_Duration -= 1
             if player.Status_Sleep_Duration == 0:
                 $ player.Status_Sleep_EffectActive = 0

@@ -138,9 +138,7 @@ init -50:
 ######
 # Player's Calculated, Final Statistics
     $ player.X_Strength_X = player.Stats_Strength+player.Equipment_Strength+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
-# After we add the new status effect..
     $ player.X_Precision_X = player.Stats_Precision+player.Equipment_Precision+player.Status_Nimble_Strength-player.Status_Clumsy_Strength
-#    $ player.X_Precision_X = player.Stats_Precision+player.Equipment_Precision
     $ player.X_Insight_X = player.Stats_Insight+player.Equipment_Insight
     $ player.X_Deceit_X = player.Stats_Deceit+player.Equipment_Deceit
     $ player.X_Vigor_X = player.Stats_Vigor+player.Equipment_Vigor
@@ -198,9 +196,7 @@ init -50:
     $ player.X_Dodge_X = player.Attribute_Dodge+player.Equipment_Dodge+player.Status_Haste_Strength+player.Status_Dodge_Strength-player.Status_Slow_Strength
     $ player.X_Initiative_X = player.Attribute_Initiative+player.Equipment_Initiative+player.Status_Haste_Strength-player.Status_Slow_Strength
     $ player.X_Damage_Bonus_Melee_Text_X = int(round((-99 if (player.Attribute_Damage_Bonus_Melee+player.Equipment_Damage_Bonus_Melee+player.Status_Strengthen_Strength-player.Status_Weaken_Strength) < -99 else (player.Attribute_Damage_Bonus_Melee+player.Equipment_Damage_Bonus_Melee+player.Status_Strengthen_Strength-player.Status_Weaken_Strength))))
-## After we add the new status effect..
     $ player.X_Damage_Bonus_Ranged_Text_X = int(round((-99 if (player.Attribute_Damage_Bonus_Ranged+player.Equipment_Damage_Bonus_Ranged+player.Status_Nimble_Strength-player.Status_Clumsy_Strength) < -99 else (player.Attribute_Damage_Bonus_Ranged+player.Equipment_Damage_Bonus_Ranged+player.Status_Nimble_Strength-player.Status_Clumsy_Strength))))
-#    $ player.X_Damage_Bonus_Ranged_Text_X = int(round((-99 if (player.Attribute_Damage_Bonus_Ranged+player.Equipment_Damage_Bonus_Ranged) < -99 else (player.Attribute_Damage_Bonus_Ranged+player.Equipment_Damage_Bonus_Ranged))))
     $ player.X_Damage_Bonus_Magic_Text_X = int(round((-99 if (player.Attribute_Damage_Bonus_Magic+player.Equipment_Damage_Bonus_Magic) < -99 else (player.Attribute_Damage_Bonus_Magic+player.Equipment_Damage_Bonus_Magic))))
     $ player.X_Damage_Bonus_Will_Text_X = int(round((-99 if (player.Attribute_Damage_Bonus_Will+player.Equipment_Damage_Bonus_Will) < -99 else (player.Attribute_Damage_Bonus_Will+player.Equipment_Damage_Bonus_Will))))
     $ player.X_Damage_Bonus_Melee_X = (player.X_Damage_Bonus_Melee_Text_X)*0.01
@@ -242,7 +238,7 @@ label battle_Player_Menu:
         "Do Nothing":
             $ player.battle_selected_action = "battle_Player_Wait"
             return
-# Debug
+# Debug - Definitely remove before normal play.
         "Debug - Use Regular UI":
             hide screen status_frame
             show screen fight(playername,enemy.name)
@@ -550,6 +546,15 @@ label battle_Player_Ability__Weaken:
     "You weaken them for [enemy.Status_Weaken_Duration] rounds, at [enemy.Status_Weaken_Strength] strength."
     return
 
+label battle_Player_Ability__Clumsy:
+    "You cast Clumsy on [enemy.name!t]!"
+    $ enemy.Status_Clumsy_EffectActive = 1
+    $ enemy.Status_Clumsy_Duration = renpy.random.randint(4,6)
+    $ enemy.Status_Clumsy_Strength = renpy.random.randint(2,5)
+    call battle_call_Player_AP_Loss(5)
+    "You make them Clumsy for [enemy.Status_Clumsy_Duration] rounds, at [enemy.Status_Clumsy_Strength] strength."
+    return
+
 label battle_Player_Ability__Paralyse:
     "You cast Paralyse on [enemy.name!t]!"
     $ enemy.Status_Paralyse_EffectActive = 1
@@ -599,6 +604,15 @@ label battle_Player_Ability__Strengthen:
     $ player.Status_Strengthen_Strength = renpy.random.randint(2,5)
     call battle_call_Player_AP_Loss(5)
     "You strengthen yourself them for [player.Status_Strengthen_Duration] rounds, at [player.Status_Strengthen_Strength] strength."
+    return
+
+label battle_Player_Ability__Nimble:
+    "You cast Nimble on yourself!"
+    $ player.Status_Nimble_EffectActive = 1
+    $ player.Status_Nimble_Duration = renpy.random.randint(4,6)
+    $ player.Status_Nimble_Strength = renpy.random.randint(2,5)
+    call battle_call_Player_AP_Loss(5)
+    "You make yourself more Nimble them for [player.Status_Nimble_Duration] rounds, at [player.Status_Nimble_Strength] strength."
     return
 
 label battle_Player_Ability__Paralyze_Self:
