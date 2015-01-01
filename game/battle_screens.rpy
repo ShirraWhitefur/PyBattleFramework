@@ -187,6 +187,12 @@ screen stats_frame2(ename):
 #####################################################################
 
 screen status_frame:
+    use status_frame_main
+    use status_frame_equipment
+    use status_frame_stats
+    use status_frame_final
+
+screen status_frame_main:
     frame xfill(False) yminimum(None) background(None) xpos 0.01 ypos 0.005:
 # Player name ends up here..
         text (playername) size 20
@@ -251,68 +257,210 @@ screen status_frame:
 # \/  This section is definitely a debug section, to make sure that the items
 # \/ are being properly equipped.  You'll probably want to just delete this,
 # \/ unless you need it to test your work.
+# \/ The 'Raw'ish Stats block'
+# /\ The end the 'Raw'ish Stats block'
+
+#####################################################################
+# Really Ugly Toggle-Status Screens
+#####################################################################
+# \/  This section is definitely a debug section, to make sure that the items
+# \/ are being properly equipped.  You'll probably want to just delete this,
+# \/ unless you need it to test your work.
+screen status_frame_equipment:
     frame xfill(False) yminimum(None) background(None) xpos 0.01 ypos 0.27:
             hbox:
                 vbox:
-                        text ("Weapon -") xalign 1.0 size 12
-                        text (" ") xalign 1.0 size 12
-                        text ("UpperArmor -") xalign 1.0 size 12
-                        text ("LowerArmor -") xalign 1.0 size 12
-                        text ("Necklace -") xalign 1.0 size 12
-                        text ("Ring -") xalign 1.0 size 12
+                        text ("Strength+ =") xalign 1.0 size 12
+                        text ("Precision+ =") xalign 1.0 size 12
+                        text ("Insight+ =") xalign 1.0 size 12
+                        text ("Deceit+ =") xalign 1.0 size 12
+                        text ("Vigor+ =") xalign 1.0 size 12
+                        text ("Spirit+ =") xalign 1.0 size 12
+                        text ("Resolve+ =") xalign 1.0 size 12
+                        text ("HPMax+ =") xalign 1.0 size 12
+                        text ("APMax+ =") xalign 1.0 size 12
+                        text ("WPMax+ =") xalign 1.0 size 12
+                        text ("Armor-Phys =") xalign 1.0 size 12
+                        text ("Armor-Magi =") xalign 1.0 size 12
+                        text ("Armor-Will =") xalign 1.0 size 12
+                        text ("Dodge =") xalign 1.0 size 12
+                        text ("Initiative =") xalign 1.0 size 12
+                        text ("Acc+Melee =") xalign 1.0 size 12
+                        text ("Acc+Ranged =") xalign 1.0 size 12
+                        text ("HP Potions =") xalign 1.0 size 12
+                        text ("AP Potions =") xalign 1.0 size 12
+                        text ("WP Potions =") xalign 1.0 size 12
                 vbox:
+                        text ("[player.Equipment_Strength]") size 12
+                        text ("[player.Equipment_Precision]") size 12
+                        text ("[player.Equipment_Insight]") size 12
+                        text ("[player.Equipment_Deceit]") size 12
+                        text ("[player.Equipment_Vigor]") size 12
+                        text ("[player.Equipment_Spirit]") size 12
+                        text ("[player.Equipment_Resolve]") size 12
+                        text ("[player.Equipment_HealthPoints_Max]") size 12
+                        text ("[player.Equipment_AbilityPoints_Max]") size 12
+                        text ("[player.Equipment_WillPoints_Max]") size 12
+                        text ("[player.Equipment_Armor_Physical]") size 12
+                        text ("[player.Equipment_Armor_Magic]") size 12
+                        text ("[player.Equipment_Armor_Will]") size 12
+                        text ("[player.Equipment_Dodge]") size 12
+                        text ("[player.Equipment_Initiative]") size 12
+                        text ("[player.Equipment_Accuracy_Melee]") size 12
+                        text ("[player.Equipment_Accuracy_Ranged]") size 12
+                        text ("[player.Equipment_Consumables_Potions_HP_Restore]") size 12
+                        text ("[player.Equipment_Consumables_Potions_AP_Restore]") size 12
+                        text ("[player.Equipment_Consumables_Potions_WP_Restore]") size 12
+                vbox:
+                        text ("<-- GEAR \/") xalign 1.0 size 12
+                        text ("Dam+Melee =") xalign 1.0 size 12
+                        text ("Dam+Range =") xalign 1.0 size 12
+                        text ("Dam+Magic =") xalign 1.0 size 12
+                        text ("Dam+Will =") xalign 1.0 size 12
+                        text ("W.Acc+Melee =") xalign 1.0 size 12
+                        text ("W.Acc+Range =") xalign 1.0 size 12
+                        text ("W.Dam Melee =") xalign 1.0 size 12
+                        text ("W.Dam Range =") xalign 1.0 size 12
+                        text ("W.Dam Magic =") xalign 1.0 size 12
+                        text ("W.Dam Will =") xalign 1.0 size 12
+                        text ("Weapon =") xalign 1.0 size 12
+                        text ("W. Type =") xalign 1.0 size 12
+                        text ("UpperArmor =") xalign 1.0 size 12
+                        text ("LowerArmor =") xalign 1.0 size 12
+                        text ("Necklace =") xalign 1.0 size 12
+                        text ("Ring =") xalign 1.0 size 12
+                        text ("Coins =") xalign 1.0 size 12
+                vbox:
+                        text (" ") size 12
+                        text ("[player.Equipment_Damage_Bonus_Melee]") size 12
+                        text ("[player.Equipment_Damage_Bonus_Ranged]") size 12
+                        text ("[player.Equipment_Damage_Bonus_Magic]") size 12
+                        text ("[player.Equipment_Damage_Bonus_Will]") size 12
+                        text ("[player.Equipment_Weapon_Accuracy_Melee]") size 12
+                        text ("[player.Equipment_Weapon_Accuracy_Ranged]") size 12
+                        text ("[player.Equipment_Weapon_Damage_Melee_Min] - [player.Equipment_Weapon_Damage_Melee_Max]") size 12
+                        text ("[player.Equipment_Weapon_Damage_Ranged_Min] - [player.Equipment_Weapon_Damage_Ranged_Max]") size 12
+                        text ("[player.Equipment_Weapon_Damage_Magic_Min] - [player.Equipment_Weapon_Damage_Magic_Max]") size 12
+                        text ("[player.Equipment_Weapon_Damage_Will_Min] - [player.Equipment_Weapon_Damage_Will_Max]") size 12
                         text ("[player.Equipment_Slot_Weapon_Name_Text]") size 12
                         text ("Acc - [player.Equipment_Slot_Weapon_Accuracy_Type] - Dmg - [player.Equipment_Slot_Weapon_Damage_Type]") size 12
                         text ("[player.Equipment_Slot_UpperBodyArmor_Name_Text]") size 12
                         text ("[player.Equipment_Slot_LowerBodyArmor_Name_Text]") size 12
                         text ("[player.Equipment_Slot_Necklace_Name_Text]") size 12
                         text ("[player.Equipment_Slot_Ring_Name_Text]") size 12
-# /\ The end of the 'equipment block'
-# \/ The 'Raw'ish Stats block'
-    frame xfill(False) yminimum(None) background(None) xpos 0.99 ypos 0.1 xalign 1.0:
+                        text ("[player.Equipment_Currency]") size 12
+screen status_frame_stats:
+    frame xfill(False) yminimum(None) background(None) xpos 0.45 ypos 0.01:
             hbox:
-                vbox xalign 1.0:
-                        text ("[player.X_Accuracy_Melee_X]") size 12
-                        text ("[player.X_Accuracy_Ranged_X]") size 12
+                vbox:
+                        text ("Statistics \/") xalign 1.0 size 12
+                        text ("Strength+ =") xalign 1.0 size 12
+                        text ("Precision+ =") xalign 1.0 size 12
+                        text ("Insight+ =") xalign 1.0 size 12
+                        text ("Deceit+ =") xalign 1.0 size 12
+                        text ("Vigor+ =") xalign 1.0 size 12
+                        text ("Spirit+ =") xalign 1.0 size 12
+                        text ("Resolve+ =") xalign 1.0 size 12
+                        text ("Abilities \/") xalign 1.0 size 12
+                        text ("HPMax+ =") xalign 1.0 size 12
+                        text ("APMax+ =") xalign 1.0 size 12
+                        text ("WPMax+ =") xalign 1.0 size 12
+                        text ("Armor-Phys =") xalign 1.0 size 12
+                        text ("Armor-Magi =") xalign 1.0 size 12
+                        text ("Armor-Will =") xalign 1.0 size 12
+                        text ("Dodge =") xalign 1.0 size 12
+                        text ("Initiative =") xalign 1.0 size 12
+                        text ("Acc+Melee =") xalign 1.0 size 12
+                        text ("Acc+Ranged =") xalign 1.0 size 12
+                        text ("Dam+Melee =") xalign 1.0 size 12
+                        text ("Dam+Range =") xalign 1.0 size 12
+                        text ("Dam+Magic =") xalign 1.0 size 12
+                        text ("Dam+Will =") xalign 1.0 size 12
+                vbox:
+                        text (" ") size 12
+                        text ("[player.Stats_Strength]") size 12
+                        text ("[player.Stats_Precision]") size 12
+                        text ("[player.Stats_Insight]") size 12
+                        text ("[player.Stats_Deceit]") size 12
+                        text ("[player.Stats_Vigor]") size 12
+                        text ("[player.Stats_Spirit]") size 12
+                        text ("[player.Stats_Resolve]") size 12
+                        text (" ") size 12
+                        text ("[player.Attribute_HealthPoints]") size 12
+                        text ("[player.Attribute_AbilityPoints]") size 12
+                        text ("[player.Attribute_WillPoints]") size 12
+                        text ("[player.Attribute_Armor_Physical]") size 12
+                        text ("[player.Attribute_Armor_Magic]") size 12
+                        text ("[player.Attribute_Armor_Will]") size 12
+                        text ("[player.Attribute_Dodge]") size 12
+                        text ("[player.Attribute_Initiative]") size 12
+                        text ("[player.Attribute_Accuracy_Melee]") size 12
+                        text ("[player.Attribute_Accuracy_Ranged]") size 12
+                        text ("[player.Attribute_Damage_Bonus_Melee]") size 12
+                        text ("[player.Attribute_Damage_Bonus_Ranged]") size 12
+                        text ("[player.Attribute_Damage_Bonus_Magic]") size 12
+                        text ("[player.Attribute_Damage_Bonus_Will]") size 12
+
+screen status_frame_final:
+    frame xfill(False) yminimum(None) background(None) xpos 0.6 ypos 0.10:
+            hbox:
+                vbox:
+                        text ("Final \/") xalign 1.0 size 12
+                        text ("Strength+ =") xalign 1.0 size 12
+                        text ("Precision+ =") xalign 1.0 size 12
+                        text ("Insight+ =") xalign 1.0 size 12
+                        text ("Deceit+ =") xalign 1.0 size 12
+                        text ("Vigor+ =") xalign 1.0 size 12
+                        text ("Spirit+ =") xalign 1.0 size 12
+                        text ("Resolve+ =") xalign 1.0 size 12
+                        text ("Armor-Phys =") xalign 1.0 size 12
+                        text ("Armor-Magi =") xalign 1.0 size 12
+                        text ("Armor-Will =") xalign 1.0 size 12
+                        text ("Dodge =") xalign 1.0 size 12
+                        text ("Initiative =") xalign 1.0 size 12
+                        text ("Acc+Melee =") xalign 1.0 size 12
+                        text ("Acc+Ranged =") xalign 1.0 size 12
+                        text ("Dam+Melee =") xalign 1.0 size 12
+                        text ("Dam+Range =") xalign 1.0 size 12
+                        text ("Dam+Magic =") xalign 1.0 size 12
+                        text ("Dam+Will =") xalign 1.0 size 12
+                        text ("W.Acc+Melee =") xalign 1.0 size 12
+                        text ("W.Acc+Range =") xalign 1.0 size 12
+                        text ("W.Dam Melee =") xalign 1.0 size 12
+                        text ("W.Dam Range =") xalign 1.0 size 12
+                        text ("W.Dam Magic =") xalign 1.0 size 12
+                        text ("W.Dam Will =") xalign 1.0 size 12
+                        text ("Dam+Melee =") xalign 1.0 size 12
+                        text ("Dam+Range =") xalign 1.0 size 12
+                        text ("Dam+Magic =") xalign 1.0 size 12
+                        text ("Dam+Will =") xalign 1.0 size 12
+                vbox:
+                        text (" ") size 12
+                        text ("[player.X_Strength_X]") size 12
+                        text ("[player.X_Precision_X]") size 12
+                        text ("[player.X_Insight_X]") size 12
+                        text ("[player.X_Deceit_X]") size 12
+                        text ("[player.X_Vigor_X]") size 12
+                        text ("[player.X_Spirit_X]") size 12
+                        text ("[player.X_Resolve_X]") size 12
                         text ("[player.X_Armor_Physical_X]") size 12
                         text ("[player.X_Armor_Magic_X]") size 12
                         text ("[player.X_Armor_Will_X]") size 12
-                        text ("[player.X_Damage_Bonus_Melee_Min_X]-[player.X_Damage_Bonus_Melee_Max_X]") size 12
-                        text ("[player.X_Damage_Bonus_Ranged_Min_X]-[player.X_Damage_Bonus_Ranged_Max_X]") size 12
-                        text ("[player.X_Damage_Bonus_Magic_Min_X]-[player.X_Damage_Bonus_Magic_Max_X]") size 12
-                        text ("[player.X_Damage_Bonus_Will_Min_X]-[player.X_Damage_Bonus_Will_Max_X]") size 12
                         text ("[player.X_Dodge_X]") size 12
                         text ("[player.X_Initiative_X]") size 12
+                        text ("[player.X_Accuracy_Melee_X]") size 12
+                        text ("[player.X_Accuracy_Ranged_X]") size 12
+                        text ("[player.X_Damage_Bonus_Melee_Text_X]") size 12
+                        text ("[player.X_Damage_Bonus_Ranged_Text_X]") size 12
+                        text ("[player.X_Damage_Bonus_Magic_Text_X]") size 12
+                        text ("[player.X_Damage_Bonus_Will_Text_X]") size 12
                         text ("[player.X_Weapon_Accuracy_Melee_X]") size 12
                         text ("[player.X_Weapon_Accuracy_Ranged_X]") size 12
-                        text ("[player.X_Weapon_Damage_Melee_Min_X]-[player.X_Weapon_Damage_Melee_Max_X]") size 12
-                        text ("[player.X_Weapon_Damage_Ranged_Min_X]-[player.X_Weapon_Damage_Ranged_Max_X]") size 12
-                        text ("[player.X_Weapon_Damage_Magic_Min_X]-[player.X_Weapon_Damage_Magic_Max_X]") size 12
-                        text ("[player.X_Weapon_Damage_Will_Min_X]-[player.X_Weapon_Damage_Will_Max_X]") size 12
-                        text ("[player.Equipment_Consumables_Potions_HP_Restore]") size 12
-                        text ("[player.Equipment_Consumables_Potions_AP_Restore]") size 12
-                        text ("[player.Equipment_Consumables_Potions_WP_Restore]") size 12
-                        text ("[player.Equipment_Currency]") size 12
-                vbox xalign 1.0:
-                        text ("- Accuracy Bonus - Melee") xalign 0.0 size 12
-                        text ("- Accuracy Bonus - Ranged") xalign 0.0 size 12
-                        text ("- Armor - Physical") xalign 0.0 size 12
-                        text ("- Armor - Magic") xalign 0.0 size 12
-                        text ("- Armor - Will") xalign 0.0 size 12
-                        text ("- Damage Bonus - Melee") xalign 0.0 size 12
-                        text ("- Damage Bonus - Ranged") xalign 0.0 size 12
-                        text ("- Damage Bonus - Magic") xalign 0.0 size 12
-                        text ("- Damage Bonus - Will") xalign 0.0 size 12
-                        text ("- Dodge") xalign 0.0 size 12
-                        text ("- Initiative") xalign 0.0 size 12
-                        text ("- Weapon Accuracy - Melee") xalign 0.0 size 12
-                        text ("- Weapon Accuracy - Ranged") xalign 0.0 size 12
-                        text ("- Weapon Damage - Melee") xalign 0.0 size 12
-                        text ("- Weapon Damage - Ranged") xalign 0.0 size 12
-                        text ("- Weapon Damage - Magic") xalign 0.0 size 12
-                        text ("- Weapon Damage - Will") xalign 0.0 size 12
-                        text ("- HP Potions") xalign 0.0 size 12
-                        text ("- AP Potions") xalign 0.0 size 12
-                        text ("- WP Potions") xalign 0.0 size 12
-                        text ("- Coins") xalign 0.0 size 12
-# /\ The end the 'Raw'ish Stats block'
+                        text ("[player.X_Weapon_Damage_Melee_Min_X] - [player.X_Weapon_Damage_Melee_Max_X]") size 12
+                        text ("[player.X_Weapon_Damage_Ranged_Min_X] - [player.X_Weapon_Damage_Ranged_Max_X]") size 12
+                        text ("[player.X_Weapon_Damage_Magic_Min_X] - [player.X_Weapon_Damage_Magic_Max_X]") size 12
+                        text ("[player.X_Weapon_Damage_Will_Min_X] - [player.X_Weapon_Damage_Will_Max_X]") size 12
+                        text ("[player.X_Damage_Bonus_Melee_X]") size 12
+                        text ("[player.X_Damage_Bonus_Ranged_X]") size 12
+                        text ("[player.X_Damage_Bonus_Magic_X]") size 12
+                        text ("[player.X_Damage_Bonus_Will_X]") size 12

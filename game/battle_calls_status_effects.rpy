@@ -130,6 +130,40 @@ label battle_call_Player_Status_StrengthenCheck:
             "You feel your strength returning to normal as Strengthen wears off."
     return
 
+label battle_call_Player_Status_ClumsyCheck:
+    if player.Status_Clumsy_EffectActive == 1:
+        if player.Status_Clumsy_Duration > 0:
+            "You are currently Clumsy!"
+            call battle_call_Player_Damage_Bonus_Recheck
+            call battle_call_Player_Weapon_Damage_Recheck
+            $ player.Status_Clumsy_Duration -= 1
+            "You ranged damage is [player.Status_Clumsy_Strength] points worse due to Clumsy.  [player.Status_Clumsy_Duration] rounds of Clumsy remaining."
+            return
+        if player.Status_Clumsy_Duration == 0:
+            $ player.Status_Clumsy_EffectActive = 0
+            $ player.Status_Clumsy_Strength = 0
+            call battle_call_Player_Damage_Bonus_Recheck
+            call battle_call_Player_Weapon_Damage_Recheck
+            "You feel your precision returning to normal as Clumsy wears off."
+    return
+
+label battle_call_Player_Status_NimbleCheck:
+    if player.Status_Nimble_EffectActive == 1:
+        if player.Status_Nimble_Duration > 0:
+            "You are currently Nimble!"
+            call battle_call_Player_Damage_Bonus_Recheck
+            call battle_call_Player_Weapon_Damage_Recheck
+            $ player.Status_Nimble_Duration -= 1
+            "You ranged damage is [player.Status_Nimble_Strength] points better due to Nimble.  [player.Status_Nimble_Duration] rounds of Nimble remaining."
+            return
+        if player.Status_Nimble_Duration == 0:
+            $ player.Status_Nimble_EffectActive = 0
+            $ player.Status_Nimble_Strength = 0
+            call battle_call_Player_Damage_Bonus_Recheck
+            call battle_call_Player_Weapon_Damage_Recheck
+            "You feel your precision returning to normal as Nimble wears off."
+    return
+
 label battle_call_Player_Status_Block:
     if player.Status_Block_EffectActive == 1:
         $ player.Status_Block_EffectActive = 0

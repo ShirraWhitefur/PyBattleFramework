@@ -13,96 +13,84 @@ init -50:
     $ playername = "SomethingFailed"
     $ player.Battle_Selected_Action = "battle_Player_Wait"
     $ player.Battle_Outcome = "end"
-#  Base Stats - From these, get our base attributes (or bonuses).  We'll set up
-# the real maths and recomputation calls later.  This is just establishing the
-# basics for later code.  Notes on which should boost as a simple number, and
-# which will be percentages (so as to keep up with gear advancement creep) are
-# currently included.
-    $ player.Stats_Strength = 0
-#       Damage - Melee (percentage boost); Accuracy - Melee (integer boost)
-    $ player.Stats_Precision = 0
-#       Damage - Ranged (percentage boost); Accuracy - Ranged (integar boost)
-    $ player.Stats_Insight = 0
-#       Damage - Magic (percentage boost); Initiative (integar boost)
-    $ player.Stats_Deceit = 0
-#       Damage - Will (percentage boost); Dodge (integar boost)
-#  Here, Dodge is being considered effectively 'Feint' or 'Bluff', faking
-# someone out about where they'll think you'll be as opposed to where you end
-# up.  .. At least that's how we explain it, so the two go to gether.
-    $ player.Stats_Vigor = 0
-#       Max HP (percentage or integar boost, undecided); Armor - Physical (percentage boost)
-    $ player.Stats_Spirit = 0
-#       Max AP (percentage or integar boost, undecided); Armor - Magic (percentage boost)
-    $ player.Stats_Resolve = 0
-#       Max WP (percentage or integar boost, undecided); Armor - Will (percentage boost)
-#  Base attributes - Or bonuses and penalties.  Derived from Stats, we may want
-# to be able to directly add to attributes seperate from the stats.  We'll see
-# if we reallly want that mess of code to deal with though later.
-#  For now, we'll set up our math something like.. 
-# player.Attribute_Damage_Bonus_Melee_Max = player.Stats_Strength/5, or something
-# similar.  There'll be an initialization/recheck call for players and enemies
-# under battle calls when done.  There should be enough examples to know where
-# and how to use it.
-#  Since we're going to need to work on balancing this somewhat 'on the fly', to
-# make it easier to manipulate the system elsewhere to find that balance we will
-# be using variables (over in battle_init) set on battle.Bonus_*, to work with
-# our math.  For instance, Damage_Bonus_*_Min is already there, to show us how
-# how much of the Max to bring over to the Min as a bonus.
-#
-# Test section, not yet implimented.
-#    $ player.Attribute_HealthPoints_Max = battle.BaseHPMax*(int(round((player.Stats_Vigor/battle.Bonus_HPAPWP_Max_Stat_Divisor),0)))
-#    $ player.Attribute_AbilityPoints_Max = battle.BaseAPMax*int(round((player.Stats_Spirit/battle.Bonus_HPAPWP_Max_Stat_Divisor),0))
-#    $ player.Attribute_WillPoints_Max = battle.BaseWPMax*int(round((player.Stats_Resolve/battle.Bonus_HPAPWP_Max_Stat_Divisor),0))
-#    $ player.Attribute_Accuracy_Melee = int(round((player.Stats_Strength/battle.Bonus_Accuracy_Divisor),0))
-#    $ player.Attribute_Accuracy_Ranged = int(round((player.Stats_Precision/battle.Bonus_Accuracy_Divisor),0))
-#    $ player.Attribute_Armor_Physical = int(round((player.Stats_Vigor/battle.Bonus_Armor_Stat_Divisor),0))
-#    $ player.Attribute_Armor_Magic = int(round((player.Stats_Spirit/battle.Bonus_Armor_Stat_Divisor),0))
-#    $ player.Attribute_Armor_Will = int(round((player.Stats_Resolve/battle.Bonus_Armor_Stat_Divisor),0))
-#    $ player.Attribute_Damage_Bonus_Melee_Max = int(round((player.Stats_Strength/battle.Bonus_Damage_Stat_Divisor),0))
-#    $ player.Attribute_Damage_Bonus_Ranged_Max = int(round((player.Stats_Precision/battle.Bonus_Damage_Stat_Divisor),0))
-#    $ player.Attribute_Damage_Bonus_Magic_Max = int(round((player.Stats_Insight/battle.Bonus_Damage_Stat_Divisor),0))
-#    $ player.Attribute_Damage_Bonus_Will_Max = int(round((player.Stats_Deceit/battle.Bonus_Damage_Stat_Divisor),0))
-#    $ player.Attribute_Dodge = int(round((player.Stats_Deceit/battle.Bonus_Dodge_Divisor),0))
-#    $ player.Attribute_Initiative = int(round((player.Stats_Insight/battle.Bonus_Initiative_Divisor),0))
-#
-    $ player.Attribute_HealthPoints_Max = 295
-    $ player.Attribute_AbilityPoints_Max = 192
-    $ player.Attribute_WillPoints_Max = 90
-    $ player.Attribute_Accuracy_Melee = 5
-    $ player.Attribute_Accuracy_Ranged = 5
-    $ player.Attribute_Armor_Physical = 1
-    $ player.Attribute_Armor_Magic = 1
-    $ player.Attribute_Armor_Will = 1
-    $ player.Attribute_Damage_Bonus_Melee_Max = 10
-    $ player.Attribute_Damage_Bonus_Ranged_Max = 10
-    $ player.Attribute_Damage_Bonus_Magic_Max = 10
-    $ player.Attribute_Damage_Bonus_Will_Max = 10
-    $ player.Attribute_Dodge = 5
-    $ player.Attribute_Initiative = 5
-# Equipment.. which may be derived.. if we add in equipment properly.
-    $ player.Equipment_HealthPoints_Max = 5
-    $ player.Equipment_AbilityPoints_Max = 8
-    $ player.Equipment_WillPoints_Max = 10
-    $ player.Equipment_Accuracy_Melee = 4
-    $ player.Equipment_Accuracy_Ranged = 4
-    $ player.Equipment_Armor_Physical = 2
-    $ player.Equipment_Armor_Magic = 2
-    $ player.Equipment_Armor_Will = 2
-    $ player.Equipment_Damage_Bonus_Melee_Max = 0
-    $ player.Equipment_Damage_Bonus_Ranged_Max = 0
-    $ player.Equipment_Damage_Bonus_Magic_Max = 0
-    $ player.Equipment_Damage_Bonus_Will_Max = 0
-    $ player.Equipment_Dodge = 4
-    $ player.Equipment_Initiative = 4
-    $ player.Equipment_Weapon_Accuracy_Melee = 0
-    $ player.Equipment_Weapon_Accuracy_Ranged = 0
-    $ player.Equipment_Weapon_Damage_Melee_Max = 10
+#  This block handles status effects, including the check to see if it's on.
+# EffectActive is probably going to be used mostly for the Screen/Frame/UI
+# stuff.
+    $ player.Status_Poison_EffectActive = 0
+    $ player.Status_Poison_Duration = 0
+    $ player.Status_Poison_Strength = 0
+    $ player.Status_Regen_EffectActive = 0
+    $ player.Status_Regen_Duration = 0
+    $ player.Status_Regen_Strength = 0
+    $ player.Status_Slow_EffectActive = 0
+    $ player.Status_Slow_Duration = 0
+    $ player.Status_Slow_Strength = 0
+    $ player.Status_Haste_EffectActive = 0
+    $ player.Status_Haste_Duration = 0
+    $ player.Status_Haste_Strength = 0
+    $ player.Status_Weaken_EffectActive = 0
+    $ player.Status_Weaken_Duration = 0
+    $ player.Status_Weaken_Strength = 0
+    $ player.Status_Strengthen_EffectActive = 0
+    $ player.Status_Strengthen_Duration = 0
+    $ player.Status_Strengthen_Strength = 0
+    $ player.Status_Clumsy_EffectActive = 0
+    $ player.Status_Clumsy_Duration = 0
+    $ player.Status_Clumsy_Strength = 0
+    $ player.Status_Nimble_EffectActive = 0
+    $ player.Status_Nimble_Duration = 0
+    $ player.Status_Nimble_Strength = 0
+    $ player.Status_Paralyse_EffectActive = 0
+    $ player.Status_Paralyse_Duration = 0
+    $ player.Status_Charm_EffectActive = 0
+    $ player.Status_Charm_Duration = 0
+    $ player.Status_Sleep_EffectActive = 0
+    $ player.Status_Sleep_Duration = 0
+    $ player.Status_Block_EffectActive = 0
+    $ player.Status_Block_Strength = 0
+    $ player.Status_Dodge_EffectActive = 0
+    $ player.Status_Dodge_Strength = 0
+    $ player.Status_EquipLoss_Weapon_Duration = 0
+    $ player.Status_EquipLoss_Weapon_EffectActive = 0
+    $ player.Status_EquipLoss_UpperBodyArmor_Duration = 0
+    $ player.Status_EquipLoss_UpperBodyArmor_EffectActive = 0
+    $ player.Status_EquipLoss_LowerBodyArmor_Duration = 0
+    $ player.Status_EquipLoss_LowerBodyArmor_EffectActive = 0
+    $ player.Status_EquipLoss_Necklace_Duration = 0
+    $ player.Status_EquipLoss_Necklace_EffectActive = 0
+    $ player.Status_EquipLoss_Ring_Duration = 0
+    $ player.Status_EquipLoss_Ring_EffectActive = 0
+# Equipment Initilization
+    $ player.Equipment_Strength = 1
+    $ player.Equipment_Precision = 1
+    $ player.Equipment_Insight = 1
+    $ player.Equipment_Deceit = 1
+    $ player.Equipment_Vigor = 1
+    $ player.Equipment_Spirit = 1
+    $ player.Equipment_Resolve = 1
+    $ player.Equipment_HealthPoints_Max = 1
+    $ player.Equipment_AbilityPoints_Max = 1
+    $ player.Equipment_WillPoints_Max = 1
+    $ player.Equipment_Accuracy_Melee = 1
+    $ player.Equipment_Accuracy_Ranged = 1
+    $ player.Equipment_Armor_Physical = 1
+    $ player.Equipment_Armor_Magic = 1
+    $ player.Equipment_Armor_Will = 1
+    $ player.Equipment_Damage_Bonus_Melee = 1
+    $ player.Equipment_Damage_Bonus_Ranged = 1
+    $ player.Equipment_Damage_Bonus_Magic = 1
+    $ player.Equipment_Damage_Bonus_Will = 1
+    $ player.Equipment_Dodge = 1
+    $ player.Equipment_Initiative = 1
+    $ player.Equipment_Weapon_Accuracy_Melee = 1
+    $ player.Equipment_Weapon_Accuracy_Ranged = 1
+    $ player.Equipment_Weapon_Damage_Melee_Max = 1
     $ player.Equipment_Weapon_Damage_Melee_Min = 1
-    $ player.Equipment_Weapon_Damage_Ranged_Max = 10
+    $ player.Equipment_Weapon_Damage_Ranged_Max = 1
     $ player.Equipment_Weapon_Damage_Ranged_Min = 1
-    $ player.Equipment_Weapon_Damage_Magic_Max = 10
+    $ player.Equipment_Weapon_Damage_Magic_Max = 1
     $ player.Equipment_Weapon_Damage_Magic_Min = 1
-    $ player.Equipment_Weapon_Damage_Will_Max = 10
+    $ player.Equipment_Weapon_Damage_Will_Max = 1
     $ player.Equipment_Weapon_Damage_Will_Min = 1
 # Equipment Slots and Weapon Type
     $ player.Equipment_Slot_Weapon_Name = no_weapon
@@ -128,81 +116,107 @@ init -50:
     $ player.Equipment_Consumables_Potions_AP_Restore = 2
     $ player.Equipment_Consumables_Potions_WP_Restore = 1
     $ player.Equipment_Currency = 5000
-#  This block handles status effects, including the check to see if it's on.
-# EffectActive is probably going to be used mostly for the Screen/Frame/UI
-# stuff.
-    $ player.Status_Poison_EffectActive = 0
-    $ player.Status_Poison_Duration = 0
-    $ player.Status_Poison_Strength = 0
-    $ player.Status_Regen_EffectActive = 0
-    $ player.Status_Regen_Duration = 0
-    $ player.Status_Regen_Strength = 0
-    $ player.Status_Slow_EffectActive = 0
-    $ player.Status_Slow_Duration = 0
-    $ player.Status_Slow_Strength = 0
-    $ player.Status_Haste_EffectActive = 0
-    $ player.Status_Haste_Duration = 0
-    $ player.Status_Haste_Strength = 0
-    $ player.Status_Weaken_EffectActive = 0
-    $ player.Status_Weaken_Duration = 0
-    $ player.Status_Weaken_Strength = 0
-    $ player.Status_Strengthen_EffectActive = 0
-    $ player.Status_Strengthen_Duration = 0
-    $ player.Status_Strengthen_Strength = 0
-    $ player.Status_Paralyse_EffectActive = 0
-    $ player.Status_Paralyse_Duration = 0
-    $ player.Status_Charm_EffectActive = 0
-    $ player.Status_Charm_Duration = 0
-    $ player.Status_Sleep_EffectActive = 0
-    $ player.Status_Sleep_Duration = 0
-    $ player.Status_Block_EffectActive = 0
-    $ player.Status_Block_Strength = 0
-    $ player.Status_Dodge_EffectActive = 0
-    $ player.Status_Dodge_Strength = 0
-    $ player.Status_EquipLoss_Weapon_Duration = 0
-    $ player.Status_EquipLoss_Weapon_EffectActive = 0
-    $ player.Status_EquipLoss_UpperBodyArmor_Duration = 0
-    $ player.Status_EquipLoss_UpperBodyArmor_EffectActive = 0
-    $ player.Status_EquipLoss_LowerBodyArmor_Duration = 0
-    $ player.Status_EquipLoss_LowerBodyArmor_EffectActive = 0
-    $ player.Status_EquipLoss_Necklace_Duration = 0
-    $ player.Status_EquipLoss_Necklace_EffectActive = 0
-    $ player.Status_EquipLoss_Ring_Duration = 0
-    $ player.Status_EquipLoss_Ring_EffectActive = 0
-# Player's Calculated Attributes
-    $ player.X_HealthPoints_Max_X = player.Attribute_HealthPoints_Max+player.Equipment_HealthPoints_Max
+# Player's Base Statistics
+# Just for quick reference..
+#   Strength    Damage - Melee (percentage boost); Accuracy - Melee (integer boost)
+#   Precision   Damage - Ranged (percentage boost); Accuracy - Ranged (integer boost)
+#   Insight     Damage - Magic (percentage boost); Initiative (integer boost)
+#   Deceit      Damage - Will (percentage boost); Dodge (integar boost)
+#   Vigor       Max HP (percentage boost); Armor - Physical (percentage boost)
+#   Spirit      Max AP (percentage boost); Armor - Magic (percentage boost)
+#   Resolve     Max WP (percentage boost); Armor - Will (percentage boost)
+#  Here, Dodge is being considered effectively 'Feint' or 'Bluff', faking
+# someone out about where they'll think you'll be as opposed to where you end
+# up.  .. At least that's how we explain it, so the two go to gether.
+    $ player.Stats_Strength = 20
+    $ player.Stats_Precision = 20
+    $ player.Stats_Insight = 20
+    $ player.Stats_Deceit = 20
+    $ player.Stats_Vigor = 20
+    $ player.Stats_Spirit = 20
+    $ player.Stats_Resolve = 20
+######
+# Player's Calculated, Final Statistics
+    $ player.X_Strength_X = player.Stats_Strength+player.Equipment_Strength+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
+# After we add the new status effect..
+    $ player.X_Precision_X = player.Stats_Precision+player.Equipment_Precision+player.Status_Nimble_Strength-player.Status_Clumsy_Strength
+#    $ player.X_Precision_X = player.Stats_Precision+player.Equipment_Precision
+    $ player.X_Insight_X = player.Stats_Insight+player.Equipment_Insight
+    $ player.X_Deceit_X = player.Stats_Deceit+player.Equipment_Deceit
+    $ player.X_Vigor_X = player.Stats_Vigor+player.Equipment_Vigor
+    $ player.X_Spirit_X = player.Stats_Spirit+player.Equipment_Spirit
+    $ player.X_Resolve_X = player.Stats_Resolve+player.Equipment_Resolve
+######
+# Player's Base Attributes
+# Or bonuses and penalties.  Derived from Stats, we may want to be able to
+# directly add to attributes seperate from the stats (as in, for the progression
+# of a character.  We'll see if we reallly want that mess of code to deal with
+# though later.
+#  Since we're going to need to work on balancing this somewhat 'on the fly', to
+# make it easier to manipulate the system elsewhere to find that balance we will
+# be using variables (over in battle_init) set on battle.Bonus_*, to work with
+# our math.  
+#
+    $ player.Attribute_HealthPoints = (int(round((player.X_Vigor_X/battle.Bonus_HPAPWP_Max_Stat_Divisor))))+100
+    $ player.Attribute_AbilityPoints = (int(round((player.X_Spirit_X/battle.Bonus_HPAPWP_Max_Stat_Divisor))))+100
+    $ player.Attribute_WillPoints = (int(round((player.X_Resolve_X/battle.Bonus_HPAPWP_Max_Stat_Divisor))))+100
+    $ player.Attribute_Accuracy_Melee = (int(round((player.X_Strength_X/battle.Bonus_Accuracy_Divisor))))+100
+    $ player.Attribute_Accuracy_Ranged = (int(round((player.X_Precision_X/battle.Bonus_Accuracy_Divisor))))+100
+    $ player.Attribute_Armor_Physical = (int(round((player.X_Vigor_X/battle.Bonus_Armor_Stat_Divisor))))+100
+    $ player.Attribute_Armor_Magic = (int(round((player.X_Spirit_X/battle.Bonus_Armor_Stat_Divisor))))+100
+    $ player.Attribute_Armor_Will = (int(round((player.X_Resolve_X/battle.Bonus_Armor_Stat_Divisor))))+100
+    $ player.Attribute_Damage_Bonus_Melee = (int(round((player.X_Strength_X/battle.Bonus_Damage_Stat_Divisor))))+100
+    $ player.Attribute_Damage_Bonus_Ranged = (int(round((player.X_Precision_X/battle.Bonus_Damage_Stat_Divisor))))+100
+    $ player.Attribute_Damage_Bonus_Magic = (int(round((player.X_Insight_X/battle.Bonus_Damage_Stat_Divisor))))+100
+    $ player.Attribute_Damage_Bonus_Will = (int(round((player.X_Deceit_X/battle.Bonus_Damage_Stat_Divisor))))+100
+    $ player.Attribute_Dodge = (int(round((player.X_Deceit_X/battle.Bonus_Dodge_Divisor))))+100
+    $ player.Attribute_Initiative = (int(round((player.X_Insight_X/battle.Bonus_Initiative_Divisor))))+100
+######
+# Player's Calculated, Final Attributes
+#  Yes, status effects can end up being applied to both the stat -and- the
+# attribute.  It's a matter of scale, and that stat checks will happen seperate
+# of their derived abilities/bonuses.  +10 to a stat check can be a big boost,
+# but it's only +1% to damage.  +10% to damage is nice, but that'd be a +100
+# stat boost.  So they need duplication.  So +10 to the stat, +10 to the damage,
+# +1 more to damage from that stat buff.  Easy and fairly reasonable.
+#  Further.  All Attribute bonuses (aside from dodge and accuracy) are
+# percentage multipliers, while all of equipment is flat, static bonuses.  This
+# keeps attributes -always- relevant, while equipment is our biggest 'power
+# creep' method.
+    $ player.X_HealthPoints_Max_X = int(round((1 if (battle.Base_HealthPoints_Max+player.Equipment_HealthPoints_Max) < 1 else (battle.Base_HealthPoints_Max+player.Equipment_HealthPoints_Max))*((-99 if (player.Attribute_HealthPoints) < -99 else (player.Attribute_HealthPoints))*0.01)))
     $ player.X_HealthPoints_Current_X = player.X_HealthPoints_Max_X
-    $ player.X_AbilityPoints_Max_X = player.Attribute_AbilityPoints_Max+player.Equipment_AbilityPoints_Max
+    $ player.X_AbilityPoints_Max_X = int(round((1 if (battle.Base_AbilityPoints_Max+player.Equipment_AbilityPoints_Max) < 1 else (battle.Base_AbilityPoints_Max+player.Equipment_AbilityPoints_Max))*((-99 if (player.Attribute_AbilityPoints) < -99 else (player.Attribute_AbilityPoints))*0.01)))
     $ player.X_AbilityPoints_Current_X = player.X_AbilityPoints_Max_X
-    $ player.X_WillPoints_Max_X = player.Attribute_WillPoints_Max+player.Equipment_WillPoints_Max
+    $ player.X_WillPoints_Max_X = int(round((1 if (battle.Base_WillPoints_Max+player.Equipment_WillPoints_Max) < 1 else (battle.Base_WillPoints_Max+player.Equipment_WillPoints_Max))*((-99 if (player.Attribute_WillPoints) < -99 else (player.Attribute_WillPoints))*0.01)))
     $ player.X_WillPoints_Current_X = player.X_WillPoints_Max_X
-    $ player.X_PlaceholderStrength_X = player.Stats_PlaceholderStrength
     $ player.X_Accuracy_Melee_X = player.Attribute_Accuracy_Melee+player.Equipment_Accuracy_Melee
     $ player.X_Accuracy_Ranged_X = player.Attribute_Accuracy_Ranged+player.Equipment_Accuracy_Ranged
-    $ player.X_Armor_Physical_X = player.Attribute_Armor_Physical+player.Equipment_Armor_Physical+player.Status_Block_Strength
-    $ player.X_Armor_Magic_X = player.Attribute_Armor_Magic+player.Equipment_Armor_Magic+player.Status_Block_Strength
-    $ player.X_Armor_Will_X = player.Attribute_Armor_Will+player.Equipment_Armor_Will
-    $ player.X_Damage_Bonus_Melee_Max_X = player.Attribute_Damage_Bonus_Melee_Max+player.Equipment_Damage_Bonus_Melee_Max+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
-    $ player.X_Damage_Bonus_Melee_Min_X = int((round(player.Attribute_Damage_Bonus_Melee_Max/battle.Bonus_Damage_Bonus_Min_Divisor,0))+(round(player.Equipment_Damage_Bonus_Melee_Max/battle.Bonus_Damage_Bonus_Min_Divisor,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
-    $ player.X_Damage_Bonus_Ranged_Max_X = player.Attribute_Damage_Bonus_Ranged_Max+player.Equipment_Damage_Bonus_Ranged_Max+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
-    $ player.X_Damage_Bonus_Ranged_Min_X = int((round(player.Attribute_Damage_Bonus_Ranged_Max/battle.Bonus_Damage_Bonus_Min_Divisor,0))+(round(player.Equipment_Damage_Bonus_Ranged_Max/battle.Bonus_Damage_Bonus_Min_Divisor,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
-    $ player.X_Damage_Bonus_Magic_Max_X = player.Attribute_Damage_Bonus_Magic_Max+player.Equipment_Damage_Bonus_Magic_Max
-    $ player.X_Damage_Bonus_Magic_Min_X = int((round(player.Attribute_Damage_Bonus_Magic_Max/battle.Bonus_Damage_Bonus_Min_Divisor,0)))+(round(player.Equipment_Damage_Bonus_Magic_Max/battle.Bonus_Damage_Bonus_Min_Divisor,0))
-    $ player.X_Damage_Bonus_Will_Max_X = player.Attribute_Damage_Bonus_Will_Max+player.Equipment_Damage_Bonus_Will_Max
-    $ player.X_Damage_Bonus_Will_Min_X = int((round(player.Attribute_Damage_Bonus_Will_Max/battle.Bonus_Damage_Bonus_Min_Divisor,0))+(round(player.Equipment_Damage_Bonus_Will_Max/battle.Bonus_Damage_Bonus_Min_Divisor,0)))
+# For the time being, Block will increase not just Physical armor, but also Magic and Will.  This is to be discussed and debated.
+    $ player.X_Armor_Physical_X = int(round((1 if (player.Equipment_Armor_Physical) < 1 else (player.Equipment_Armor_Physical))*((-99 if (player.Attribute_Armor_Physical+player.Status_Block_Strength) < -99 else (player.Attribute_Armor_Physical+player.Status_Block_Strength))*0.01)))
+    $ player.X_Armor_Magic_X = int(round((1 if (player.Equipment_Armor_Magic) < 1 else (player.Equipment_Armor_Magic))*((-99 if (player.Attribute_Armor_Magic+player.Status_Block_Strength) < -99 else (player.Attribute_Armor_Magic+player.Status_Block_Strength))*0.01)))
+    $ player.X_Armor_Will_X = int(round((1 if (player.Equipment_Armor_Will) < 1 else (player.Equipment_Armor_Will))*((-99 if (player.Attribute_Armor_Will+player.Status_Block_Strength) < -99 else (player.Attribute_Armor_Will+player.Status_Block_Strength))*0.01)))
     $ player.X_Dodge_X = player.Attribute_Dodge+player.Equipment_Dodge+player.Status_Haste_Strength+player.Status_Dodge_Strength-player.Status_Slow_Strength
     $ player.X_Initiative_X = player.Attribute_Initiative+player.Equipment_Initiative+player.Status_Haste_Strength-player.Status_Slow_Strength
-    $ player.X_Weapon_Accuracy_Melee_X = player.Attribute_Accuracy_Melee+player.Equipment_Weapon_Accuracy_Melee+player.Equipment_Accuracy_Melee
-    $ player.X_Weapon_Accuracy_Ranged_X = player.Attribute_Accuracy_Ranged+player.Equipment_Weapon_Accuracy_Ranged+player.Equipment_Accuracy_Ranged
-    $ player.X_Weapon_Damage_Melee_Max_X = player.Equipment_Weapon_Damage_Melee_Max+player.Attribute_Damage_Bonus_Melee_Max+player.Equipment_Damage_Bonus_Melee_Max+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
-    $ player.X_Weapon_Damage_Melee_Min_X = int(player.Equipment_Weapon_Damage_Melee_Min+(round(player.Attribute_Damage_Bonus_Melee_Max/battle.Bonus_Damage_Bonus_Min_Divisor,0))+(round(player.Equipment_Damage_Bonus_Melee_Max/battle.Bonus_Damage_Bonus_Min_Divisor,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
-    $ player.X_Weapon_Damage_Ranged_Max_X = player.Equipment_Weapon_Damage_Ranged_Max+player.Attribute_Damage_Bonus_Ranged_Max+player.Equipment_Damage_Bonus_Ranged_Max+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
-    $ player.X_Weapon_Damage_Ranged_Min_X = int(player.Equipment_Weapon_Damage_Ranged_Min+(round(player.Attribute_Damage_Bonus_Ranged_Max/battle.Bonus_Damage_Bonus_Min_Divisor,0))+(round(player.Equipment_Damage_Bonus_Ranged_Max/battle.Bonus_Damage_Bonus_Min_Divisor,0))+(round(player.Status_Strengthen_Strength/10,0))-(round(player.Status_Weaken_Strength/10,0)))
-    $ player.X_Weapon_Damage_Magic_Max_X = player.Equipment_Weapon_Damage_Magic_Max+player.Attribute_Damage_Bonus_Magic_Max+player.Equipment_Damage_Bonus_Magic_Max
-    $ player.X_Weapon_Damage_Magic_Min_X = int(player.Equipment_Weapon_Damage_Magic_Min+(round(player.Attribute_Damage_Bonus_Magic_Max/battle.Bonus_Damage_Bonus_Min_Divisor,0)))+(round(player.Equipment_Damage_Bonus_Magic_Max/battle.Bonus_Damage_Bonus_Min_Divisor,0))
-    $ player.X_Weapon_Damage_Will_Max_X = player.Equipment_Weapon_Damage_Will_Max+player.Attribute_Damage_Bonus_Will_Max+player.Equipment_Damage_Bonus_Will_Max
-    $ player.X_Weapon_Damage_Will_Min_X = int(player.Equipment_Weapon_Damage_Will_Min+(round(player.Attribute_Damage_Bonus_Will_Max/battle.Bonus_Damage_Bonus_Min_Divisor,0))+(round(player.Equipment_Damage_Bonus_Will_Max/battle.Bonus_Damage_Bonus_Min_Divisor,0)))
-    
+    $ player.X_Damage_Bonus_Melee_Text_X = int(round((-99 if (player.Attribute_Damage_Bonus_Melee+player.Equipment_Damage_Bonus_Melee+player.Status_Strengthen_Strength-player.Status_Weaken_Strength) < -99 else (player.Attribute_Damage_Bonus_Melee+player.Equipment_Damage_Bonus_Melee+player.Status_Strengthen_Strength-player.Status_Weaken_Strength))))
+## After we add the new status effect..
+    $ player.X_Damage_Bonus_Ranged_Text_X = int(round((-99 if (player.Attribute_Damage_Bonus_Ranged+player.Equipment_Damage_Bonus_Ranged+player.Status_Nimble_Strength-player.Status_Clumsy_Strength) < -99 else (player.Attribute_Damage_Bonus_Ranged+player.Equipment_Damage_Bonus_Ranged+player.Status_Nimble_Strength-player.Status_Clumsy_Strength))))
+#    $ player.X_Damage_Bonus_Ranged_Text_X = int(round((-99 if (player.Attribute_Damage_Bonus_Ranged+player.Equipment_Damage_Bonus_Ranged) < -99 else (player.Attribute_Damage_Bonus_Ranged+player.Equipment_Damage_Bonus_Ranged))))
+    $ player.X_Damage_Bonus_Magic_Text_X = int(round((-99 if (player.Attribute_Damage_Bonus_Magic+player.Equipment_Damage_Bonus_Magic) < -99 else (player.Attribute_Damage_Bonus_Magic+player.Equipment_Damage_Bonus_Magic))))
+    $ player.X_Damage_Bonus_Will_Text_X = int(round((-99 if (player.Attribute_Damage_Bonus_Will+player.Equipment_Damage_Bonus_Will) < -99 else (player.Attribute_Damage_Bonus_Will+player.Equipment_Damage_Bonus_Will))))
+    $ player.X_Damage_Bonus_Melee_X = (player.X_Damage_Bonus_Melee_Text_X)*0.01
+    $ player.X_Damage_Bonus_Ranged_X = (player.X_Damage_Bonus_Ranged_Text_X)*0.01
+    $ player.X_Damage_Bonus_Magic_X = (player.X_Damage_Bonus_Magic_Text_X)*0.01
+    $ player.X_Damage_Bonus_Will_X = (player.X_Damage_Bonus_Will_Text_X)*0.01
+    $ player.X_Weapon_Accuracy_Melee_X = int(round(player.Equipment_Weapon_Accuracy_Melee+player.X_Accuracy_Melee_X))
+    $ player.X_Weapon_Accuracy_Ranged_X = int(round(player.Equipment_Weapon_Accuracy_Ranged+player.X_Accuracy_Ranged_X))
+    $ player.X_Weapon_Damage_Melee_Max_X = int(round(player.Equipment_Weapon_Damage_Melee_Max*player.X_Damage_Bonus_Melee_X))
+    $ player.X_Weapon_Damage_Melee_Min_X = int(round(player.Equipment_Weapon_Damage_Melee_Min*player.X_Damage_Bonus_Melee_X))
+    $ player.X_Weapon_Damage_Ranged_Max_X = int(round(player.Equipment_Weapon_Damage_Ranged_Max*player.X_Damage_Bonus_Ranged_X))
+    $ player.X_Weapon_Damage_Ranged_Min_X = int(round(player.Equipment_Weapon_Damage_Ranged_Min*player.X_Damage_Bonus_Ranged_X))
+    $ player.X_Weapon_Damage_Magic_Max_X = int(round(player.Equipment_Weapon_Damage_Magic_Max*player.X_Damage_Bonus_Magic_X))
+    $ player.X_Weapon_Damage_Magic_Min_X = int(round(player.Equipment_Weapon_Damage_Magic_Min*player.X_Damage_Bonus_Magic_X))
+    $ player.X_Weapon_Damage_Will_Max_X = int(round(player.Equipment_Weapon_Damage_Will_Max*player.X_Damage_Bonus_Will_X))
+    $ player.X_Weapon_Damage_Will_Min_X = int(round(player.Equipment_Weapon_Damage_Will_Min*player.X_Damage_Bonus_Will_X))
 
 
 #####################################################################
@@ -228,6 +242,15 @@ label battle_Player_Menu:
         "Do Nothing":
             $ player.battle_selected_action = "battle_Player_Wait"
             return
+# Debug
+        "Debug - Use Regular UI":
+            hide screen status_frame
+            show screen fight(playername,enemy.name)
+            jump battle_Player_Menu
+        "Debug - Use Player Full Stats UI":
+            hide screen fight
+            show screen status_frame
+            jump battle_Player_Menu
 
 label battle_Player_Ability_Menu:
     menu:
@@ -466,7 +489,7 @@ label battle_Player_Dodge:
 label battle_Player_Ability__Fire:
     "You cast Fire on [enemy.name!t]!"
 #  For reference, you're looking at "25 to 35 damage, plus bonuses"
-    $player_roll_damage = renpy.random.randint((25+player.X_Damage_Bonus_Magic_Min_X),(35+player.X_Damage_Bonus_Magic_Max_X))
+    $player_roll_damage = renpy.random.randint(int(round(25*player.X_Damage_Bonus_Magic_X)),int(round(35*player.X_Damage_Bonus_Magic_X)))
     $player_roll_damage_final = (player_roll_damage-enemy.X_Armor_Magic_X)
     if player_roll_damage_final < 1:
         "Your magic hits, but does no damage.  ([player_roll_damage] - [enemy.X_Armor_Magic_X] = [player_roll_damage_final])"
@@ -478,7 +501,7 @@ label battle_Player_Ability__Fire:
    
 label battle_Player_Ability__Blizzard:
     "You cast Blizzard on [enemy.name!t]!"
-    $player_roll_damage = renpy.random.randint((15+player.X_Damage_Bonus_Magic_Min_X),(25+player.X_Damage_Bonus_Magic_Max_X))
+    $player_roll_damage = renpy.random.randint(int(round(15*player.X_Damage_Bonus_Magic_X)),int(round(25*player.X_Damage_Bonus_Magic_X)))
     $player_roll_damage_final = (player_roll_damage-enemy.X_Armor_Magic_X)
     if player_roll_damage_final < 1:
         "Your magic hits, but does no damage.  ([player_roll_damage] - [enemy.X_Armor_Magic_X] = [player_roll_damage_final])"
@@ -490,7 +513,7 @@ label battle_Player_Ability__Blizzard:
 
 label battle_Player_Ability__Thunder:
     "You cast Thunder on [enemy.name!t]!"
-    $player_roll_damage = renpy.random.randint((30+player.X_Damage_Bonus_Magic_Min_X),(50+player.X_Damage_Bonus_Magic_Max_X))
+    $player_roll_damage = renpy.random.randint(int(round(30*player.X_Damage_Bonus_Magic_X)),int(round(50*player.X_Damage_Bonus_Magic_X)))
     $player_roll_damage_final = (player_roll_damage-enemy.X_Armor_Magic_X)
     if player_roll_damage_final < 1:
         "Your magic hits, but does no damage.  ([player_roll_damage] - [enemy.X_Armor_Magic_X] = [player_roll_damage_final])"

@@ -303,7 +303,7 @@ label battle_Enemy_Ability__Fire:
 # forget to set the AP checks, or you'll have enemies casting into negative
 # AP happily, and you'll just feel silly.
     "[enemy.name!t] casts Fire on you!"
-    $enemy_roll_damage = renpy.random.randint((25+enemy.X_Damage_Bonus_Magic_Min_X),(35+enemy.X_Damage_Bonus_Magic_Max_X))
+    $enemy_roll_damage = renpy.random.randint((25+enemy.X_Damage_Bonus_Magic_Min_X),(35+enemy.X_Damage_Bonus_Magic_X))
     $enemy_roll_damage_final = (enemy_roll_damage-player.X_Armor_Magic_X)
     if enemy_roll_damage_final < 1:
         "[enemy.name!t]'s magic hits, but does no damage.  ([enemy_roll_damage] - [player.X_Armor_Magic_X] = [enemy_roll_damage_final])"

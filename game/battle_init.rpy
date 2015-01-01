@@ -38,9 +38,9 @@ init -75:
     $ battle.EquipGearName = "no_weapon"
 #  Multipliers for the Stats to Attributes (bonuses) math, to make the system
 # easier to quickly tweak.
-    $ battle.BaseHPMax = 50
-    $ battle.BaseAPMax = 30
-    $ battle.BaseWPMax = 50
+    $ battle.Base_HealthPoints_Max = 50
+    $ battle.Base_AbilityPoints_Max = 30
+    $ battle.Base_WillPoints_Max = 50
     $ battle.Bonus_Damage_Stat_Divisor = 10
     $ battle.Bonus_Armor_Stat_Divisor = 10
     $ battle.Bonus_HPAPWP_Max_Stat_Divisor = 10
@@ -64,28 +64,28 @@ init -75:
 # basics for later code.  Notes on which should boost as a simple number, and
 # which will be percentages (so as to keep up with gear advancement creep) are
 # currently included.
-    $ enemy.Stats_Strength = 0
+    $ enemy.Stats_Strength = 4
 #       Damage - Melee (percentage boost); Accuracy - Melee (integer boost)
-    $ enemy.Stats_Precision = 0
+    $ enemy.Stats_Precision = 4
 #       Damage - Ranged (percentage boost); Accuracy - Ranged (integar boost)
-    $ enemy.Stats_Insight = 0
+    $ enemy.Stats_Insight = 4
 #       Damage - Magic (percentage boost); Initiative (integar boost)
-    $ enemy.Stats_Deceit = 0
+    $ enemy.Stats_Deceit = 4
 #       Damage - Will (percentage boost); Dodge (integar boost)
 #  Here, Dodge is being considered effectively 'Feint' or 'Bluff', faking
 # someone out about where they'll think you'll be as opposed to where you end
 # up.  .. At least that's how we explain it, so the two go to gether.
-    $ enemy.Stats_Vigor = 0
+    $ enemy.Stats_Vigor = 4
 #       Max HP (percentage or integar boost, undecided); Armor - Physical (percentage boost)
-    $ enemy.Stats_Spirit = 0
+    $ enemy.Stats_Spirit = 4
 #       Max AP (percentage or integar boost, undecided); Armor - Magic (percentage boost)
-    $ enemy.Stats_Resolve = 0
+    $ enemy.Stats_Resolve = 4
 #       Max WP (percentage or integar boost, undecided); Armor - Will (percentage boost)
 #  Base attributes - Or bonuses and penalties.  Derived from Stats, we may want
 # to be able to directly add to attributes seperate from the stats.  We'll see
 # if we reallly want that mess of code to deal with though later.
 #  For now, we'll set up our math something like.. 
-# player.Attribute_Damage_Bonus_Melee_Max = player.Stats_Strength/5, or something
+# player.Attribute_Damage_Bonus_Melee = player.Stats_Strength/5, or something
 # similar.  There'll be an initialization/recheck call for players and enemies
 # under battle calls when done.  There should be enough examples to know where
 # and how to use it.
@@ -96,33 +96,34 @@ init -75:
 # how much of the Max to bring over to the Min as a bonus.
 #
 # Test section, not yet implimented.
-#    $ enemy.Attribute_HealthPoints_Max = battle.BaseHPMax*(int(round((enemy.Stats_Vigor/battle.Bonus_HPAPWP_Max_Stat_Divisor),0)))
-#    $ enemy.Attribute_AbilityPoints_Max = battle.BaseAPMax*int(round((enemy.Stats_Spirit/battle.Bonus_HPAPWP_Max_Stat_Divisor),0))
-#    $ enemy.Attribute_WillPoints_Max = battle.BaseWPMax*int(round((enemy.Stats_Resolve/battle.Bonus_HPAPWP_Max_Stat_Divisor),0))
+# - This needs an 'oh crap' check to avoid -multiplying by 0-!  Lets see if the 1* bit works.
+#    $ enemy.Attribute_HealthPoints = battle.Base_HealthPoints_Max+(1*(int(round((enemy.Stats_Vigor/battle.Bonus_HPAPWP_Max_Stat_Divisor),0))))
+#    $ enemy.Attribute_AbilityPoints = battle.Base_AbilityPoints_Max+(1*(int(round((enemy.Stats_Spirit/battle.Bonus_HPAPWP_Max_Stat_Divisor),0))))
+#    $ enemy.Attribute_WillPoints = battle.Base_WillPoints_Max+(1*(int(round((enemy.Stats_Resolve/battle.Bonus_HPAPWP_Max_Stat_Divisor),0))))
 #    $ enemy.Attribute_Accuracy_Melee = int(round((enemy.Stats_Strength/battle.Bonus_Accuracy_Divisor),0))
 #    $ enemy.Attribute_Accuracy_Ranged = int(round((enemy.Stats_Precision/battle.Bonus_Accuracy_Divisor),0))
 #    $ enemy.Attribute_Armor_Physical = int(round((enemy.Stats_Vigor/battle.Bonus_Armor_Stat_Divisor),0))
 #    $ enemy.Attribute_Armor_Magic = int(round((enemy.Stats_Spirit/battle.Bonus_Armor_Stat_Divisor),0))
 #    $ enemy.Attribute_Armor_Will = int(round((enemy.Stats_Resolve/battle.Bonus_Armor_Stat_Divisor),0))
-#    $ enemy.Attribute_Damage_Bonus_Melee_Max = int(round((enemy.Stats_Strength/battle.Bonus_Damage_Stat_Divisor),0))
-#    $ enemy.Attribute_Damage_Bonus_Ranged_Max = int(round((enemy.Stats_Precision/battle.Bonus_Damage_Stat_Divisor),0))
-#    $ enemy.Attribute_Damage_Bonus_Magic_Max = int(round((enemy.Stats_Insight/battle.Bonus_Damage_Stat_Divisor),0))
-#    $ enemy.Attribute_Damage_Bonus_Will_Max = int(round((enemy.Stats_Deceit/battle.Bonus_Damage_Stat_Divisor),0))
+#    $ enemy.Attribute_Damage_Bonus_Melee = int(round((enemy.Stats_Strength/battle.Bonus_Damage_Stat_Divisor),0))
+#    $ enemy.Attribute_Damage_Bonus_Ranged = int(round((enemy.Stats_Precision/battle.Bonus_Damage_Stat_Divisor),0))
+#    $ enemy.Attribute_Damage_Bonus_Magic = int(round((enemy.Stats_Insight/battle.Bonus_Damage_Stat_Divisor),0))
+#    $ enemy.Attribute_Damage_Bonus_Will = int(round((enemy.Stats_Deceit/battle.Bonus_Damage_Stat_Divisor),0))
 #    $ enemy.Attribute_Dodge = int(round((enemy.Stats_Deceit/battle.Bonus_Dodge_Divisor),0))
 #    $ enemy.Attribute_Initiative = int(round((enemy.Stats_Insight/battle.Bonus_Initiative_Divisor),0))
 #
-    $ enemy.Attribute_HealthPoints_Max = 5
-    $ enemy.Attribute_AbilityPoints_Max = 5
-    $ enemy.Attribute_WillPoints_Max = 5
+    $ enemy.Attribute_HealthPoints = 5
+    $ enemy.Attribute_AbilityPoints = 5
+    $ enemy.Attribute_WillPoints = 5
     $ enemy.Attribute_Accuracy_Melee = 0
     $ enemy.Attribute_Accuracy_Ranged = 0
     $ enemy.Attribute_Armor_Physical = 0
     $ enemy.Attribute_Armor_Magic = 0
     $ enemy.Attribute_Armor_Will = 0
-    $ enemy.Attribute_Damage_Bonus_Melee_Max = 0
-    $ enemy.Attribute_Damage_Bonus_Ranged_Max = 0
-    $ enemy.Attribute_Damage_Bonus_Magic_Max = 0
-    $ enemy.Attribute_Damage_Bonus_Will_Max = 0
+    $ enemy.Attribute_Damage_Bonus_Melee = 0
+    $ enemy.Attribute_Damage_Bonus_Ranged = 0
+    $ enemy.Attribute_Damage_Bonus_Magic = 0
+    $ enemy.Attribute_Damage_Bonus_Will = 0
     $ enemy.Attribute_Dodge = 0
     $ enemy.Attribute_Initiative = 0
 # Equipment.. which may be derived.. if we add in equipment properly.
@@ -134,10 +135,10 @@ init -75:
     $ enemy.Equipment_Armor_Physical = 0
     $ enemy.Equipment_Armor_Magic = 0
     $ enemy.Equipment_Armor_Will = 0
-    $ enemy.Equipment_Damage_Bonus_Melee_Max = 0
-    $ enemy.Equipment_Damage_Bonus_Ranged_Max = 0
-    $ enemy.Equipment_Damage_Bonus_Magic_Max = 0
-    $ enemy.Equipment_Damage_Bonus_Will_Max = 0
+    $ enemy.Equipment_Damage_Bonus_Melee = 0
+    $ enemy.Equipment_Damage_Bonus_Ranged = 0
+    $ enemy.Equipment_Damage_Bonus_Magic = 0
+    $ enemy.Equipment_Damage_Bonus_Will = 0
     $ enemy.Equipment_Dodge = 0
     $ enemy.Equipment_Initiative = 0
     $ enemy.Equipment_Weapon_Accuracy_Melee = 0
@@ -223,13 +224,13 @@ init -75:
     $ enemy.X_Armor_Physical_X = 0
     $ enemy.X_Armor_Magic_X = 0
     $ enemy.X_Armor_Will_X = 0
-    $ enemy.X_Damage_Bonus_Melee_Max_X = 0
+    $ enemy.X_Damage_Bonus_Melee_X = 0
     $ enemy.X_Damage_Bonus_Melee_Min_X = 0
-    $ enemy.X_Damage_Bonus_Ranged_Max_X = 0
+    $ enemy.X_Damage_Bonus_Ranged_X = 0
     $ enemy.X_Damage_Bonus_Ranged_Min_X = 0
-    $ enemy.X_Damage_Bonus_Magic_Max_X = 0
+    $ enemy.X_Damage_Bonus_Magic_X = 0
     $ enemy.X_Damage_Bonus_Magic_Min_X = 0
-    $ enemy.X_Damage_Bonus_Will_Max_X = 0
+    $ enemy.X_Damage_Bonus_Will_X = 0
     $ enemy.X_Damage_Bonus_Will_Min_X = 0
     $ enemy.X_Dodge_X = 0
     $ enemy.X_Initiative_X = 0
