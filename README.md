@@ -3,16 +3,12 @@ Shirra's Ren'Py Battle Framework
 
 Designed to handle a 1 on 1 battle setup, much like classic Dragon Warrior, or Monster Girl Quest.
 
-Current 'Release' version v0.7b2
-
 http://creativecommons.org/licenses/by-nc/3.0/   - Taking a page from the admittedly far more amazing Battle Engine for Ren'Py by Jake, this is Licensed under a Creative Commons Attribution-NonCommercial 3.0 Unported License.  If you really want to license it, realize you won't get much support.  If you really want to work with an engine for a commercial project, hire a programmer!  .. Unless you really want to give me money.  I like money!
 
-Built in Ren'Py v6.18.3.761
-* http://www.renpy.org/latest.html
-Current ready to demo Builds
-* https://github.com/ShirraWhitefur/PyBattleFramework/tree/master/Builds
-Current Code
-* https://github.com/ShirraWhitefur/PyBattleFramework/tree/master/
+Current 'Release' version v0.7b2
+* Built in Ren'Py v6.18.3.761 - http://www.renpy.org/latest.html
+* Current ready to demo Builds - https://github.com/ShirraWhitefur/PyBattleFramework/tree/master/Builds
+* Current Code - https://github.com/ShirraWhitefur/PyBattleFramework/tree/master/
 
 Feature List:
 * One on One battles (And -only- one on one, not intended for more.)
@@ -57,6 +53,7 @@ Further notes.
 *  No.  I will not sit down and carefully explain large chains of functions.  I might answer some questions, maybe, but I'm trying to rely on commenting and self-appearant naming to solve most of the questions.
 *  Generally assume anything that boils down to 'Do it for me' is a 'no'.
 *  Yes, I'll take donations.  I'm shameless that way.  Absolutely shameless.  Though consider if you should donate to PyTom first for the awesome engine.  .. .. Can we donate to PyTom even?  I honestly don't know!
+*  Yes, I'll leave the old, no-stat build up (PyBattleFramework_v0.6b4-win), in case you didn't like the changes.  You can grab that and pull the scripts from there easily enough.
 *  I have -no- idea if I'll post any more updates to the github, as I will be shortly starting on adapting my framework further for my own game design.
 
 Huge thanks go out to:

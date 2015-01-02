@@ -11,8 +11,9 @@
 #####################################################################
 
 #  These are to keep the numbers 'tidy', and make it so your bars don't get all
-# weird from negative numbers, keep people from overhealing, etc.  Several
-# aren't needed yet, but it seemed a good idea to get them ready ahead of time.
+# weird from negative numbers, keep people from overhealing, etc, and finally to
+# manage any things that should be triggered/checked when the HP/AP/WP are
+# affected.
 
 label battle_call_Player_HP_Loss(hploss):
     if player.Status_Charm_EffectActive == 1:
@@ -91,11 +92,6 @@ label battle_call_Enemy_AP_Gain(apgain):
 #####################################################################
 # Stat and Attribute Bonus Setting
 #####################################################################
-# These will be changed later, once the stat system is in.
-
-# For now though, it's basically
-# Current (to be referenced almost everywhere) = (Base)+(Buffs)-(Debuffs)
-# 'damage_max_current = (damage_max)+(strengthen.strength)-(weaken.strength)
 #  Accessed via a call anytime something would change the number, and thusly
 # recalculated.  This makes it much easier to handle our (de)buffs and equipment
 # changes safely, and correct any possible 'issues' that came up.
@@ -229,8 +225,8 @@ label battle_call_Player_Weapon_Damage_Recheck:
     $ player.X_Weapon_Damage_Will_Min_X = int(round(player.Equipment_Weapon_Damage_Will_Min*player.X_Damage_Bonus_Will_X))
     return
 
-##### - Enemy Set
-
+######
+# Enemy Set
 label battle_call_Enemy_Full_StartCheck:
     call battle_call_Enemy_Stat_Recheck
     call battle_call_Enemy_Ability_Recheck
@@ -362,7 +358,7 @@ label battle_call_Enemy_Weapon_Damage_Recheck:
 #####################################################################
 # Enemy Data import and initialization
 #####################################################################
-# Make sure you set that ename variable!
+# Make sure you set that ename variable when you call this!
 
 label battle_call_Enemy_Data_Import:
 #  This big block below is pulling the enemy information and copying it into the
@@ -468,7 +464,7 @@ label battle_call_Enemy_Data_Import:
     $ enemy.Equipment_Consumables_Potions_AP_Restore = ename.Equipment_Consumables_Potions_AP_Restore
     $ enemy.Equipment_Consumables_Potions_WP_Restore = ename.Equipment_Consumables_Potions_WP_Restore
     $ enemy.Equipment_Currency = ename.Equipment_Currency
-#  This line basically tells the game to go 'Okay, now calculate all the
+#  These lines basically tell the game to go 'Okay, now calculate all the
 # variables based on the data we've imported.  Saves us a mess of lines here.
     call battle_call_Enemy_Stat_Recheck
     call battle_call_Enemy_Ability_Recheck

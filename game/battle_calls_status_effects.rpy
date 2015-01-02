@@ -8,11 +8,10 @@
 #  Notably!  Being hit with the same status effect while it's already active
 # will overwrite the duration and strength of the original!
 #  Checks are in place to make sure you don't get disarmed twice though, but the
-# duration can be changed on those as well.
+# duration can be changed on those as well.  If you want something more thorough
+# about not allowing overlapping / resetting status effects, eyeball Disarm and
+# extrapolate from how it works, over in the battle_player.rpy.
 #
-#  Paralyse, Charm, and Sleep do _NOT_ currently disallow you from selecting
-# actions.. they just set your action to a skipped turn.  Maybe later we'll
-# make a more elegant setup, but this is a framework, so.. alas!
 
 #####################################################################
 # Status Effects - Player
@@ -103,7 +102,7 @@ label battle_call_Player_Status_WeakenCheck:
             call battle_call_Player_Damage_Bonus_Recheck
             call battle_call_Player_Weapon_Damage_Recheck
             $ player.Status_Weaken_Duration -= 1
-            "You damage is [player.Status_Weaken_Strength] points worse due to weaken.  [player.Status_Weaken_Duration] rounds of Weaken remaining."
+            "You melee damage and accuracy are roughly [player.Status_Weaken_Strength] percent worse due to weaken.  [player.Status_Weaken_Duration] rounds of Weaken remaining."
             return
         if player.Status_Weaken_Duration == 0:
             $ player.Status_Weaken_EffectActive = 0
@@ -120,7 +119,7 @@ label battle_call_Player_Status_StrengthenCheck:
             call battle_call_Player_Damage_Bonus_Recheck
             call battle_call_Player_Weapon_Damage_Recheck
             $ player.Status_Strengthen_Duration -= 1
-            "You damage is [player.Status_Strengthen_Strength] points better due to strengthen.  [player.Status_Strengthen_Duration] rounds of Strengthen remaining."
+            "You melee damage and accuracy are roughly [player.Status_Strengthen_Strength] percent better due to strengthen.  [player.Status_Strengthen_Duration] rounds of Strengthen remaining."
             return
         if player.Status_Strengthen_Duration == 0:
             $ player.Status_Strengthen_EffectActive = 0
@@ -137,7 +136,7 @@ label battle_call_Player_Status_ClumsyCheck:
             call battle_call_Player_Damage_Bonus_Recheck
             call battle_call_Player_Weapon_Damage_Recheck
             $ player.Status_Clumsy_Duration -= 1
-            "You ranged damage is [player.Status_Clumsy_Strength] points worse due to Clumsy.  [player.Status_Clumsy_Duration] rounds of Clumsy remaining."
+            "You ranged damage and accuracy are roughly [player.Status_Clumsy_Strength] percent worse due to Clumsy.  [player.Status_Clumsy_Duration] rounds of Clumsy remaining."
             return
         if player.Status_Clumsy_Duration == 0:
             $ player.Status_Clumsy_EffectActive = 0
@@ -154,7 +153,7 @@ label battle_call_Player_Status_NimbleCheck:
             call battle_call_Player_Damage_Bonus_Recheck
             call battle_call_Player_Weapon_Damage_Recheck
             $ player.Status_Nimble_Duration -= 1
-            "You ranged damage is [player.Status_Nimble_Strength] points better due to Nimble.  [player.Status_Nimble_Duration] rounds of Nimble remaining."
+            "You ranged damage and accuracy are roughly [player.Status_Nimble_Strength] percent better due to Nimble.  [player.Status_Nimble_Duration] rounds of Nimble remaining."
             return
         if player.Status_Nimble_Duration == 0:
             $ player.Status_Nimble_EffectActive = 0
@@ -364,7 +363,7 @@ label battle_call_Enemy_Status_WeakenCheck:
             call battle_call_Enemy_Damage_Bonus_Recheck
             call battle_call_Enemy_Weapon_Damage_Recheck
             $ enemy.Status_Weaken_Duration -= 1
-            "[enemy.name!t]'s damage is [enemy.Status_Weaken_Strength] points worse due to weaken.  [enemy.Status_Weaken_Duration] rounds of Weaken remaining."
+            "[enemy.name!t]'s melee damage and accuracy are roughly [enemy.Status_Weaken_Strength] percent worse due to weaken.  [enemy.Status_Weaken_Duration] rounds of Weaken remaining."
             return
         if enemy.Status_Weaken_Duration == 0:
             $ enemy.Status_Weaken_EffectActive = 0
@@ -381,14 +380,48 @@ label battle_call_Enemy_Status_StrengthenCheck:
             call battle_call_Enemy_Damage_Bonus_Recheck
             call battle_call_Enemy_Weapon_Damage_Recheck
             $ enemy.Status_Strengthen_Duration -= 1
-            "[enemy.name!t]'s damage is [enemy.Status_Strengthen_Strength] points better due to strengthen.  [enemy.Status_Strengthen_Duration] rounds of Strengthen remaining."
+            "[enemy.name!t]'s melee damage and accuracy are roughly [enemy.Status_Strengthen_Strength] percent better due to strengthen.  [enemy.Status_Strengthen_Duration] rounds of Strengthen remaining."
             return
         if enemy.Status_Strengthen_Duration == 0:
             $ enemy.Status_Strengthen_EffectActive = 0
             $ enemy.Status_Strengthen_Strength = 0
             call battle_call_Enemy_Damage_Bonus_Recheck
             call battle_call_Enemy_Weapon_Damage_Recheck
-            "[enemy.name!t] feel their strength returning to normal as Strengthen wears off."
+            "[enemy.name!t] feels their strength returning to normal as Strengthen wears off."
+    return
+
+label battle_call_Enemy_Status_ClumsyCheck:
+    if enemy.Status_Clumsy_EffectActive == 1:
+        if enemy.Status_Clumsy_Duration > 0:
+            "[enemy.name!t] is currently Clumsy!"
+            call battle_call_Enemy_Damage_Bonus_Recheck
+            call battle_call_Enemy_Weapon_Damage_Recheck
+            $ enemy.Status_Clumsy_Duration -= 1
+            "[enemy.name!t]'s ranged damage and accuracy are roughly [enemy.Status_Clumsy_Strength] percent worse due to Clumsy.  [enemy.Status_Clumsy_Duration] rounds of Clumsy remaining."
+            return
+        if enemy.Status_Clumsy_Duration == 0:
+            $ enemy.Status_Clumsy_EffectActive = 0
+            $ enemy.Status_Clumsy_Strength = 0
+            call battle_call_Enemy_Damage_Bonus_Recheck
+            call battle_call_Enemy_Weapon_Damage_Recheck
+            "[enemy.name!t] feels their precision returning to normal as Clumsy wears off."
+    return
+
+label battle_call_Enemy_Status_NimbleCheck:
+    if enemy.Status_Nimble_EffectActive == 1:
+        if enemy.Status_Nimble_Duration > 0:
+            "[enemy.name!t] is currently Nimble!"
+            call battle_call_Enemy_Damage_Bonus_Recheck
+            call battle_call_Enemy_Weapon_Damage_Recheck
+            $ enemy.Status_Nimble_Duration -= 1
+            "[enemy.name!t]'s ranged damage and accuracy are roughly [enemy.Status_Nimble_Strength] percent better due to Nimble.  [enemy.Status_Nimble_Duration] rounds of Nimble remaining."
+            return
+        if enemy.Status_Nimble_Duration == 0:
+            $ enemy.Status_Nimble_EffectActive = 0
+            $ enemy.Status_Nimble_Strength = 0
+            call battle_call_Enemy_Damage_Bonus_Recheck
+            call battle_call_Enemy_Weapon_Damage_Recheck
+            "[enemy.name!t] feels their precision returning to normal as Nimble wears off."
     return
 
 label battle_call_Enemy_Status_Block:

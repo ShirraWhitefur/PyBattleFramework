@@ -7,10 +7,14 @@
 #  This is called with your player name and enemy name, appearing on the left
 # and right upper corners.
 screen fight(pname,ename):
-    use stats_frame(pname)
-    use stats_frame2(ename)
+    use battle_frame(pname)
+    use battle_frame2(ename)
+    use battle_frame_status_effects
+    use battle_frame2_status_effects
+    use battle_frame_equipped_overview
+    use battle_frame2_equipped_overview
 
-screen stats_frame(pname):
+screen battle_frame(pname):
     frame xfill(False) yminimum(None) background(None) xpos 0.01 ypos 0.005:
 # Player name ends up here..
         text (pname) size 20
@@ -34,6 +38,7 @@ screen stats_frame(pname):
 # \/ (de)buffs, so you can then use it for triggering pretty status icons in the
 # \/ nifty UI you will undoubtedly make to replace this mess!  ^_^  It would
 # \/ probably be wise to call this with a seperate screen command..
+screen battle_frame_status_effects:
     frame xfill(False) yminimum(None) background(None) xpos 0.01 ypos 0.175:
             hbox:
                 vbox:
@@ -79,6 +84,7 @@ screen stats_frame(pname):
 # \/  This section is definitely a debug section, to make sure that the items
 # \/ are being properly equipped.  You'll probably want to just delete this,
 # \/ unless you need it to test your work.
+screen battle_frame_equipped_overview:
     frame xfill(False) yminimum(None) background(None) xpos 0.01 ypos 0.27:
             hbox:
                 vbox:
@@ -103,7 +109,7 @@ screen stats_frame(pname):
 # If you -do- want inverted bars, bar_invert 1 is where you start, followed by
 # http://www.renpy.org/doc/html/style_properties.html#bar-style-properties for
 # the rest of your properties to define the left and right bar displayables.
-screen stats_frame2(ename):
+screen battle_frame2(ename):
     frame xfill(False) yminimum(None) background(None) xpos 0.99 ypos 0.005 xalign 1.0:
 # Enemy name ends up here..
         text (ename) size 20
@@ -127,6 +133,7 @@ screen stats_frame2(ename):
 # \/ (de)buffs, so you can then use it for triggering pretty status icons in the
 # \/ nifty UI you will undoubtedly make to replace this mess!  ^_^  It would
 # \/ probably be wise to call this with a seperate screen command..
+screen battle_frame2_status_effects:
     frame xfill(False) yminimum(None) background(None) xpos 0.99 ypos 0.175 xalign 1.0:
             hbox:
                 vbox xalign 1.0:
@@ -172,6 +179,7 @@ screen stats_frame2(ename):
 # \/  This section is definitely a debug section, to make sure that the items
 # \/ are being properly equipped.  You'll probably want to just delete this,
 # \/ unless you need it to test your work.
+screen battle_frame2_equipped_overview:
     frame xfill(False) yminimum(None) background(None) xpos 0.99 ypos 0.27 xalign 1.0:
             hbox:
                 vbox xalign 1.0:

@@ -14,10 +14,11 @@ init -50:
     $ player.Battle_Selected_Action = "battle_Player_Wait"
     $ player.Battle_Outcome = "end"
 ######
-# Status Effects
+# Status Effects variables Initilization
 #  This block handles status effects, including the check to see if it's on.
 # EffectActive is probably going to be used mostly for the Screen/Frame/UI
-# stuff.
+# stuff, though it's been useful in handling how to make various (de)buffs code
+# run smoother.
     $ player.Status_Poison_EffectActive = 0
     $ player.Status_Poison_Duration = 0
     $ player.Status_Poison_Strength = 0
@@ -63,7 +64,7 @@ init -50:
     $ player.Status_EquipLoss_Ring_Duration = 0
     $ player.Status_EquipLoss_Ring_EffectActive = 0
 ######
-# Equipment Initilization
+# Equipment variables Initilization
     $ player.Equipment_Strength = 1
     $ player.Equipment_Precision = 1
     $ player.Equipment_Insight = 1
@@ -95,7 +96,9 @@ init -50:
     $ player.Equipment_Weapon_Damage_Magic_Min = 1
     $ player.Equipment_Weapon_Damage_Will_Max = 1
     $ player.Equipment_Weapon_Damage_Will_Min = 1
+######
 # Equipment Slots and Weapon Type
+#  These are what the player starts with.
     $ player.Equipment_Slot_Weapon_Name = no_weapon
     $ player.Equipment_Slot_Weapon_Name_Temp = no_weapon
     $ player.Equipment_Slot_Weapon_Name_Text = "Gear Init Failed."
@@ -116,6 +119,7 @@ init -50:
 ######
 #  Equipment - Consumables.  Consider it a 'stock', and will handle the
 # potions, grenades, and other one use items and non-rechargables (like wands.)
+#  Also 'what the player starts with'.
     $ player.Equipment_Consumables_Potions_HP_Restore = 3
     $ player.Equipment_Consumables_Potions_AP_Restore = 2
     $ player.Equipment_Consumables_Potions_WP_Restore = 1
@@ -123,16 +127,18 @@ init -50:
 ######
 # Player's Base Statistics
 # Just for quick reference..
-#   Strength    Damage - Melee (percentage boost); Accuracy - Melee (integer boost)
-#   Precision   Damage - Ranged (percentage boost); Accuracy - Ranged (integer boost)
-#   Insight     Damage - Magic (percentage boost); Initiative (integer boost)
-#   Deceit      Damage - Will (percentage boost); Dodge (integar boost)
-#   Vigor       Max HP (percentage boost); Armor - Physical (percentage boost)
-#   Spirit      Max AP (percentage boost); Armor - Magic (percentage boost)
-#   Resolve     Max WP (percentage boost); Armor - Will (percentage boost)
+#   Strength    Damage - Melee (% boost); Accuracy - Melee (# boost)
+#   Precision   Damage - Ranged (% boost); Accuracy - Ranged (# boost)
+#   Insight     Damage - Magic (% boost); Initiative (# boost)
+#   Deceit      Damage - Will (% boost); Dodge (# boost)
+#   Vigor       Max HP (% boost); Armor - Physical (% boost)
+#   Spirit      Max AP (% boost); Armor - Magic (% boost)
+#   Resolve     Max WP (% boost); Armor - Will (% boost)
 #  Here, Dodge is being considered effectively 'Feint' or 'Bluff', faking
 # someone out about where they'll think you'll be as opposed to where you end
 # up.  .. At least that's how we explain it, so the two go to gether.
+#  This is what the players start with.. and everything past is all calculated
+# from these.
     $ player.Stats_Strength = 20
     $ player.Stats_Precision = 20
     $ player.Stats_Insight = 20
@@ -151,14 +157,15 @@ init -50:
     $ player.X_Resolve_X = player.Stats_Resolve+player.Equipment_Resolve
 ######
 # Player's Base Attributes
-# Or bonuses and penalties.  Derived from Stats, we may want to be able to
+#  Or bonuses and penalties.  Derived from Stats, we may want to be able to
 # directly add to attributes seperate from the stats (as in, for the progression
-# of a character.  We'll see if we reallly want that mess of code to deal with
-# though later.
+# of a character.  We'll see if we reallly want that mess of code enough to deal
+# with that idea later though, as it'd mean -another- fourteen variables to make
+# for our 'bonus bonuses'.  Which just sounds silly.
 #  Since we're going to need to work on balancing this somewhat 'on the fly', to
 # make it easier to manipulate the system elsewhere to find that balance we will
 # be using variables (over in battle_init) set on battle.Bonus_*, to work with
-# our math.  
+# our math, and allow us to 'fine tune' the system with far less fuss.
 #
     $ player.Attribute_HealthPoints = (int(round((player.X_Vigor_X/battle.Bonus_HPAPWP_Max_Stat_Divisor))))+100
     $ player.Attribute_AbilityPoints = (int(round((player.X_Spirit_X/battle.Bonus_HPAPWP_Max_Stat_Divisor))))+100
@@ -727,6 +734,8 @@ label battle_Player_Wait:
     "You decide to do nothing this turn."
     return
 
+#  You may wish to cull the text from this, because the player is already
+# informed of a skipped turn earlier.. but it's useful for the debug work.
 label battle_Player_Skipped:
     "Your turn was skipped."
     return

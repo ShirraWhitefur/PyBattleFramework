@@ -207,18 +207,6 @@ label battle_Enemy_Turn:
 # since every enemy will usually have it's own unique attack text for every
 # ability it uses.
 
-
-label battle_Enemy_Attack_Main_TypeCheck_Success:
-    $enemy_roll_damage = renpy.random.randint(enemy.X_Weapon_Damage_Melee_Min_X,enemy.X_Weapon_Damage_Melee_Max_X)
-    $enemy_roll_damage_final = (enemy_roll_damage-player.X_Armor_Physical_X)
-    if enemy_roll_damage_final < 1:
-        "[enemy.name!t] hits, but does no damage.  ([enemy_roll_damage] - [player.X_Armor_Physical_X] = [enemy_roll_damage_final])"
-        return
-    else:
-        call battle_call_Player_HP_Loss(enemy_roll_damage_final)
-        "[enemy.name!t] lands a solid blow, dealing [enemy_roll_damage_final] damage.  [playername!t]'s HP at [player.X_HealthPoints_Current_X].  ([enemy_roll_damage] - [player.X_Armor_Physical_X])"
-        return
-
 label battle_Enemy_Attack_Main_TypeCheck:
     "[enemy.name!t] attacks you with their [enemy.Equipment_Slot_Weapon_Name_Text]"
     $enemy_roll_attack = renpy.random.randint(1,100)
@@ -320,7 +308,7 @@ label battle_Enemy_Ability__Fire:
     return
 
 label battle_Enemy_Ability__Poison:
-    "[enemy.name!t] casts Poison on [playername!t]!"
+    "[enemy.name!t] casts Poison on you!"
     $ player.Status_Poison_EffectActive = 1
     $ player.Status_Poison_Duration = renpy.random.randint(4,6)
     $ player.Status_Poison_Strength = renpy.random.randint(2,5)
@@ -329,7 +317,7 @@ label battle_Enemy_Ability__Poison:
     return
 
 label battle_Enemy_Ability__Slow:
-    "[enemy.name!t] casts Slow on [playername!t]!"
+    "[enemy.name!t] casts Slow on you!"
     $ player.Status_Slow_EffectActive = 1
     $ player.Status_Slow_Duration = renpy.random.randint(4,6)
     $ player.Status_Slow_Strength = renpy.random.randint(2,5)
@@ -338,7 +326,7 @@ label battle_Enemy_Ability__Slow:
     return
 
 label battle_Enemy_Ability__Weaken:
-    "[enemy.name!t] casts Weaken on [playername!t]!"
+    "[enemy.name!t] casts Weaken on you!"
     $ player.Status_Weaken_EffectActive = 1
     $ player.Status_Weaken_Duration = renpy.random.randint(4,6)
     $ player.Status_Weaken_Strength = renpy.random.randint(2,5)
@@ -347,7 +335,7 @@ label battle_Enemy_Ability__Weaken:
     return
 
 label battle_Enemy_Ability__Clumsy:
-    "[enemy.name!t] casts Clumsy on [playername!t]!"
+    "[enemy.name!t] casts Clumsy on you!"
     $ player.Status_Clumsy_EffectActive = 1
     $ player.Status_Clumsy_Duration = renpy.random.randint(4,6)
     $ player.Status_Clumsy_Strength = renpy.random.randint(2,5)
@@ -356,7 +344,7 @@ label battle_Enemy_Ability__Clumsy:
     return
 
 label battle_Enemy_Ability__Paralyse:
-    "[enemy.name!t] casts Paralyse on [playername!t]!"
+    "[enemy.name!t] casts Paralyse on you!"
     $ player.Status_Paralyse_EffectActive = 1
     $ player.Status_Paralyse_Duration = renpy.random.randint(2,4)
     call battle_call_Enemy_AP_Loss(5)
@@ -364,7 +352,7 @@ label battle_Enemy_Ability__Paralyse:
     return
 
 label battle_Enemy_Ability__Charm:
-    "[enemy.name!t] casts Charm on [playername!t]!"
+    "[enemy.name!t] casts Charm on you!"
     $ player.Status_Charm_EffectActive = 1
     $ player.Status_Charm_Duration = renpy.random.randint(2,4)
     call battle_call_Enemy_AP_Loss(5)
@@ -372,7 +360,7 @@ label battle_Enemy_Ability__Charm:
     return
 
 label battle_Enemy_Ability__Sleep:
-    "[enemy.name!t] casts Sleep on [playername!t]!"
+    "[enemy.name!t] casts Sleep on you!"
     $ player.Status_Sleep_EffectActive = 1
     $ player.Status_Sleep_Duration = renpy.random.randint(2,4)
     call battle_call_Enemy_AP_Loss(5)
@@ -380,7 +368,7 @@ label battle_Enemy_Ability__Sleep:
     return
 
 label battle_Enemy_Ability__Disarm:
-    "[enemy.name!t] attempts to disarm [playername!t]!"
+    "[enemy.name!t] attempts to disarm you!"
     call battle_call_Enemy_AP_Loss(5)
     $enemy_roll_attack = renpy.random.randint(1,100)
     if enemy_roll_attack-player.X_Dodge_X > 50:
@@ -392,7 +380,7 @@ label battle_Enemy_Ability__Disarm:
         $ player.Status_EquipLoss_Weapon_Duration = renpy.random.randint(2,4)
         "[enemy.name!t] disarms you for [player.Status_EquipLoss_Weapon_Duration] rounds.  ([enemy_roll_attack] - [player.X_Dodge_X] vs 50)"
         return
-    "[playername!t] dodges the attack! ([enemy_roll_attack] - [player.X_Dodge_X] vs 50)"
+    "You dodge the attack! ([enemy_roll_attack] - [player.X_Dodge_X] vs 50)"
     return
 
 label battle_Enemy_Ability__UpperBodyArmorRemove:
@@ -408,7 +396,7 @@ label battle_Enemy_Ability__UpperBodyArmorRemove:
         $ player.Status_EquipLoss_UpperBodyArmor_Duration = renpy.random.randint(2,4)
         "[enemy.name!t] strips you of your upper body armor for [player.Status_EquipLoss_UpperBodyArmor_Duration] rounds.  ([enemy_roll_attack] - [player.X_Dodge_X] vs 50)"
         return
-    "[playername!t] dodges the attack! ([enemy_roll_attack] - [player.X_Dodge_X] vs 50)"
+    "You dodge the attack! ([enemy_roll_attack] - [player.X_Dodge_X] vs 50)"
     return
 
 

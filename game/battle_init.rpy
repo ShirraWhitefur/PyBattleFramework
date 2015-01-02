@@ -31,6 +31,7 @@ init python:-100
                 return choice
             else:
                 randval -= weight
+#
 
 init -75:
     $ battle = Character("BattleSettings")
@@ -57,10 +58,11 @@ init -75:
     $ enemy.battle_selected_action = "battle_Enemy_Wait"
     $ enemy.Attack_List = "Attack_List_Goblin"
 ######
-# Status Effects
+# Status Effects variables Initilization
 #  This block handles status effects, including the check to see if it's on.
 # EffectActive is probably going to be used mostly for the Screen/Frame/UI
-# stuff.
+# stuff, though it's been useful in handling how to make various (de)buffs code
+# run smoother.
     $ enemy.Status_Poison_EffectActive = 0
     $ enemy.Status_Poison_Duration = 0
     $ enemy.Status_Poison_Strength = 0
@@ -106,7 +108,7 @@ init -75:
     $ enemy.Status_EquipLoss_Ring_Duration = 0
     $ enemy.Status_EquipLoss_Ring_EffectActive = 0
 ######
-# Equipment Initilization
+# Equipment variables Initilization
     $ enemy.Equipment_Strength = 1
     $ enemy.Equipment_Precision = 1
     $ enemy.Equipment_Insight = 1
@@ -138,6 +140,7 @@ init -75:
     $ enemy.Equipment_Weapon_Damage_Magic_Min = 1
     $ enemy.Equipment_Weapon_Damage_Will_Max = 1
     $ enemy.Equipment_Weapon_Damage_Will_Min = 1
+######
 # Equipment Slots and Weapon Type
     $ enemy.Equipment_Slot_Weapon_Name = no_weapon
     $ enemy.Equipment_Slot_Weapon_Name_Temp = no_weapon
@@ -194,14 +197,15 @@ init -75:
     $ enemy.X_Resolve_X = enemy.Stats_Resolve+enemy.Equipment_Resolve
 ######
 # Enemy's Base Attributes
-# Or bonuses and penalties.  Derived from Stats, we may want to be able to
+#  Or bonuses and penalties.  Derived from Stats, we may want to be able to
 # directly add to attributes seperate from the stats (as in, for the progression
-# of a character.  We'll see if we reallly want that mess of code to deal with
-# though later.
+# of a character.  We'll see if we reallly want that mess of code enough to deal
+# with that idea later though, as it'd mean -another- fourteen variables to make
+# for our 'bonus bonuses'.  Which just sounds silly.
 #  Since we're going to need to work on balancing this somewhat 'on the fly', to
 # make it easier to manipulate the system elsewhere to find that balance we will
 # be using variables (over in battle_init) set on battle.Bonus_*, to work with
-# our math.  
+# our math, and allow us to 'fine tune' the system with far less fuss.
 #
     $ enemy.Attribute_HealthPoints = (int(round((enemy.X_Vigor_X/battle.Bonus_HPAPWP_Max_Stat_Divisor))))+100
     $ enemy.Attribute_AbilityPoints = (int(round((enemy.X_Spirit_X/battle.Bonus_HPAPWP_Max_Stat_Divisor))))+100

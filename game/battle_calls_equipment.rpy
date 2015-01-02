@@ -8,6 +8,10 @@
 #  For now, these will have to be per slot.  Because reasons that totally have
 # to do with rubber hose, and not my lack of coding skill.  Really.
 #
+# Example usage
+#    call call_Equipment_Slot_Equip_UpperBodyArmor(put the name of the gear here!)
+#  Or if it's being troublesome..
+#    $ battle.EquipGameName = put the name of the gear here!
 #    call call_Equipment_Slot_Equip_UpperBodyArmor(battle.EquipGearName)
 #    call call_Equipment_Slot_Unquip_UpperBodyArmor(player.Equipment_Slot_UpperBodyArmor_Name)
 # and if out of combat..
@@ -419,8 +423,7 @@ label call_Enemy_Equipment_Slot_Initialize_All:
     call battle_call_Enemy_Full_Recheck
     return
 
-#  So, your enemy just woke up after being captured by slavers?  Lets get rid
-# of all that pesky equipment!
+#  Not sure why you'd need this for the Enemy, but...
 label call_Enemy_Equipment_Slot_Strip_All:
     $ enemy.Equipment_HealthPoints_Max = 0
     $ enemy.Equipment_AbilityPoints_Max = 0
