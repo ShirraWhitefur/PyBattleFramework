@@ -60,11 +60,13 @@ label battle_call_Player_WP_Gain(apgain):
     return
 
 label battle_call_Enemy_HP_Loss(hploss):
-    if enemy.Status_Charm_Duration > 0:
+    if enemy.Status_Charm_EffectActive == 1:
         "Taking damage breaks the Charm on [enemy.name!t]!"
+        $ enemy.Status_Charm_EffectActive = 0
         $ enemy.Status_Charm_Duration = 0
-    if enemy.Status_Sleep_Duration > 0:
+    if enemy.Status_Sleep_EffectActive == 1:
         "Taking damage wakes [enemy.name!t] from Sleep!"
+        $ enemy.Status_Sleep_EffectActive = 0
         $ enemy.Status_Sleep_Duration = 0
     $ enemy.X_HealthPoints_Current_X -= hploss
     if enemy.X_HealthPoints_Current_X < 0:
