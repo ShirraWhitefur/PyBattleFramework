@@ -414,6 +414,29 @@ label battle_Player_Loss_HP:
     return
 
 label battle_Player_Victory_HP:
+#  Fight over, time to remove the (de)buffs!
+    $ player.Status_Poison_Duration = 0
+    $ player.Status_Regen_Duration = 0
+    $ player.Status_Slow_Duration = 0
+    $ player.Status_Haste_Duration = 0
+    $ player.Status_Weaken_Duration = 0
+    $ player.Status_Strengthen_Duration = 0
+    $ player.Status_Clumsy_Duration = 0
+    $ player.Status_Nimble_Duration = 0
+    $ player.Status_Paralyse_Duration = 0
+    $ player.Status_Charm_Duration = 0
+    $ player.Status_Sleep_Duration = 0
+    $ player.Status_EquipLoss_Weapon_Duration = 0
+    $ player.Status_EquipLoss_UpperBodyArmor_Duration = 0
+    $ player.Status_EquipLoss_LowerBodyArmor_Duration = 0
+    $ player.Status_EquipLoss_Necklace_Duration = 0
+    $ player.Status_EquipLoss_Ring_Duration = 0
+    $ player.Status_Paralyse_EffectActive = 0
+    $ player.Status_Charm_EffectActive = 0
+    $ player.Status_Sleep_EffectActive = 0
+# Consider a variant -without- any text, for a silent disabling?
+    label battle_call_Player_Status_Check_Block:
+#
     $ player.Battle_Outcome = ename.Battle_Outcomes_Victory_HP
     "You won the fight!"
     return
