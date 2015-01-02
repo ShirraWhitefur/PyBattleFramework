@@ -50,6 +50,8 @@ screen stats_frame(pname):
                             text (" Haste ") size 12
                         if player.Status_Strengthen_EffectActive == 1:
                             text (" Strength ") size 12
+                        if player.Status_Nimble_EffectActive == 1:
+                            text (" Nimble ") size 12
                     hbox:
                         text (" ") size 12
                         if player.Status_Block_EffectActive == 1:
@@ -64,6 +66,8 @@ screen stats_frame(pname):
                             text (" Slow ") size 12
                         if player.Status_Weaken_EffectActive == 1:
                             text (" Weaken ") size 12
+                        if player.Status_Clumsy_EffectActive == 1:
+                            text (" Clumsy ") size 12
                     hbox:
                         if player.Status_Paralyse_EffectActive == 1:
                             text (" Paralyse ") size 12
@@ -134,6 +138,8 @@ screen stats_frame2(ename):
                             text (" Haste ") size 12
                         if enemy.Status_Strengthen_EffectActive == 1:
                             text (" Strength ") size 12
+                        if enemy.Status_Nimble_EffectActive == 1:
+                            text (" Nimble ") size 12
                     hbox:
                         text (" ") size 12
                         if enemy.Status_Block_EffectActive == 1:
@@ -148,6 +154,8 @@ screen stats_frame2(ename):
                             text (" Slow ") size 12
                         if enemy.Status_Weaken_EffectActive == 1:
                             text (" Weaken ") size 12
+                        if enemy.Status_Clumsy_EffectActive == 1:
+                            text (" Clumsy ") size 12
                     hbox:
                         if enemy.Status_Paralyse_EffectActive == 1:
                             text (" Paralyse ") size 12
@@ -232,6 +240,8 @@ screen status_frame_main:
                             text (" Haste ") size 12
                         if player.Status_Strengthen_EffectActive == 1:
                             text (" Strength ") size 12
+                        if player.Status_Nimble_EffectActive == 1:
+                            text (" Nimble ") size 12
                     hbox:
                         text (" ") size 12
                         if player.Status_Block_EffectActive == 1:
@@ -246,6 +256,8 @@ screen status_frame_main:
                             text (" Slow ") size 12
                         if player.Status_Weaken_EffectActive == 1:
                             text (" Weaken ") size 12
+                        if player.Status_Clumsy_EffectActive == 1:
+                            text (" Clumsy ") size 12
                     hbox:
                         if player.Status_Paralyse_EffectActive == 1:
                             text (" Paralyse ") size 12
@@ -254,12 +266,7 @@ screen status_frame_main:
                         if player.Status_Sleep_EffectActive == 1:
                             text (" Sleep ") size 12
 # /\ The end of the 'status block'
-# \/  This section is definitely a debug section, to make sure that the items
-# \/ are being properly equipped.  You'll probably want to just delete this,
-# \/ unless you need it to test your work.
-# \/ The 'Raw'ish Stats block'
-# /\ The end the 'Raw'ish Stats block'
-
+#
 #####################################################################
 # Really Ugly Toggle-Status Screens
 #####################################################################
