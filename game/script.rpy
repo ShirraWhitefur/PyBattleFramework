@@ -77,6 +77,12 @@ label Framework_Test_Room_Plains_of_Battle:
             call Framework_Test_Plains_of_Battle_Enemy_Encounter
             nar "Finished with that, you head back to the clearing."
             jump Framework_Test_Room_Clearing
+        "Status Effect Blob":
+# This line tells the upcoming section what enemy information to pull.
+            $ ename = Status_Blob
+            call Framework_Test_Plains_of_Battle_Enemy_Encounter
+            nar "Finished with that, you head back to the clearing."
+            jump Framework_Test_Room_Clearing
         "Return to the clearing":
             nar "You decide the clearing is just a better place to be than a battle, and head back."
             jump Framework_Test_Room_Clearing
@@ -113,6 +119,18 @@ label test02_orc_victory_hp:
     hide screen fight
     $ player.Equipment_Currency += enemy.Equipment_Currency
     nar "And so you triumphed over the evil testing orc.  He was carrying [enemy.Equipment_Currency] coins, and unsurprisingly, you 'heroically' scavange it from them, leaving you with [player.Equipment_Currency] coins."
+    return
+
+label test03_status_blob_loss_hp:
+# This hides our "lovely" Name/HP/AP screen-frames.
+    hide screen fight
+    nar "And so you lost to the power of the evil status effect testing blob.  Don't feel bad, it's kinda meant to be a 'tad' unfair.  Game over!"
+    jump end
+
+label test03_status_blob_victory_hp:
+# This hides our "lovely" Name/HP/AP screen-frames.
+    hide screen fight
+    nar "And so you triumphed over the evil status effect testing blob.  Pity it's a blob and doesn't carry any coins."
     return
 
 label Framework_Test_Room_Vendor_Tent:

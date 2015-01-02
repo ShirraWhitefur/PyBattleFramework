@@ -137,7 +137,7 @@ label call_Player_Equipment_Slot_Equip_Weapon(weaponname):
     call battle_call_Player_Full_Recheck
     return
 
-label call_Player_Equipment_Slot_Unquip_Weapon(weaponname):
+label call_Player_Equipment_Slot_Unequip_Weapon(weaponname):
     $ player.Equipment_Strength -= weaponname.Equipment_Strength
     $ player.Equipment_Precision -= weaponname.Equipment_Precision
     $ player.Equipment_Insight -= weaponname.Equipment_Insight
@@ -493,7 +493,7 @@ label call_Enemy_Equipment_Slot_Equip_Weapon(weaponname):
     call battle_call_Enemy_Full_Recheck
     return
 
-label call_Enemy_Equipment_Slot_Unquip_Weapon(weaponname):
+label call_Enemy_Equipment_Slot_Unequip_Weapon(weaponname):
     $ enemy.Equipment_HealthPoints_Max -= weaponname.Equipment_HealthPoints_Max
     $ enemy.Equipment_AbilityPoints_Max -= weaponname.Equipment_AbilityPoints_Max
     $ enemy.Equipment_WillPoints_Max -= weaponname.Equipment_WillPoints_Max

@@ -107,6 +107,7 @@ label battle_call_Player_Full_StartCheck:
     call battle_call_Player_HP_AP_WP_Current_To_Max_Set
 
 label battle_call_Player_Full_Recheck:
+    call battle_call_Player_Stat_Recheck
     call battle_call_Player_HP_AP_WP_Max_Recheck
     call battle_call_Player_Accuracy_Recheck
     call battle_call_Player_Armor_Recheck
@@ -130,8 +131,8 @@ label battle_call_Player_Ability_Recheck:
     $ player.Attribute_HealthPoints = (int(round((player.X_Vigor_X/battle.Bonus_HPAPWP_Max_Stat_Divisor))))+100
     $ player.Attribute_AbilityPoints = (int(round((player.X_Spirit_X/battle.Bonus_HPAPWP_Max_Stat_Divisor))))+100
     $ player.Attribute_WillPoints = (int(round((player.X_Resolve_X/battle.Bonus_HPAPWP_Max_Stat_Divisor))))+100
-    $ player.Attribute_Accuracy_Melee = (int(round((player.X_Strength_X/battle.Bonus_Accuracy_Divisor))))+100
-    $ player.Attribute_Accuracy_Ranged = (int(round((player.X_Precision_X/battle.Bonus_Accuracy_Divisor))))+100
+    $ player.Attribute_Accuracy_Melee = (int(round((player.X_Strength_X/battle.Bonus_Accuracy_Divisor))))
+    $ player.Attribute_Accuracy_Ranged = (int(round((player.X_Precision_X/battle.Bonus_Accuracy_Divisor))))
     $ player.Attribute_Armor_Physical = (int(round((player.X_Vigor_X/battle.Bonus_Armor_Stat_Divisor))))+100
     $ player.Attribute_Armor_Magic = (int(round((player.X_Spirit_X/battle.Bonus_Armor_Stat_Divisor))))+100
     $ player.Attribute_Armor_Will = (int(round((player.X_Resolve_X/battle.Bonus_Armor_Stat_Divisor))))+100
@@ -139,8 +140,8 @@ label battle_call_Player_Ability_Recheck:
     $ player.Attribute_Damage_Bonus_Ranged = (int(round((player.X_Precision_X/battle.Bonus_Damage_Stat_Divisor))))+100
     $ player.Attribute_Damage_Bonus_Magic = (int(round((player.X_Insight_X/battle.Bonus_Damage_Stat_Divisor))))+100
     $ player.Attribute_Damage_Bonus_Will = (int(round((player.X_Deceit_X/battle.Bonus_Damage_Stat_Divisor))))+100
-    $ player.Attribute_Dodge = (int(round((player.X_Deceit_X/battle.Bonus_Dodge_Divisor))))+100
-    $ player.Attribute_Initiative = (int(round((player.X_Insight_X/battle.Bonus_Initiative_Divisor))))+100
+    $ player.Attribute_Dodge = (int(round((player.X_Deceit_X/battle.Bonus_Dodge_Divisor))))
+    $ player.Attribute_Initiative = (int(round((player.X_Insight_X/battle.Bonus_Initiative_Divisor))))
 
 label battle_call_Player_HP_AP_WP_Max_Recheck:
     $ player.X_Vigor_X = player.Stats_Vigor+player.Equipment_Vigor
@@ -162,10 +163,12 @@ label battle_call_Player_HP_AP_WP_Current_To_Max_Set:
 label battle_call_Player_Accuracy_Recheck:
     $ player.X_Strength_X = player.Stats_Strength+player.Equipment_Strength+player.Status_Strengthen_Strength-player.Status_Weaken_Strength
     $ player.X_Precision_X = player.Stats_Precision+player.Equipment_Precision+player.Status_Nimble_Strength-player.Status_Clumsy_Strength
-    $ player.Attribute_Accuracy_Melee = (int(round((player.X_Strength_X/battle.Bonus_Accuracy_Divisor))))+100
-    $ player.Attribute_Accuracy_Ranged = (int(round((player.X_Precision_X/battle.Bonus_Accuracy_Divisor))))+100
-    $ player.X_Weapon_Accuracy_Melee_X = player.Attribute_Accuracy_Melee+player.Equipment_Weapon_Accuracy_Melee
-    $ player.X_Weapon_Accuracy_Ranged_X = player.Attribute_Accuracy_Ranged+player.Equipment_Weapon_Accuracy_Ranged
+    $ player.Attribute_Accuracy_Melee = (int(round((player.X_Strength_X/battle.Bonus_Accuracy_Divisor))))
+    $ player.Attribute_Accuracy_Ranged = (int(round((player.X_Precision_X/battle.Bonus_Accuracy_Divisor))))
+    $ player.X_Accuracy_Melee_X = int(round(player.Attribute_Accuracy_Melee+player.Equipment_Accuracy_Melee))
+    $ player.X_Accuracy_Ranged_X = int(round(player.Attribute_Accuracy_Ranged+player.Equipment_Accuracy_Ranged))
+    $ player.X_Weapon_Accuracy_Melee_X = int(round(player.Equipment_Weapon_Accuracy_Melee+player.X_Accuracy_Melee_X))
+    $ player.X_Weapon_Accuracy_Ranged_X = int(round(player.Equipment_Weapon_Accuracy_Ranged+player.X_Accuracy_Ranged_X))
     return
 
 label battle_call_Player_Armor_Recheck:
@@ -201,13 +204,13 @@ label battle_call_Player_Damage_Bonus_Recheck:
 
 label battle_call_Player_Dodge_Recheck:
     $ player.X_Deceit_X = player.Stats_Deceit+player.Equipment_Deceit
-    $ player.Attribute_Dodge = (int(round((player.X_Deceit_X/battle.Bonus_Dodge_Divisor))))+100
+    $ player.Attribute_Dodge = (int(round((player.X_Deceit_X/battle.Bonus_Dodge_Divisor))))
     $ player.X_Dodge_X = player.Attribute_Dodge+player.Equipment_Dodge+player.Status_Haste_Strength+player.Status_Dodge_Strength-player.Status_Slow_Strength
     return
 
 label battle_call_Player_Initiative_Recheck:
     $ player.X_Insight_X = player.Stats_Insight+player.Equipment_Insight
-    $ player.Attribute_Initiative = (int(round((player.X_Insight_X/battle.Bonus_Initiative_Divisor))))+100
+    $ player.Attribute_Initiative = (int(round((player.X_Insight_X/battle.Bonus_Initiative_Divisor))))
     $ player.X_Initiative_X = player.Attribute_Initiative+player.Equipment_Initiative+player.Status_Haste_Strength-player.Status_Slow_Strength
     return
 
@@ -258,8 +261,8 @@ label battle_call_Enemy_Ability_Recheck:
     $ enemy.Attribute_HealthPoints = (int(round((enemy.X_Vigor_X/battle.Bonus_HPAPWP_Max_Stat_Divisor))))+100
     $ enemy.Attribute_AbilityPoints = (int(round((enemy.X_Spirit_X/battle.Bonus_HPAPWP_Max_Stat_Divisor))))+100
     $ enemy.Attribute_WillPoints = (int(round((enemy.X_Resolve_X/battle.Bonus_HPAPWP_Max_Stat_Divisor))))+100
-    $ enemy.Attribute_Accuracy_Melee = (int(round((enemy.X_Strength_X/battle.Bonus_Accuracy_Divisor))))+100
-    $ enemy.Attribute_Accuracy_Ranged = (int(round((enemy.X_Precision_X/battle.Bonus_Accuracy_Divisor))))+100
+    $ enemy.Attribute_Accuracy_Melee = (int(round((enemy.X_Strength_X/battle.Bonus_Accuracy_Divisor))))
+    $ enemy.Attribute_Accuracy_Ranged = (int(round((enemy.X_Precision_X/battle.Bonus_Accuracy_Divisor))))
     $ enemy.Attribute_Armor_Physical = (int(round((enemy.X_Vigor_X/battle.Bonus_Armor_Stat_Divisor))))+100
     $ enemy.Attribute_Armor_Magic = (int(round((enemy.X_Spirit_X/battle.Bonus_Armor_Stat_Divisor))))+100
     $ enemy.Attribute_Armor_Will = (int(round((enemy.X_Resolve_X/battle.Bonus_Armor_Stat_Divisor))))+100
@@ -267,8 +270,8 @@ label battle_call_Enemy_Ability_Recheck:
     $ enemy.Attribute_Damage_Bonus_Ranged = (int(round((enemy.X_Precision_X/battle.Bonus_Damage_Stat_Divisor))))+100
     $ enemy.Attribute_Damage_Bonus_Magic = (int(round((enemy.X_Insight_X/battle.Bonus_Damage_Stat_Divisor))))+100
     $ enemy.Attribute_Damage_Bonus_Will = (int(round((enemy.X_Deceit_X/battle.Bonus_Damage_Stat_Divisor))))+100
-    $ enemy.Attribute_Dodge = (int(round((enemy.X_Deceit_X/battle.Bonus_Dodge_Divisor))))+100
-    $ enemy.Attribute_Initiative = (int(round((enemy.X_Insight_X/battle.Bonus_Initiative_Divisor))))+100
+    $ enemy.Attribute_Dodge = (int(round((enemy.X_Deceit_X/battle.Bonus_Dodge_Divisor))))
+    $ enemy.Attribute_Initiative = (int(round((enemy.X_Insight_X/battle.Bonus_Initiative_Divisor))))
 
 label battle_call_Enemy_HP_AP_WP_Max_Recheck:
     $ enemy.X_Vigor_X = enemy.Stats_Vigor+enemy.Equipment_Vigor
@@ -290,10 +293,12 @@ label battle_call_Enemy_HP_AP_WP_Current_To_Max_Set:
 label battle_call_Enemy_Accuracy_Recheck:
     $ enemy.X_Strength_X = enemy.Stats_Strength+enemy.Equipment_Strength+enemy.Status_Strengthen_Strength-enemy.Status_Weaken_Strength
     $ enemy.X_Precision_X = enemy.Stats_Precision+enemy.Equipment_Precision+enemy.Status_Nimble_Strength-enemy.Status_Clumsy_Strength
-    $ enemy.Attribute_Accuracy_Melee = (int(round((enemy.X_Strength_X/battle.Bonus_Accuracy_Divisor))))+100
-    $ enemy.Attribute_Accuracy_Ranged = (int(round((enemy.X_Precision_X/battle.Bonus_Accuracy_Divisor))))+100
-    $ enemy.X_Weapon_Accuracy_Melee_X = enemy.Attribute_Accuracy_Melee+enemy.Equipment_Weapon_Accuracy_Melee
-    $ enemy.X_Weapon_Accuracy_Ranged_X = enemy.Attribute_Accuracy_Ranged+enemy.Equipment_Weapon_Accuracy_Ranged
+    $ enemy.Attribute_Accuracy_Melee = (int(round((enemy.X_Strength_X/battle.Bonus_Accuracy_Divisor))))
+    $ enemy.Attribute_Accuracy_Ranged = (int(round((enemy.X_Precision_X/battle.Bonus_Accuracy_Divisor))))
+    $ enemy.X_Accuracy_Melee_X = int(round(enemy.Attribute_Accuracy_Melee+enemy.Equipment_Accuracy_Melee))
+    $ enemy.X_Accuracy_Ranged_X = int(round(enemy.Attribute_Accuracy_Ranged+enemy.Equipment_Accuracy_Ranged))
+    $ enemy.X_Weapon_Accuracy_Melee_X = int(round(enemy.Equipment_Weapon_Accuracy_Melee+enemy.X_Accuracy_Melee_X))
+    $ enemy.X_Weapon_Accuracy_Ranged_X = int(round(enemy.Equipment_Weapon_Accuracy_Ranged+enemy.X_Accuracy_Ranged_X))
     return
 
 label battle_call_Enemy_Armor_Recheck:
@@ -329,13 +334,13 @@ label battle_call_Enemy_Damage_Bonus_Recheck:
 
 label battle_call_Enemy_Dodge_Recheck:
     $ enemy.X_Deceit_X = enemy.Stats_Deceit+enemy.Equipment_Deceit
-    $ enemy.Attribute_Dodge = (int(round((enemy.X_Deceit_X/battle.Bonus_Dodge_Divisor))))+100
+    $ enemy.Attribute_Dodge = (int(round((enemy.X_Deceit_X/battle.Bonus_Dodge_Divisor))))
     $ enemy.X_Dodge_X = enemy.Attribute_Dodge+enemy.Equipment_Dodge+enemy.Status_Haste_Strength+enemy.Status_Dodge_Strength-enemy.Status_Slow_Strength
     return
 
 label battle_call_Enemy_Initiative_Recheck:
     $ enemy.X_Insight_X = enemy.Stats_Insight+enemy.Equipment_Insight
-    $ enemy.Attribute_Initiative = (int(round((enemy.X_Insight_X/battle.Bonus_Initiative_Divisor))))+100
+    $ enemy.Attribute_Initiative = (int(round((enemy.X_Insight_X/battle.Bonus_Initiative_Divisor))))
     $ enemy.X_Initiative_X = enemy.Attribute_Initiative+enemy.Equipment_Initiative+enemy.Status_Haste_Strength-enemy.Status_Slow_Strength
     return
 

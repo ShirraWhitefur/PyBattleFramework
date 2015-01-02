@@ -319,6 +319,98 @@ label battle_Enemy_Ability__Fire:
     "[enemy.name!t] sears you for [enemy_roll_damage_final] damage.  [playername!t]'s HP at [player.X_HealthPoints_Current_X].  ([enemy_roll_damage] - [player.X_Armor_Magic_X] = [enemy_roll_damage_final])"
     return
 
+label battle_Enemy_Ability__Poison:
+    "[enemy.name!t] casts Poison on [playername!t]!"
+    $ player.Status_Poison_EffectActive = 1
+    $ player.Status_Poison_Duration = renpy.random.randint(4,6)
+    $ player.Status_Poison_Strength = renpy.random.randint(2,5)
+    call battle_call_Enemy_AP_Loss(5)
+    "[enemy.name!t] poisons you for [player.Status_Poison_Duration] rounds, at [player.Status_Poison_Strength] strength."
+    return
+
+label battle_Enemy_Ability__Slow:
+    "[enemy.name!t] casts Slow on [playername!t]!"
+    $ player.Status_Slow_EffectActive = 1
+    $ player.Status_Slow_Duration = renpy.random.randint(4,6)
+    $ player.Status_Slow_Strength = renpy.random.randint(2,5)
+    call battle_call_Enemy_AP_Loss(5)
+    "[enemy.name!t] slows you for [player.Status_Slow_Duration] rounds, at [player.Status_Slow_Strength] strength."
+    return
+
+label battle_Enemy_Ability__Weaken:
+    "[enemy.name!t] casts Weaken on [playername!t]!"
+    $ player.Status_Weaken_EffectActive = 1
+    $ player.Status_Weaken_Duration = renpy.random.randint(4,6)
+    $ player.Status_Weaken_Strength = renpy.random.randint(2,5)
+    call battle_call_Enemy_AP_Loss(5)
+    "[enemy.name!t] weakens you for [player.Status_Weaken_Duration] rounds, at [player.Status_Weaken_Strength] strength."
+    return
+
+label battle_Enemy_Ability__Clumsy:
+    "[enemy.name!t] casts Clumsy on [playername!t]!"
+    $ player.Status_Clumsy_EffectActive = 1
+    $ player.Status_Clumsy_Duration = renpy.random.randint(4,6)
+    $ player.Status_Clumsy_Strength = renpy.random.randint(2,5)
+    call battle_call_Enemy_AP_Loss(5)
+    "[enemy.name!t] makes you Clumsy for [player.Status_Clumsy_Duration] rounds, at [player.Status_Clumsy_Strength] strength."
+    return
+
+label battle_Enemy_Ability__Paralyse:
+    "[enemy.name!t] casts Paralyse on [playername!t]!"
+    $ player.Status_Paralyse_EffectActive = 1
+    $ player.Status_Paralyse_Duration = renpy.random.randint(2,4)
+    call battle_call_Enemy_AP_Loss(5)
+    "[enemy.name!t] paralyses you for [player.Status_Paralyse_Duration] rounds."
+    return
+
+label battle_Enemy_Ability__Charm:
+    "[enemy.name!t] casts Charm on [playername!t]!"
+    $ player.Status_Charm_EffectActive = 1
+    $ player.Status_Charm_Duration = renpy.random.randint(2,4)
+    call battle_call_Enemy_AP_Loss(5)
+    "[enemy.name!t] charms you for [player.Status_Charm_Duration] rounds."
+    return
+
+label battle_Enemy_Ability__Sleep:
+    "[enemy.name!t] casts Sleep on [playername!t]!"
+    $ player.Status_Sleep_EffectActive = 1
+    $ player.Status_Sleep_Duration = renpy.random.randint(2,4)
+    call battle_call_Enemy_AP_Loss(5)
+    "[enemy.name!t] sleeps you for [player.Status_Sleep_Duration] rounds."
+    return
+
+label battle_Enemy_Ability__Disarm:
+    "[enemy.name!t] attempts to disarm [playername!t]!"
+    call battle_call_Enemy_AP_Loss(5)
+    $enemy_roll_attack = renpy.random.randint(1,100)
+    if enemy_roll_attack-player.X_Dodge_X > 50:
+#  This particular check is to make sure we don't remove someone's gear twice,
+# as that will -remove it permanently-.  Don't do that.  That's bad.  ^_^
+        if player.Status_EquipLoss_Weapon_EffectActive == 0:
+            call battle_call_Enemy_Status_EquipLoss_Weapon_Remove
+        $ player.Status_EquipLoss_Weapon_EffectActive = 1
+        $ player.Status_EquipLoss_Weapon_Duration = renpy.random.randint(2,4)
+        "[enemy.name!t] disarms you for [player.Status_EquipLoss_Weapon_Duration] rounds.  ([enemy_roll_attack] - [player.X_Dodge_X] vs 50)"
+        return
+    "[playername!t] dodges the attack! ([enemy_roll_attack] - [player.X_Dodge_X] vs 50)"
+    return
+
+label battle_Enemy_Ability__UpperBodyArmorRemove:
+    "[enemy.name!t] attempts to remove [playername!t]'s upper body armor!"
+    call battle_call_Enemy_AP_Loss(5)
+    $enemy_roll_attack = renpy.random.randint(1,100)
+    if enemy_roll_attack-player.X_Dodge_X > 50:
+#  This particular check is to make sure we don't remove someone's gear twice,
+# as that will -remove it permanently-.  Don't do that.  That's bad.  ^_^
+        if player.Status_EquipLoss_UpperBodyArmor_EffectActive == 0:
+            call battle_call_Enemy_Status_EquipLoss_UpperBodyArmor_Remove
+        $ player.Status_EquipLoss_UpperBodyArmor_EffectActive = 1
+        $ player.Status_EquipLoss_UpperBodyArmor_Duration = renpy.random.randint(2,4)
+        "[enemy.name!t] strips you of your upper body armor for [player.Status_EquipLoss_UpperBodyArmor_Duration] rounds.  ([enemy_roll_attack] - [player.X_Dodge_X] vs 50)"
+        return
+    "[playername!t] dodges the attack! ([enemy_roll_attack] - [player.X_Dodge_X] vs 50)"
+    return
+
 
 #####################################################################
 # Win / Loss Section

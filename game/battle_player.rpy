@@ -163,8 +163,8 @@ init -50:
     $ player.Attribute_HealthPoints = (int(round((player.X_Vigor_X/battle.Bonus_HPAPWP_Max_Stat_Divisor))))+100
     $ player.Attribute_AbilityPoints = (int(round((player.X_Spirit_X/battle.Bonus_HPAPWP_Max_Stat_Divisor))))+100
     $ player.Attribute_WillPoints = (int(round((player.X_Resolve_X/battle.Bonus_HPAPWP_Max_Stat_Divisor))))+100
-    $ player.Attribute_Accuracy_Melee = (int(round((player.X_Strength_X/battle.Bonus_Accuracy_Divisor))))+100
-    $ player.Attribute_Accuracy_Ranged = (int(round((player.X_Precision_X/battle.Bonus_Accuracy_Divisor))))+100
+    $ player.Attribute_Accuracy_Melee = (int(round((player.X_Strength_X/battle.Bonus_Accuracy_Divisor))))
+    $ player.Attribute_Accuracy_Ranged = (int(round((player.X_Precision_X/battle.Bonus_Accuracy_Divisor))))
     $ player.Attribute_Armor_Physical = (int(round((player.X_Vigor_X/battle.Bonus_Armor_Stat_Divisor))))+100
     $ player.Attribute_Armor_Magic = (int(round((player.X_Spirit_X/battle.Bonus_Armor_Stat_Divisor))))+100
     $ player.Attribute_Armor_Will = (int(round((player.X_Resolve_X/battle.Bonus_Armor_Stat_Divisor))))+100
@@ -172,8 +172,8 @@ init -50:
     $ player.Attribute_Damage_Bonus_Ranged = (int(round((player.X_Precision_X/battle.Bonus_Damage_Stat_Divisor))))+100
     $ player.Attribute_Damage_Bonus_Magic = (int(round((player.X_Insight_X/battle.Bonus_Damage_Stat_Divisor))))+100
     $ player.Attribute_Damage_Bonus_Will = (int(round((player.X_Deceit_X/battle.Bonus_Damage_Stat_Divisor))))+100
-    $ player.Attribute_Dodge = (int(round((player.X_Deceit_X/battle.Bonus_Dodge_Divisor))))+100
-    $ player.Attribute_Initiative = (int(round((player.X_Insight_X/battle.Bonus_Initiative_Divisor))))+100
+    $ player.Attribute_Dodge = (int(round((player.X_Deceit_X/battle.Bonus_Dodge_Divisor))))
+    $ player.Attribute_Initiative = (int(round((player.X_Insight_X/battle.Bonus_Initiative_Divisor))))
 ######
 # Player's Calculated, Final Attributes
 #  Yes, status effects can end up being applied to both the stat -and- the
@@ -192,8 +192,8 @@ init -50:
     $ player.X_AbilityPoints_Current_X = player.X_AbilityPoints_Max_X
     $ player.X_WillPoints_Max_X = int(round((1 if (battle.Base_WillPoints_Max+player.Equipment_WillPoints_Max) < 1 else (battle.Base_WillPoints_Max+player.Equipment_WillPoints_Max))*((-99 if (player.Attribute_WillPoints) < -99 else (player.Attribute_WillPoints))*0.01)))
     $ player.X_WillPoints_Current_X = player.X_WillPoints_Max_X
-    $ player.X_Accuracy_Melee_X = player.Attribute_Accuracy_Melee+player.Equipment_Accuracy_Melee
-    $ player.X_Accuracy_Ranged_X = player.Attribute_Accuracy_Ranged+player.Equipment_Accuracy_Ranged
+    $ player.X_Accuracy_Melee_X = int(round(player.Attribute_Accuracy_Melee+player.Equipment_Accuracy_Melee))
+    $ player.X_Accuracy_Ranged_X = int(round(player.Attribute_Accuracy_Ranged+player.Equipment_Accuracy_Ranged))
 # For the time being, Block will increase not just Physical armor, but also Magic and Will.  This is to be discussed and debated.
     $ player.X_Armor_Physical_X = int(round((1 if (player.Equipment_Armor_Physical) < 1 else (player.Equipment_Armor_Physical))*((-99 if (player.Attribute_Armor_Physical+player.Status_Block_Strength) < -99 else (player.Attribute_Armor_Physical+player.Status_Block_Strength))*0.01)))
     $ player.X_Armor_Magic_X = int(round((1 if (player.Equipment_Armor_Magic) < 1 else (player.Equipment_Armor_Magic))*((-99 if (player.Attribute_Armor_Magic+player.Status_Block_Strength) < -99 else (player.Attribute_Armor_Magic+player.Status_Block_Strength))*0.01)))
@@ -288,94 +288,123 @@ label battle_Player_Ability_Debuff_Menu:
         "Poison - 5 AP":
             if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
-                jump battle_Player_Ability_Menu
+                jump battle_Player_Ability_Debuff_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Poison"
                 return
         "Slow - 5 AP":
             if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
-                jump battle_Player_Ability_Menu
+                jump battle_Player_Ability_Debuff_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Slow"
                 return
         "Weaken - 5 AP":
             if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
-                jump battle_Player_Ability_Menu
+                jump battle_Player_Ability_Debuff_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Weaken"
+                return
+        "Clumsy - 5 AP":
+            if player.X_AbilityPoints_Current_X < 5:
+                "Not enough MP!"
+                jump battle_Player_Ability_Debuff_Menu
+            else:
+                $ player.battle_selected_action = "battle_Player_Ability__Clumsy"
                 return
         "Paralyse - 5 AP":
             if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
-                jump battle_Player_Ability_Menu
+                jump battle_Player_Ability_Debuff_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Paralyse"
                 return
         "Charm - 5 AP":
             if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
-                jump battle_Player_Ability_Menu
+                jump battle_Player_Ability_Debuff_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Charm"
                 return
         "Sleep - 5 AP":
             if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
-                jump battle_Player_Ability_Menu
+                jump battle_Player_Ability_Debuff_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Sleep"
                 return
+        "Disarm - 5 AP":
+            if player.X_AbilityPoints_Current_X < 5:
+                "Not enough MP!"
+                jump battle_Player_Ability_Debuff_Menu
+            else:
+                $ player.battle_selected_action = "battle_Player_Ability__Disarm"
+                return
+        "Remove their UpperBodyArmor - 5 AP":
+            if player.X_AbilityPoints_Current_X < 5:
+                "Not enough MP!"
+                jump battle_Player_Ability_Debuff_Menu
+            else:
+                $ player.battle_selected_action = "battle_Player_Ability__UpperBodyArmorRemove"
+                return
         "Back":
-            jump battle_Player_Menu
+            jump battle_Player_Ability_Menu
 
 label battle_Player_Ability_Buff_Menu:
     menu:
         "Regen - 5 AP":
             if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
-                jump battle_Player_Ability_Menu
+                jump battle_Player_Ability_Buff_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Regen"
                 return
         "Haste - 5 AP":
             if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
-                jump battle_Player_Ability_Menu
+                jump battle_Player_Ability_Buff_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Haste"
                 return
         "Strengthen - 5 AP":
             if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
-                jump battle_Player_Ability_Menu
+                jump battle_Player_Ability_Buff_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Strengthen"
                 return
+        "Nimble - 5 AP":
+            if player.X_AbilityPoints_Current_X < 5:
+                "Not enough MP!"
+                jump battle_Player_Ability_Buff_Menu
+            else:
+                $ player.battle_selected_action = "battle_Player_Ability__Nimble"
+                return
+# Debug - Definitely remove before normal play.
         "Paralyze Self - 5 AP - Debug Test!":
             if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
-                jump battle_Player_Ability_Menu
+                jump battle_Player_Ability_Buff_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Paralyze_Self"
                 return
         "Charm Self - 5 AP - Debug Test!":
             if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
-                jump battle_Player_Ability_Menu
+                jump battle_Player_Ability_Buff_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Charm_Self"
                 return
         "Sleep Self - 5 AP - Debug Test!":
             if player.X_AbilityPoints_Current_X < 5:
                 "Not enough MP!"
-                jump battle_Player_Ability_Menu
+                jump battle_Player_Ability_Buff_Menu
             else:
                 $ player.battle_selected_action = "battle_Player_Ability__Sleep_Self"
                 return
         "Back":
-            jump battle_Player_Menu
+            jump battle_Player_Ability_Menu
 
 label battle_Player_Item_Menu:
     menu:
@@ -584,6 +613,38 @@ label battle_Player_Ability__Sleep:
     "You sleep them for [enemy.Status_Sleep_Duration] rounds."
     return
 
+label battle_Player_Ability__Disarm:
+    "You attempt to disarm [enemy.name!t]!"
+    call battle_call_Player_AP_Loss(5)
+    $player_roll_attack = renpy.random.randint(1,100)
+    if player_roll_attack-enemy.X_Dodge_X > 50:
+#  This particular check is to make sure we don't remove someone's gear twice,
+# as that will -remove it permanently-.  Don't do that.  That's bad.  ^_^
+        if enemy.Status_EquipLoss_Weapon_EffectActive == 0:
+            call battle_call_Enemy_Status_EquipLoss_Weapon_Remove
+        $ enemy.Status_EquipLoss_Weapon_EffectActive = 1
+        $ enemy.Status_EquipLoss_Weapon_Duration = renpy.random.randint(2,4)
+        "You disarm them for [enemy.Status_EquipLoss_Weapon_Duration] rounds.  ([player_roll_attack] - [enemy.X_Dodge_X] vs 50)"
+        return
+    "[enemy.name!t] dodges the attack! ([player_roll_attack] - [enemy.X_Dodge_X] vs 50)"
+    return
+
+label battle_Player_Ability__UpperBodyArmorRemove:
+    "You attempt to remove [enemy.name!t]'s upper body armor!"
+    call battle_call_Player_AP_Loss(5)
+    $player_roll_attack = renpy.random.randint(1,100)
+    if player_roll_attack-enemy.X_Dodge_X > 50:
+#  This particular check is to make sure we don't remove someone's gear twice,
+# as that will -remove it permanently-.  Don't do that.  That's bad.  ^_^
+        if enemy.Status_EquipLoss_UpperBodyArmor_EffectActive == 0:
+            call battle_call_Enemy_Status_EquipLoss_UpperBodyArmor_Remove
+        $ enemy.Status_EquipLoss_UpperBodyArmor_EffectActive = 1
+        $ enemy.Status_EquipLoss_UpperBodyArmor_Duration = renpy.random.randint(2,4)
+        "You strip them of their upper body armor for [enemy.Status_EquipLoss_UpperBodyArmor_Duration] rounds.  ([player_roll_attack] - [enemy.X_Dodge_X] vs 50)"
+        return
+    "[enemy.name!t] dodges the attack! ([player_roll_attack] - [enemy.X_Dodge_X] vs 50)"
+    return
+
 label battle_Player_Ability__Regen:
     "You cast Regen on yourself!"
     $ player.Status_Regen_EffectActive = 1
@@ -669,3 +730,4 @@ label battle_Player_Wait:
 label battle_Player_Skipped:
     "Your turn was skipped."
     return
+

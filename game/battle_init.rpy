@@ -206,8 +206,8 @@ init -75:
     $ enemy.Attribute_HealthPoints = (int(round((enemy.X_Vigor_X/battle.Bonus_HPAPWP_Max_Stat_Divisor))))+100
     $ enemy.Attribute_AbilityPoints = (int(round((enemy.X_Spirit_X/battle.Bonus_HPAPWP_Max_Stat_Divisor))))+100
     $ enemy.Attribute_WillPoints = (int(round((enemy.X_Resolve_X/battle.Bonus_HPAPWP_Max_Stat_Divisor))))+100
-    $ enemy.Attribute_Accuracy_Melee = (int(round((enemy.X_Strength_X/battle.Bonus_Accuracy_Divisor))))+100
-    $ enemy.Attribute_Accuracy_Ranged = (int(round((enemy.X_Precision_X/battle.Bonus_Accuracy_Divisor))))+100
+    $ enemy.Attribute_Accuracy_Melee = (int(round((enemy.X_Strength_X/battle.Bonus_Accuracy_Divisor))))
+    $ enemy.Attribute_Accuracy_Ranged = (int(round((enemy.X_Precision_X/battle.Bonus_Accuracy_Divisor))))
     $ enemy.Attribute_Armor_Physical = (int(round((enemy.X_Vigor_X/battle.Bonus_Armor_Stat_Divisor))))+100
     $ enemy.Attribute_Armor_Magic = (int(round((enemy.X_Spirit_X/battle.Bonus_Armor_Stat_Divisor))))+100
     $ enemy.Attribute_Armor_Will = (int(round((enemy.X_Resolve_X/battle.Bonus_Armor_Stat_Divisor))))+100
@@ -215,8 +215,8 @@ init -75:
     $ enemy.Attribute_Damage_Bonus_Ranged = (int(round((enemy.X_Precision_X/battle.Bonus_Damage_Stat_Divisor))))+100
     $ enemy.Attribute_Damage_Bonus_Magic = (int(round((enemy.X_Insight_X/battle.Bonus_Damage_Stat_Divisor))))+100
     $ enemy.Attribute_Damage_Bonus_Will = (int(round((enemy.X_Deceit_X/battle.Bonus_Damage_Stat_Divisor))))+100
-    $ enemy.Attribute_Dodge = (int(round((enemy.X_Deceit_X/battle.Bonus_Dodge_Divisor))))+100
-    $ enemy.Attribute_Initiative = (int(round((enemy.X_Insight_X/battle.Bonus_Initiative_Divisor))))+100
+    $ enemy.Attribute_Dodge = (int(round((enemy.X_Deceit_X/battle.Bonus_Dodge_Divisor))))
+    $ enemy.Attribute_Initiative = (int(round((enemy.X_Insight_X/battle.Bonus_Initiative_Divisor))))
 ######
 # Enemy's Calculated, Final Attributes
 #  Yes, status effects can end up being applied to both the stat -and- the

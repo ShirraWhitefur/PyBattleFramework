@@ -47,7 +47,7 @@ init -99:
     $ ring_magic_power.Equipment_Spirit = 0
     $ ring_magic_power.Equipment_Resolve = 0
     $ ring_magic_power.Equipment_HealthPoints_Max = 0
-    $ ring_magic_power.Equipment_AbilityPoints_Max = 0
+    $ ring_magic_power.Equipment_AbilityPoints_Max = 10
     $ ring_magic_power.Equipment_WillPoints_Max = 0
     $ ring_magic_power.Equipment_Accuracy_Melee = 0
     $ ring_magic_power.Equipment_Accuracy_Ranged = 0
@@ -87,3 +87,28 @@ init -99:
     $ ring_accuracy.Equipment_Initiative = 0
     $ ring_accuracy.Equipment_Slot_Ring_Name = ring_accuracy
     $ ring_accuracy.Equipment_Slot_Ring_Name_Text = "Ring of Accuracy"
+# Ring - Ring of Magic Power - ring_status_blob
+    $ ring_status_blob = Character("ring_status_blob")
+    $ ring_status_blob.Equipment_Strength = 0
+    $ ring_status_blob.Equipment_Precision = 0
+    $ ring_status_blob.Equipment_Insight = 0
+    $ ring_status_blob.Equipment_Deceit = 0
+    $ ring_status_blob.Equipment_Vigor = 0
+    $ ring_status_blob.Equipment_Spirit = 0
+    $ ring_status_blob.Equipment_Resolve = 0
+    $ ring_status_blob.Equipment_HealthPoints_Max = 100
+    $ ring_status_blob.Equipment_AbilityPoints_Max = 100
+    $ ring_status_blob.Equipment_WillPoints_Max = 100
+    $ ring_status_blob.Equipment_Accuracy_Melee = 10
+    $ ring_status_blob.Equipment_Accuracy_Ranged = 10
+    $ ring_status_blob.Equipment_Armor_Physical = 5
+    $ ring_status_blob.Equipment_Armor_Magic = 0
+    $ ring_status_blob.Equipment_Armor_Will = 20
+    $ ring_status_blob.Equipment_Damage_Bonus_Melee = 0
+    $ ring_status_blob.Equipment_Damage_Bonus_Ranged = 0
+    $ ring_status_blob.Equipment_Damage_Bonus_Magic = 0
+    $ ring_status_blob.Equipment_Damage_Bonus_Will = 0
+    $ ring_status_blob.Equipment_Dodge = 0
+    $ ring_status_blob.Equipment_Initiative = 0
+    $ ring_status_blob.Equipment_Slot_Ring_Name = ring_status_blob
+    $ ring_status_blob.Equipment_Slot_Ring_Name_Text = "Status Blob Bonuses"

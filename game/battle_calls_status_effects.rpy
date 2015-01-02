@@ -251,33 +251,28 @@ label battle_call_Player_Status_EquipLoss_Ring_Check:
     return
 
 label battle_call_Player_Status_EquipLoss_Weapon_Remove:
-    if player.Status_EquipLoss_Weapon_EffectActive == 0:
-        $ player.Equipment_Slot_Weapon_Name_Temp = player.Equipment_Slot_Weapon_Name
-        call call_Player_Equipment_Slot_Unequip_Weapon(player.Equipment_Slot_Weapon_Name)
+    $ player.Equipment_Slot_Weapon_Name_Temp = player.Equipment_Slot_Weapon_Name
+    call call_Player_Equipment_Slot_Unequip_Weapon(player.Equipment_Slot_Weapon_Name)
     return
 
 label battle_call_Player_Status_EquipLoss_UpperBodyArmor_Remove:
-    if player.Status_EquipLoss_UpperBodyArmor_EffectActive == 0:
-        $ player.Equipment_Slot_UpperBodyArmor_Name_Temp = player.Equipment_Slot_UpperBodyArmor_Name
-        call call_Player_Equipment_Slot_Unequip_UpperBodyArmor(player.Equipment_Slot_UpperBodyArmor_Name)
+    $ player.Equipment_Slot_UpperBodyArmor_Name_Temp = player.Equipment_Slot_UpperBodyArmor_Name
+    call call_Player_Equipment_Slot_Unequip_UpperBodyArmor(player.Equipment_Slot_UpperBodyArmor_Name)
     return
 
 label battle_call_Player_Status_EquipLoss_LowerBodyArmor_Remove:
-    if player.Status_EquipLoss_LowerBodyArmor_EffectActive == 0:
-        $ player.Equipment_Slot_LowerBodyArmor_Name_Temp = player.Equipment_Slot_LowerBodyArmor_Name
-        call call_Player_Equipment_Slot_Unequip_LowerBodyArmor(player.Equipment_Slot_LowerBodyArmor_Name)
+    $ player.Equipment_Slot_LowerBodyArmor_Name_Temp = player.Equipment_Slot_LowerBodyArmor_Name
+    call call_Player_Equipment_Slot_Unequip_LowerBodyArmor(player.Equipment_Slot_LowerBodyArmor_Name)
     return
 
 label battle_call_Player_Status_EquipLoss_Necklace_Remove:
-    if player.Status_EquipLoss_Necklace_EffectActive == 0:
-        $ player.Equipment_Slot_Necklace_Name_Temp = player.Equipment_Slot_Necklace_Name
-        call call_Player_Equipment_Slot_Unequip_Necklace(player.Equipment_Slot_Necklace_Name)
+    $ player.Equipment_Slot_Necklace_Name_Temp = player.Equipment_Slot_Necklace_Name
+    call call_Player_Equipment_Slot_Unequip_Necklace(player.Equipment_Slot_Necklace_Name)
     return
 
 label battle_call_Player_Status_EquipLoss_Ring_Remove:
-    if player.Status_EquipLoss_Ring_EffectActive == 0:
-        $ player.Equipment_Slot_Ring_Name_Temp = player.Equipment_Slot_Ring_Name
-        call call_Player_Equipment_Slot_Unequip_Ring(player.Equipment_Slot_Ring_Name)
+    $ player.Equipment_Slot_Ring_Name_Temp = player.Equipment_Slot_Ring_Name
+    call call_Player_Equipment_Slot_Unequip_Ring(player.Equipment_Slot_Ring_Name)
     return
 
 #####################################################################
@@ -483,31 +478,26 @@ label battle_call_Enemy_Status_EquipLoss_Ring_Check:
     return
 
 label battle_call_Enemy_Status_EquipLoss_Weapon_Remove:
-    if enemy.Status_EquipLoss_Weapon_EffectActive == 0:
-        $ enemy.Equipment_Slot_Weapon_Name_Temp = enemy.Equipment_Slot_Weapon_Name
-        call call_Enemy_Equipment_Slot_Unequip_Weapon(enemy.Equipment_Slot_Weapon_Name)
+    $ enemy.Equipment_Slot_Weapon_Name_Temp = enemy.Equipment_Slot_Weapon_Name
+    call call_Enemy_Equipment_Slot_Unequip_Weapon(enemy.Equipment_Slot_Weapon_Name)
     return
 
 label battle_call_Enemy_Status_EquipLoss_UpperBodyArmor_Remove:
-    if enemy.Status_EquipLoss_UpperBodyArmor_EffectActive == 0:
-        $ enemy.Equipment_Slot_UpperBodyArmor_Name_Temp = enemy.Equipment_Slot_UpperBodyArmor_Name
-        call call_Enemy_Equipment_Slot_Unequip_UpperBodyArmor(enemy.Equipment_Slot_UpperBodyArmor_Name)
+    $ enemy.Equipment_Slot_UpperBodyArmor_Name_Temp = enemy.Equipment_Slot_UpperBodyArmor_Name
+    call call_Enemy_Equipment_Slot_Unequip_UpperBodyArmor(enemy.Equipment_Slot_UpperBodyArmor_Name)
     return
 
 label battle_call_Enemy_Status_EquipLoss_LowerBodyArmor_Remove:
-    if enemy.Status_EquipLoss_LowerBodyArmor_EffectActive == 0:
-        $ enemy.Equipment_Slot_LowerBodyArmor_Name_Temp = enemy.Equipment_Slot_LowerBodyArmor_Name
-        call call_Enemy_Equipment_Slot_Unequip_LowerBodyArmor(enemy.Equipment_Slot_LowerBodyArmor_Name)
+    $ enemy.Equipment_Slot_LowerBodyArmor_Name_Temp = enemy.Equipment_Slot_LowerBodyArmor_Name
+    call call_Enemy_Equipment_Slot_Unequip_LowerBodyArmor(enemy.Equipment_Slot_LowerBodyArmor_Name)
     return
 
 label battle_call_Enemy_Status_EquipLoss_Necklace_Remove:
-    if enemy.Status_EquipLoss_Necklace_EffectActive == 0:
-        $ enemy.Equipment_Slot_Necklace_Name_Temp = enemy.Equipment_Slot_Necklace_Name
-        call call_Enemy_Equipment_Slot_Unequip_Necklace(enemy.Equipment_Slot_Necklace_Name)
+    $ enemy.Equipment_Slot_Necklace_Name_Temp = enemy.Equipment_Slot_Necklace_Name
+    call call_Enemy_Equipment_Slot_Unequip_Necklace(enemy.Equipment_Slot_Necklace_Name)
     return
 
 label battle_call_Enemy_Status_EquipLoss_Ring_Remove:
-    if enemy.Status_EquipLoss_Ring_EffectActive == 0:
-        $ enemy.Equipment_Slot_Ring_Name_Temp = enemy.Equipment_Slot_Ring_Name
-        call call_Enemy_Equipment_Slot_Unequip_Ring(enemy.Equipment_Slot_Ring_Name)
+    $ enemy.Equipment_Slot_Ring_Name_Temp = enemy.Equipment_Slot_Ring_Name
+    call call_Enemy_Equipment_Slot_Unequip_Ring(enemy.Equipment_Slot_Ring_Name)
     return
