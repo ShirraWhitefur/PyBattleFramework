@@ -5,7 +5,7 @@ Designed to handle a 1 on 1 battle setup, much like classic Dragon Warrior, or M
 
 http://creativecommons.org/licenses/by-nc/3.0/   - Taking a page from the admittedly far more amazing Battle Engine for Ren'Py by Jake, this is Licensed under a Creative Commons Attribution-NonCommercial 3.0 Unported License.  If you really want to license it, realize you won't get much support.  If you really want to work with an engine for a commercial project, hire a programmer!  .. Unless you really want to give me money.  I like money!
 
-Current 'Release' version v0.7b2
+Current 'Release' version v0.7b4
 * Built in Ren'Py v6.18.3.761 - http://www.renpy.org/latest.html
 * Current ready to demo Builds - https://github.com/ShirraWhitefur/PyBattleFramework/tree/master/Builds
 * Current Code - https://github.com/ShirraWhitefur/PyBattleFramework/tree/master/
@@ -28,6 +28,7 @@ Feature List:
  + Poison / Regen, Slow / Haste, Weaken / Strengthen, Clumsy / Nimble
  + Paralyse, Charm, Sleep (The last two are functionally the same at the moment)
  + Disarm, Remove Equipment (To be used with Armor Break or other similar actions)
+ + Status Effects set to unload after combat.
 * Ugly Status frames in combat to show most of the above for debugging and ideas on how to link in your better looking graphical ui later.
 * Likewise ugly out of combat status screen.
 * Two premade, fairly simple enemies.. who use every variable the player does, and third that just heaps status effects on you.
