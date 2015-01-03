@@ -435,7 +435,7 @@ label battle_Player_Victory_HP:
     $ player.Status_Charm_EffectActive = 0
     $ player.Status_Sleep_EffectActive = 0
 # Consider a variant -without- any text, for a silent disabling?
-    label battle_call_Player_Status_Check_Block:
+    call battle_call_Player_Status_Check_Block
 #
     $ player.Battle_Outcome = ename.Battle_Outcomes_Victory_HP
     "You won the fight!"
